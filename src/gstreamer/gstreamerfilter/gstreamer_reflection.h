@@ -56,7 +56,7 @@ public:
             G_OBJECT_GET_CLASS(element),
             &properties);
                
-        for (quint i = 0; i < properties; i++)
+        for (guint i = 0; i < properties; i++)
         {
             GValue      value = { 0, };
             GParamSpec  *param = propertySpecs[i];
@@ -84,9 +84,9 @@ public:
             
             cString name = g_param_spec_get_name(param);
 
-            cString value;
-            cString defaultValue;
-            cString type;
+            cString propertyValue;
+            cString propertyDefaultValue;
+            cString propertyType;
 
             tFloat64 minimum = 0.0;
             tFloat64 maximum = 0.0;
@@ -98,11 +98,11 @@ public:
                     GParamSpecString *pString = G_PARAM_SPEC_STRING(param);
                     if (readable)                                        
                     {
-                         value = g_value_get_string(&value);
+                         propertyValue = g_value_get_string(&value);
                         
                     }
-                    defaultValue = pString->default_value;
-                    type = "cString";
+                    propertyDefaultValue = pString->default_value;
+                    propertyType = "cString";
                     break;
                 }
 
@@ -110,9 +110,9 @@ public:
                 {
                     GParamSpecBoolean *pBoolean = G_PARAM_SPEC_BOOLEAN(param);
                     if (readable)
-                        value = g_value_get_boolean(&value) ? "true" : "false";
-                    defaultValue = pBoolean->default_value ? "true" : "false";
-                    type = "tBool";
+                        propertyValue = g_value_get_boolean(&value) ? "true" : "false";
+                    propertyDefaultValue = pBoolean->default_value ? "true" : "false";
+                    propertyType = "tBool";
                     break;
                 }
 
@@ -120,12 +120,12 @@ public:
                 {
                     GParamSpecULong *pULong = G_PARAM_SPEC_ULONG(param);
                     if (readable)                                        /* current */
-                        value = cString::FromType((tUInt64)g_value_get_ulong(&value));
+                        propertyValue = cString::FromType((tUInt64)g_value_get_ulong(&value));
                     
                     minimum = pULong->minimum;
                     maximum = pULong->maximum;           
-                    defaultValue = pULong->default_value;  
-                    type = "tUInt64";
+                    propertyDefaultValue = pULong->default_value;  
+                    propertyType = "tUInt64";
                     break;
                 }
 
@@ -133,13 +133,13 @@ public:
                 {
                     GParamSpecLong *pLong = G_PARAM_SPEC_LONG(param);
                     if (readable)                                        /* current */
-                        value = cString::FromType(g_value_get_long(&value));
+                        propertyValue = cString::FromType(g_value_get_long(&value));
                     
                     minimum = pLong->minimum;
                     maximum = pLong->maximum;
-                    defaultValue = pLong->default_value;
+                    propertyDefaultValue = pLong->default_value;
 
-                    type = "tInt64";
+                    propertyType = "tInt64";
                     break;
                 }
 
@@ -147,13 +147,13 @@ public:
                 {
                     GParamSpecUInt *pUInt = G_PARAM_SPEC_UINT(param);
                     if (readable)                                        /* current */
-                        value = cString::FromType(g_value_get_uint(&value));
+                        propertyValue = cString::FromType(g_value_get_uint(&value));
                     
                     minimum = pUInt->minimum;
                     maximum = pUInt->maximum;
-                    defaultValue = pUInt->default_value;
+                    propertyDefaultValue = pUInt->default_value;
 
-                    type = "tUInt32";
+                    propertyType = "tUInt32";
                     break;
                 }
 
@@ -161,12 +161,12 @@ public:
                 {
                     GParamSpecInt *pInt = G_PARAM_SPEC_INT(param);
                     if (readable)                                        /* current */
-                        value = cString::FromType(g_value_get_int(&value));
+                        propertyValue = cString::FromType(g_value_get_int(&value));
                     
                     minimum = pInt->minimum;
                     maximum = pInt->maximum;
-                    defaultValue = pInt->default_value;
-                    type = "tInt32";
+                    propertyDefaultValue = pInt->default_value;
+                    propertyType = "tInt32";
                     break;
                 }
 
@@ -174,13 +174,13 @@ public:
                 {
                     GParamSpecUInt64 *pUInt64 = G_PARAM_SPEC_UINT64(param);
                     if (readable)                                        /* current */
-                        value = g_value_get_uint64(&value);
+                        propertyValue = g_value_get_uint64(&value);
                     
                     minimum = pUInt64->minimum;
                     maximum = pUInt64->maximum;
-                    defaultValue = pUInt64->default_value;
+                    propertyDefaultValue = pUInt64->default_value;
 
-                    type = "tUInt64";
+                    propertyType = "tUInt64";
                     break;
                 }
 
@@ -188,13 +188,13 @@ public:
                 {
                     GParamSpecInt64 *pInt64 = G_PARAM_SPEC_INT64(param);
                     if (readable)                                        /* current */
-                        value = cString::FromType(g_value_get_int64(&value));
+                        propertyValue = cString::FromType(g_value_get_int64(&value));
                     
                     minimum = pInt64->minimum;
                     maximum = pInt64->maximum;
-                    defaultValue = pInt64->default_value;
+                    propertyDefaultValue = pInt64->default_value;
 
-                    type = "tInt64";
+                    propertyType = "tInt64";
                     break;
                 }
 
@@ -202,13 +202,13 @@ public:
                 {
                     GParamSpecFloat *pFloat = G_PARAM_SPEC_FLOAT(param);
                     if (readable)                                        /* current */
-                        value = cString::FromType(g_value_get_float(&value));
+                        propertyValue = cString::FromType(g_value_get_float(&value));
                     
                     minimum = pFloat->minimum;
                     maximum = pFloat->maximum;
-                    defaultValue = pFloat->default_value;
+                    propertyDefaultValue = pFloat->default_value;
 
-                    type = "tFloat32";
+                    propertyType = "tFloat32";
                     break;
                 }
 
@@ -216,13 +216,13 @@ public:
                 {
                     GParamSpecDouble *pDouble = G_PARAM_SPEC_DOUBLE(param);
                     if (readable)                                        /* current */
-                        value = cString::FromType(g_value_get_double(&value));
+                        propertyValue = cString::FromType(g_value_get_double(&value));
                     
                     minimum = pDouble->minimum;
                     maximum = pDouble->maximum;
-                    defaultValue = pDouble->default_value;
+                    propertyDefaultValue = pDouble->default_value;
 
-                    type = "tFloat64";
+                    propertyType = "tFloat64";
                     break;
                 }
 
@@ -239,8 +239,8 @@ public:
 
             cGStreamerProperty oProperty;
             oProperty.name = name;
-            oProperty.value = value;
-            oProperty.defaultValue = defaultValue;
+            oProperty.value = propertyValue;
+            oProperty.defaultValue = propertyDefaultValue;
             oProperty.maximum = maximum;
             oProperty.minimum = minimum;
 
@@ -249,7 +249,7 @@ public:
             g_value_reset(&value);
         }
 
-        g_free(property_specs);
+        g_free(propertySpecs);
     }
 
 };

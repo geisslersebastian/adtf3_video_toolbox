@@ -1,7 +1,9 @@
 project (GStreamerFilter)
 
+find_package(ADTF COMPONENTS filtersdk)
+
 set (PROJECT_NAME gstreamer_filter)
-set (GSTREAMER_DIR "C:\gstreamer\1.0\x86_64")
+set (GSTREAMER_DIR "C:/gstreamer/1.0/x86_64")
 
 adtf_add_filter(${PROJECT_NAME}
                 gstreamer_reflection.h

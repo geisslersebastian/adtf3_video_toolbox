@@ -24,7 +24,7 @@ class ADTF3VideoToolbox(ConanFile):
         cmake = CMake(self)
         # same as cmake.configure(source_folder=self.source_folder, build_folder=self.build_folder)
         cmake.configure()
-        #cmake.build()
+        cmake.build()
         #cmake.test() # Build the "RUN_TESTS" or "test" target
         # Build the "install" target, defining CMAKE_INSTALL_PREFIX to self.package_folder
         cmake.install()

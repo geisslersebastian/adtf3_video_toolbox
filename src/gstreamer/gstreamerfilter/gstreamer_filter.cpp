@@ -19,7 +19,6 @@
  
 #pragma once
 
-#include <adtffiltersdk/filter.h>
 #include <adtffiltersdk/adtf_filtersdk.h>
 #include <gst/gst.h>
 
@@ -216,7 +215,7 @@ public:
 
             if (strValue == "")
             {
-                set_property<cString>(*this, strName.GetPtr(), oProperty.second.strValue.GetPtr());
+                set_property<cString>(*this, strName.GetPtr(), oProperty.second.value.GetPtr());
             }
             else
             {
