@@ -3,9 +3,10 @@ project (DnnFilter)
 find_package(ADTF COMPONENTS filtersdk REQUIRED)
 find_package(OpenCV REQUIRED)
 
-set (PROJECT_NAME dnn_filter)
+set (PROJECT_NAME opencv_filter)
 
 adtf_add_filter(${PROJECT_NAME}
+				opencv_sample.h
                 dnn_filter.cpp)
 
 
@@ -26,11 +27,9 @@ adtf_create_plugindescription(
         "bin"
 )
 
-# We use the installed gstreamer libs 
-#FILE(GLOB DLLS ${CMAKE_CURRENT_SOURCE_DIR}/../gstreamer_1.0/x86_64/bin/*.dll)
-#install(FILES ${DLLS}
-#              DESTINATION bin/debug CONFIGURATIONS Debug)
-#install(FILES ${DLLS}
-#              DESTINATION bin/ CONFIGURATIONS RelWithDebInfo)
+FILE(GLOB OPENCV_DLL "${OpenCV_DIR}/x64/*/bin/*.dll")
+install(FILES ${OPENCV_DLL} DESTINATION bin CONFIGURATIONS RelWithDebInfo Release)
+install(FILES ${OPENCV_DLL} DESTINATION bin/debug CONFIGURATIONS Debug)
+
 
 
