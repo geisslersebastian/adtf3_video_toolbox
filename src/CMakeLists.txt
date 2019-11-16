@@ -1,0 +1,2 @@
+add_subdirectory(gstreamer)
+add_subdirectory(opencv)
