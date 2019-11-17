@@ -145,7 +145,7 @@ public:
             }
 
             object_ptr<IStreamType> pMatStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
-            set_stream_type_image_format(*pMatStreamType.Get(), m_sCurrentFormat);
+            RETURN_IF_FAILED(set_stream_type_mat_format(*pMatStreamType.Get(), m_sCurrentFormat));
             m_pOutput->ChangeType(pMatStreamType);
 
             RETURN_NOERROR;
@@ -167,11 +167,12 @@ public:
                            m_sCurrentFormat.m_ui32Width,
                            m_nMatType);
 
-            memcpy(oMat.data, pBuffer->GetPtr(), m_nSize);
+            cMemoryBlock::MemCopy(oMat.data, pBuffer->GetPtr(), m_nSize);
 
             object_ptr<const ISample> pOutSample = make_object_ptr<cOpenCVSample>(oMat);
             m_pOutput->Write(pOutSample);
         }
+        RETURN_NOERROR;
     }
     
 };
@@ -187,7 +188,7 @@ private:
     tInt64 m_nSize;
 
 public:
-    ADTF_CLASS_ID_NAME(cImageToMatFilter,
+    ADTF_CLASS_ID_NAME(cMatToImageFilter,
         "mat_to_image.opencv.videotb.cid",
         "Mat to Image Filter");
 
@@ -202,7 +203,7 @@ public:
 
         m_pInput->SetAcceptTypeCallback([this](const iobject_ptr<const IStreamType> & pStreamType) -> tResult
         {
-            RETURN_IF_FAILED(get_stream_type_image_format(m_sCurrentFormat, *pStreamType.Get()));
+            RETURN_IF_FAILED(get_stream_type_mat_format(m_sCurrentFormat, *pStreamType.Get()));
 
             if (m_sCurrentFormat.m_strFormatName == ADTF_IMAGE_FORMAT(RGB_24))
             {
@@ -226,7 +227,7 @@ public:
             RETURN_NOERROR;
         });
     }
-
+    
     tResult ProcessInput(ISampleReader* pReader,
         const iobject_ptr<const ISample>& pSample)
     {
@@ -234,22 +235,24 @@ public:
         {
             cv::Mat oMat = pMatSample->GetMat();
 
-            if (oMat.total() != m_nSize)
+            tInt32 nSize = oMat.total() * oMat.elemSize();
+            if (nSize != m_nSize)
             {
                 RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "received mat size miss match %d != %d", oMat.total(), m_nSize);
             }
 
-            object_ptr<ISample> pSample;
-            if (IS_OK(alloc_sample(pSample, pSample->GetTime())))
+            object_ptr<ISample> pNewSample;
+            if (IS_OK(alloc_sample(pNewSample, pSample->GetTime())))
             {
                 object_ptr_locked<ISampleBuffer> pBuffer;
-                if (IS_OK(pSample->WriteLock(pBuffer, m_nSize)))
+                if (IS_OK(pNewSample->WriteLock(pBuffer, m_nSize)))
                 {
-                    memcpy(pBuffer->GetPtr(), oMat.data, m_nSize);
+                    cMemoryBlock::MemCopy(pBuffer->GetPtr(), oMat.data, m_nSize);
                 }
-                m_pOutput->Write(pSample);
+                m_pOutput->Write(pNewSample);
             }
         }
+        RETURN_NOERROR;
     }
 };
 
@@ -337,4 +340,4 @@ public:
 
 };
 
-ADTF_PLUGIN("OpenCV Filter Plugin", cDNNOpenCVFilter)
+ADTF_PLUGIN("OpenCV Filter Plugin", cMatToImageFilter, cImageToMatFilter, cDNNOpenCVFilter) //cImageToMatFilter, cDNNOpenCVFilter, cMatToImageFilter, 

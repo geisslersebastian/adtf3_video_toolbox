@@ -10,11 +10,15 @@ adtf_add_filter(${PROJECT_NAME}
                 dnn_filter.cpp)
 
 
+message("Include ${OpenCV_INCLUDE_DIRS}")
+message("Libs ${OpenCV_LIBS}")
+
 target_include_directories(${PROJECT_NAME} PRIVATE
             ${OpenCV_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-            ${OpenCV_LIBS})
+            opencv_core
+			opencv_dnn)
 
 adtf_install_filter(${PROJECT_NAME} bin )
 

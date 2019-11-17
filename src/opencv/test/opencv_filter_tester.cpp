@@ -26,25 +26,71 @@ struct cMyTestSystem: adtf::system::testing::cTestSystem
 object_ptr<ISample> CreateImage(tInt32 nWidth, tInt32 nHeight)
 {
     object_ptr<ISample> pSample;
-    if (IS_OK(alloc_sample(pSample, pSample->GetTime())))
+    if (IS_OK(alloc_sample(pSample, 0)))
     {
         object_ptr_locked<ISampleBuffer> pBuffer;
-        if (IS_OK(pSample->WriteLock(pBuffer, nWidth * nHeight)))
+        if (IS_OK(pSample->WriteLock(pBuffer, nWidth * nHeight * 3)))
         {
             tUInt8* pData = reinterpret_cast<tUInt8*>( pBuffer->GetPtr() );
-
-            for (int i = 0; i < nWidth; i++)
+            
+            for (int i = 0; i < nHeight; i++)
             {
-                for (int j = 0; j < nHeight; j++)
+                for (int j = 0; j < nWidth; j++)
                 {
                     pData[(i * nHeight + j) * 3] = 1;
-                    pData[(i * nHeight + j) * 3] = 2;
-                    pData[(i * nHeight + j) * 3] = 3;
+                    pData[(i * nHeight + j) * 3 + 1] = 2;
+                    pData[(i * nHeight + j) * 3 + 2] = 3;
                 }
             }
         }
     }
     return pSample;
+}
+
+object_ptr<ISample> CreateMat(tInt32 nWidth, tInt32 nHeight)
+{
+    auto oMat = Mat(nWidth, nHeight, CV_8UC3, Scalar(1, 2, 3));
+    return make_object_ptr<cOpenCVSample>(oMat);
+}
+
+
+TEST_CASE_METHOD(cMyTestSystem, "Mat To Image")
+{
+    adtf::ucom::object_ptr<adtf::streaming::IFilter> pFilter;
+    REQUIRE_OK(_runtime->CreateInstance("mat_to_image.opencv.videotb.cid", pFilter));
+
+    tStreamImageFormat m_sCurrentFormat;
+    m_sCurrentFormat.m_strFormatName = ADTF_IMAGE_FORMAT(RGB_24);
+    m_sCurrentFormat.m_ui32Height = 2;
+    m_sCurrentFormat.m_ui32Width = 2;
+    m_sCurrentFormat.m_szMaxByteSize = m_sCurrentFormat.m_ui32Width * m_sCurrentFormat.m_ui32Height * 3;
+    
+    object_ptr<IStreamType> pStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
+    REQUIRE(IS_OK(set_stream_type_mat_format(*pStreamType, m_sCurrentFormat)));
+
+    adtf::filter::testing::cTestWriter oImage(pFilter, "mat", pStreamType);
+    adtf::filter::testing::cOutputRecorder oMat(pFilter, "image");
+
+    REQUIRE_OK(pFilter->SetState(adtf::streaming::IFilter::tFilterState::State_Running));
+    
+    auto pInputSample = CreateMat(2, 2);
+    oImage.WriteSample(pInputSample);
+    oImage.ManualTrigger();
+
+    auto oOutputSamples = oMat.GetCurrentOutput().GetSamples();
+
+    REQUIRE(oOutputSamples.size() == 1);
+
+    object_ptr<const ISample> pImageSample = oOutputSamples.back();
+    REQUIRE(pImageSample);
+
+    object_ptr_shared_locked<const ISampleBuffer> pBuffer;
+    REQUIRE(IS_OK(pImageSample->Lock(pBuffer)));
+
+    const tUInt8* pData = reinterpret_cast<const tUInt8*>(pBuffer->GetPtr());
+    REQUIRE(pData[0] == 1);
+    REQUIRE(pData[1] == 2);
+    REQUIRE(pData[2] == 3);
 }
 
 TEST_CASE_METHOD(cMyTestSystem, "Image to Mat")
@@ -57,7 +103,7 @@ TEST_CASE_METHOD(cMyTestSystem, "Image to Mat")
     m_sCurrentFormat.m_ui32Height = 2;
     m_sCurrentFormat.m_ui32Width = 2;
     m_sCurrentFormat.m_szMaxByteSize = m_sCurrentFormat.m_ui32Width * m_sCurrentFormat.m_ui32Height * 3;
-    
+
     object_ptr<IStreamType> pStreamType = make_object_ptr<cStreamType>(stream_meta_type_image());
     set_stream_type_image_format(*pStreamType, m_sCurrentFormat);
 
@@ -65,9 +111,10 @@ TEST_CASE_METHOD(cMyTestSystem, "Image to Mat")
     adtf::filter::testing::cOutputRecorder oMat(pFilter, "mat");
 
     REQUIRE_OK(pFilter->SetState(adtf::streaming::IFilter::tFilterState::State_Running));
-    
+
     auto pInputSample = CreateImage(2, 2);
     oImage.WriteSample(pInputSample);
+    oImage.ManualTrigger();
 
     auto oOutputSamples = oMat.GetCurrentOutput().GetSamples();
 
@@ -77,8 +124,8 @@ TEST_CASE_METHOD(cMyTestSystem, "Image to Mat")
     REQUIRE(pOpenCVSample);
 
     Mat oResultMat = pOpenCVSample->GetMat();
-    REQUIRE(oResultMat.at<cv::Vec3b>(0, 1)[0] == 1);
-    REQUIRE(oResultMat.at<cv::Vec3b>(0, 1)[1] == 2);
-    REQUIRE(oResultMat.at<cv::Vec3b>(0, 1)[2] == 3);
+    Vec3b oVector = oResultMat.at<Vec3b>(0, 1);
+    REQUIRE(oVector[0] == 1);
+    REQUIRE(oVector[1] == 2);
+    REQUIRE(oVector[2] == 3);
 }
-

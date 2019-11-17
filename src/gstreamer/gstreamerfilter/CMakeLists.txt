@@ -22,7 +22,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
             ${GSTREAMER_DIR}/lib/gstvideo-1.0.lib
             ${GSTREAMER_DIR}/lib/gstapp-1.0.lib)
 
-adtf_install_filter(${PROJECT_NAME} bin )
+adtf_install_filter(${PROJECT_NAME} bin)
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER gstreamer)
 

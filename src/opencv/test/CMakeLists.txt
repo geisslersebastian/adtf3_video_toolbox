@@ -11,7 +11,7 @@ find_package(OpenCV REQUIRED)
 adtf_add_catch_test(NAME opencv_filter_tester 
                     TIMEOUT 10
                     SOURCES opencv_filter_tester.cpp
-                    ADDITIONAL_PLUGIN_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/src/examples/bin$<$<CONFIG:Debug>:/debug>")
+                    ADDITIONAL_PLUGIN_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/bin$<$<CONFIG:Debug>:/debug>")
 
 target_link_libraries(opencv_filter_tester PRIVATE adtf::filtersdk ${OpenCV_LIBS})
 target_include_directories(${PROJECT_NAME} PRIVATE
