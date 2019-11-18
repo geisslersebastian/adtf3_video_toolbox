@@ -3,24 +3,42 @@ project (GStreamerFilter)
 find_package(ADTF COMPONENTS filtersdk)
 
 set (PROJECT_NAME gstreamer_filter)
-set (GSTREAMER_DIR "C:/gstreamer/1.0/x86_64")
+
 
 adtf_add_filter(${PROJECT_NAME}
                 gstreamer_reflection.h
                 gstreamer_filter.cpp)
 
+if (WIN32)
+    set (GSTREAMER_DIR "C:/gstreamer/1.0/x86_64")
 
-target_include_directories(${PROJECT_NAME} PRIVATE
-            ${GSTREAMER_DIR}/include/gstreamer-1.0
-            ${GSTREAMER_DIR}/include/glib-2.0
-            ${GSTREAMER_DIR}/lib/glib-2.0/include)
+    target_include_directories(${PROJECT_NAME} PRIVATE
+                ${GSTREAMER_DIR}/include/gstreamer-1.0
+                ${GSTREAMER_DIR}/include/glib-2.0
+                ${GSTREAMER_DIR}/lib/glib-2.0/include)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-            ${GSTREAMER_DIR}/lib/gstreamer-1.0.lib
-            ${GSTREAMER_DIR}/lib/gobject-2.0.lib  
-            ${GSTREAMER_DIR}/lib/glib-2.0.lib
-            ${GSTREAMER_DIR}/lib/gstvideo-1.0.lib
-            ${GSTREAMER_DIR}/lib/gstapp-1.0.lib)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+                ${GSTREAMER_DIR}/lib/gstreamer-1.0.lib
+                ${GSTREAMER_DIR}/lib/gobject-2.0.lib  
+                ${GSTREAMER_DIR}/lib/glib-2.0.lib
+                ${GSTREAMER_DIR}/lib/gstvideo-1.0.lib
+                ${GSTREAMER_DIR}/lib/gstapp-1.0.lib)
+else (WIN32)
+    set(PKG_CONFIG_USE_CMAKE_PREFIX_PATH ON)
+    find_package(PkgConfig REQUIRED)
+    if ( NOT (PKGCONFIG_FOUND))
+          message(FATAL_ERROR "Please Install PkgConfig")
+    endif()
+    pkg_check_modules(GST REQUIRED gstreamer-1.0>=1.8)
+    if ( NOT (GST_FOUND))
+          message(FATAL_ERROR "Please Install Gstreamer Dev: CMake will Exit")
+    endif()
+    set(ENV{PKG_CONFIG_PATH})
+    
+    target_include_directories(${PROJECT_NAME} PRIVATE ${GST_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${GST_LIBRARIES})
+    
+endif (WIN32)
 
 adtf_install_filter(${PROJECT_NAME} bin)
 

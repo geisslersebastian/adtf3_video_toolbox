@@ -256,7 +256,8 @@ public:
         {
             if (!gst_element_link(m_pElement, pParentFilter->m_pElement))
             {
-                RETURN_ERROR_DESC(ERR_NOT_CONNECTED, "gst_element_link failed %s %s", m_strName->GetPtr(), pParentFilter->m_strName->GetPtr());
+                //RETURN_ERROR_DESC(ERR_NOT_CONNECTED, "gst_element_link failed %s %s", m_strName->GetPtr(), pParentFilter->m_strName->GetPtr());
+                LOG_ERROR("gst_element_link failed %s %s", m_strName->GetPtr(), pParentFilter->m_strName->GetPtr());
             }
         }
 
