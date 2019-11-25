@@ -6,7 +6,8 @@ find_package(OpenCV REQUIRED)
 set (PROJECT_NAME opencv_filter)
 
 adtf_add_filter(${PROJECT_NAME}
-				opencv_sample.h
+                opencv_sample.h
+                opencv_sample.cpp
                 dnn_filter.cpp)
 
 
@@ -18,7 +19,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
             opencv_core
-			opencv_dnn)
+			opencv_dnn
+			opencv_videoio)
 
 adtf_install_filter(${PROJECT_NAME} bin )
 

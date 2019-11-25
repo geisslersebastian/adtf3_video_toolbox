@@ -20,6 +20,7 @@
 #pragma once
 
 #include <adtffiltersdk/adtf_filtersdk.h>
+#include <adtfsystemsdk/adtf_systemsdk.h>
 
 #include "opencv_sample.h"
 
@@ -31,7 +32,7 @@ using namespace adtf::ucom;
 using namespace adtf::base;
 using namespace adtf::streaming;
 using namespace adtf::filter;
-using namespace adtf::services;
+using namespace adtf::system;
 
 using namespace cv::dnn;
 using namespace cv;
@@ -235,11 +236,13 @@ public:
         {
             cv::Mat oMat = pMatSample->GetMat();
 
-            tInt32 nSize = oMat.total() * oMat.elemSize();
+            tInt64 nSize = oMat.total() * oMat.elemSize();
             if (nSize != m_nSize)
             {
                 RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "received mat size miss match %d != %d", oMat.total(), m_nSize);
             }
+
+            cv::cvtColor(oMat, oMat, COLOR_BGR2RGB);
 
             object_ptr<ISample> pNewSample;
             if (IS_OK(alloc_sample(pNewSample, pSample->GetTime())))
@@ -276,6 +279,7 @@ public:
     property_variable<tInt32> m_fBlobHeight = 224;
 
     Net m_oDnnNet;
+    std::vector<std::string> m_vecOutputLayerNames;
 
 public:
     
@@ -302,11 +306,11 @@ public:
 
     tResult OnStagePreConnect() override
     {
-        if (cFileSystem::Exists(m_strConfig))
+        if (!cFileSystem::Exists(m_strConfig))
         {
             RETURN_ERROR_DESC(ERR_NOT_FOUND, "Could not find dnn config at %s", m_strConfig->GetPtr());
         }
-        if (cFileSystem::Exists(m_strModule))
+        if (!cFileSystem::Exists(m_strModule))
         {
             RETURN_ERROR_DESC(ERR_NOT_FOUND, "Could not find dnn module at %s", m_strModule->GetPtr());
         }
@@ -318,26 +322,172 @@ public:
         {
             RETURN_ERROR_DESC(ERR_NOT_READY, "Error while creating Dnn net");
         }
+
+        m_vecOutputLayerNames.clear();
+
+        std::vector<int> unconnectedLayers = m_oDnnNet.getUnconnectedOutLayers();
+        std::vector<String> allLayerNames = m_oDnnNet.getLayerNames();
+        m_vecOutputLayerNames.resize(unconnectedLayers.size());
+        
+        for (size_t i = 0; i < unconnectedLayers.size(); ++i)
+        {
+            m_vecOutputLayerNames.push_back(allLayerNames[unconnectedLayers[i] - 1]);
+        }
+
         RETURN_NOERROR;
+    }
+
+    std::vector<String> getOutputsNames(const Net& net)
+    {
+        static std::vector<String> names;
+        if (names.empty())
+        {
+            std::vector<int> outLayers = net.getUnconnectedOutLayers();
+            std::vector<String> layersNames = net.getLayerNames();
+            names.resize(outLayers.size());
+            for (size_t i = 0; i < outLayers.size(); ++i)
+                names[i] = layersNames[outLayers[i] - 1];
+        }
+        return names;
     }
 
     cv::Mat ProcessMat(const cv::Mat & oMat)
     {
-        if(!m_oDnnNet.empty())
+        if (!m_oDnnNet.empty())
         {
             Mat oBlob = blobFromImage(oMat,
-                                      *m_fBlobScale, 
-                                      Size(m_fBlobWidth, m_fBlobHeight), 
-                                      Scalar(m_fBlobMeanRed, m_fBlobMeanGreen, m_fBlobMeanBlue), 
-                                      false, 
-                                      false);
+                *m_fBlobScale,
+                Size(m_fBlobWidth, m_fBlobHeight),
+                Scalar(m_fBlobMeanRed, m_fBlobMeanGreen, m_fBlobMeanBlue),
+                true,
+                false);
+
             m_oDnnNet.setInput(oBlob);
-            return m_oDnnNet.forward();
+            if (m_oDnnNet.getLayer(0)->outputNameToIndex("im_info") != -1)  // Faster-RCNN or R-FCN
+            {
+                resize(oMat, oMat, Size(m_fBlobWidth, m_fBlobHeight));
+                Mat imInfo = (Mat_<float>(1, 3) << m_fBlobHeight, m_fBlobWidth, 1.6f);
+                m_oDnnNet.setInput(imInfo, "im_info");
+            }
+            getOutputsNames(m_oDnnNet);
+
+            std::vector<Mat> outs;
+            m_oDnnNet.forward(outs, getOutputsNames(m_oDnnNet));
+
+            std::vector<int> outLayers = m_oDnnNet.getUnconnectedOutLayers();
+            std::string outLayerType = m_oDnnNet.getLayer(outLayers[0])->type;
+
+            return outs[0];
         }
 
-        return cv::Mat();
+        return Mat();
+    }
+    
+};
+
+class cOpenCVCameraSource : public adtf::filter::cSampleStreamingSource
+{
+public:
+    ADTF_CLASS_ID_NAME(cOpenCVCameraSource,
+        "camera.opencv.videotb.cid",
+        "Camera Source");
+
+    ADTF_CLASS_DEPENDENCIES(REQUIRE_INTERFACE(adtf::services::IReferenceClock),
+                            REQUIRE_INTERFACE(adtf::services::IKernel));
+
+public:
+    property_variable<tInt32> m_nCameraID = 0;
+    property_variable<tInt32> m_nFramesPerSecond = 10;
+
+    VideoCapture m_oCamera;
+
+    cPinWriter* m_pOutput;
+    tStreamImageFormat m_sCurrentFormat;
+
+    kernel_thread_looper m_oThreadLoop;
+
+public:
+
+    cOpenCVCameraSource()
+    {
+        RegisterPropertyVariable("cameraId", m_nCameraID);
+        RegisterPropertyVariable("framesPerSecond", m_nFramesPerSecond);
+
+        m_pOutput = CreateOutputPin("data");
+    }
+
+    ~cOpenCVCameraSource()
+    {
+
+    }
+
+    tResult StartStreaming() override
+    {
+        m_oCamera.open(*m_nCameraID);
+        if (!m_oCamera.isOpened()) 
+        {
+            RETURN_ERROR_DESC(ERR_DEVICE_NOT_READY, "Unable to open camera");
+        }
+
+        m_oThreadLoop = kernel_thread_looper(cString(get_named_graph_object_full_name(*this) + "::capture_image"), &cOpenCVCameraSource::CaptureImage, this);
+
+        if (!m_oThreadLoop.Joinable())
+        {
+            RETURN_ERROR_DESC(ERR_UNEXPECTED, "Unable to create kernel timer");
+        }
+
+        RETURN_NOERROR;
+    }
+
+    tResult CheckStreamType(const Mat & oMat)
+    {
+        if (m_sCurrentFormat.m_ui32Height != oMat.rows ||
+            m_sCurrentFormat.m_ui32Width != oMat.cols)
+        {
+            m_sCurrentFormat.m_ui32Height = oMat.rows;
+            m_sCurrentFormat.m_ui32Width = oMat.cols;
+
+            if (oMat.type() == CV_8UC3)
+            {
+                m_sCurrentFormat.m_strFormatName = ADTF_IMAGE_FORMAT(RGB_24);
+                m_sCurrentFormat.m_szMaxByteSize = oMat.rows * oMat.cols * 3;
+            }
+            else if(oMat.type() == CV_8UC1)
+            {
+                m_sCurrentFormat.m_strFormatName = ADTF_IMAGE_FORMAT(GREYSCALE_8);
+                m_sCurrentFormat.m_szMaxByteSize = oMat.rows * oMat.cols * 1;
+            }
+            else
+            {
+                RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "Unkown camera format");
+            }
+
+            object_ptr<IStreamType> pMatStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
+            RETURN_IF_FAILED(set_stream_type_mat_format(*pMatStreamType.Get(), m_sCurrentFormat));
+            m_pOutput->ChangeType(pMatStreamType);
+        }
+        RETURN_NOERROR;
+    }
+
+    tVoid CaptureImage()
+    {
+        Mat oMatImage;
+        m_oCamera >> oMatImage;
+        if (oMatImage.empty())
+        {
+            LOG_ERROR("Captured image is empty");
+        }
+
+        CheckStreamType(oMatImage);
+        
+        object_ptr<const ISample> pSample = make_object_ptr<cOpenCVSample>(oMatImage);
+        m_pOutput->Write(pSample);
+        m_pOutput->ManualTrigger();
+
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / m_nFramesPerSecond));
     }
 
 };
 
-ADTF_PLUGIN("OpenCV Filter Plugin", cMatToImageFilter, cImageToMatFilter, cDNNOpenCVFilter) //cImageToMatFilter, cDNNOpenCVFilter, cMatToImageFilter, 
+ADTF_PLUGIN("OpenCV Filter Plugin", cMatToImageFilter, cImageToMatFilter, cDNNOpenCVFilter, cOpenCVCameraSource)
