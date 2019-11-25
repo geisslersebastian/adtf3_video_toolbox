@@ -19,8 +19,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
             opencv_core
-			opencv_dnn
-			opencv_videoio)
+            opencv_dnn
+            opencv_videoio)
 
 adtf_install_filter(${PROJECT_NAME} bin )
 
