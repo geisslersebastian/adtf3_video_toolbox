@@ -38,4 +38,4 @@ install(FILES ${OPENCV_DLL} DESTINATION bin CONFIGURATIONS RelWithDebInfo Releas
 install(FILES ${OPENCV_DLL} DESTINATION bin/debug CONFIGURATIONS Debug)
 
 
-
+#add_subdirectory(test)

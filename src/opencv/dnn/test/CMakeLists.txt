@@ -14,7 +14,7 @@ adtf_add_catch_test(NAME opencv_filter_tester
                     ADDITIONAL_PLUGIN_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/bin$<$<CONFIG:Debug>:/debug>"
                     WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin$<$<CONFIG:Debug>:/debug>")
 
-target_link_libraries(opencv_filter_tester PRIVATE adtf::filtersdk ${OpenCV_LIBS})
+target_link_libraries(opencv_filter_tester PRIVATE opencv_filter adtf::filtersdk ${OpenCV_LIBS})
 target_include_directories(${PROJECT_NAME} PRIVATE
             ${OpenCV_INCLUDE_DIRS})
 
