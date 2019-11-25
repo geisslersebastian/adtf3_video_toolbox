@@ -2,9 +2,9 @@ from conans import ConanFile, tools, CMake
 import os
 
 class ADTF3VideoToolbox(ConanFile):
-    name = "ADTF3VideoToolbox"
+    name = "adtf_video_toolbox"
     version = "0.1.0"
-
+    
     settings = "os", "compiler", "build_type", "arch"
     description = "%s" % (name)
     generators = "cmake", "txt", "virtualenv"
@@ -13,16 +13,12 @@ class ADTF3VideoToolbox(ConanFile):
     no_copy_source = True
     enable_multiconfig_package = False
 
-    scm = {
-         "type": "git",  # Use "type": "svn", if local repo is managed using SVN
-         "subfolder": "source",
-         "url": "https://github.com/geisslersebastian/adtf3_video_toolbox.git",
-         "revision": "auto"
-    }
-
     def build_requirements(self):
         self.build_requires("ADTF/3.6.2@dw/stable")
         self.build_requires("OpenCV/4.1.0@dw/testing")
+
+    def source(self):
+        self.run("git clone https://github.com/geisslersebastian/adtf3_video_toolbox.git source")
 
     def build(self):
         cmake = CMake(self)
@@ -32,3 +28,5 @@ class ADTF3VideoToolbox(ConanFile):
         #cmake.test() # Build the "RUN_TESTS" or "test" target
         # Build the "install" target, defining CMAKE_INSTALL_PREFIX to self.package_folder
         cmake.install()
+    
+
