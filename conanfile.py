@@ -15,7 +15,7 @@ class ADTF3VideoToolbox(ConanFile):
 
     def build_requirements(self):
         self.build_requires("ADTF/3.6.2@dw/stable")
-        self.build_requires("OpenCV/4.1.0@dw/testing")
+        self.build_requires("opencv/4.1.0@dw/stable")
 
     def source(self):
         self.run("git clone https://github.com/geisslersebastian/adtf3_video_toolbox.git source")
