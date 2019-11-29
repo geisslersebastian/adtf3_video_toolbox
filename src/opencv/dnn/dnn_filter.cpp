@@ -490,4 +490,126 @@ public:
 
 };
 
+class cOpenCVImagesSource : public adtf::filter::cSampleStreamingSource
+{
+public:
+    ADTF_CLASS_ID_NAME(cOpenCVImagesSource,
+        "images.opencv.videotb.cid",
+        "Images Source");
+
+    ADTF_CLASS_DEPENDENCIES(REQUIRE_INTERFACE(adtf::services::IReferenceClock),
+        REQUIRE_INTERFACE(adtf::services::IKernel));
+
+public:
+    property_variable<cFilepathList> m_strImageFolders;
+    property_variable<tInt32> m_nFramesPerSecond = 10;
+
+    VideoCapture m_oCamera;
+
+    cPinWriter* m_pOutput;
+    tStreamImageFormat m_sCurrentFormat;
+
+    kernel_thread_looper m_oThreadLoop;
+
+    tInt32 m_nIndex = 0;
+    cStringList m_lstImages;
+
+public:
+
+    cOpenCVImagesSource()
+    {
+        RegisterPropertyVariable("image_folders", m_strImageFolders);
+        RegisterPropertyVariable("framesPerSecond", m_nFramesPerSecond);
+
+        m_pOutput = CreateOutputPin("data");
+    }
+
+    ~cOpenCVImagesSource()
+    {
+
+    }
+
+    tResult StartStreaming() override
+    {
+        for (auto strPath : *m_strImageFolders)
+        {
+            RETURN_ERROR_DESC(cFileSystem::EnumDirectory(strPath, m_lstImages), "Parsing folder %s failed", strPath.GetPtr());
+        }
+            
+        m_oThreadLoop = kernel_thread_looper(cString(get_named_graph_object_full_name(*this) + "::capture_image"), &cOpenCVImagesSource::CaptureImage, this);
+
+        if (!m_oThreadLoop.Joinable())
+        {
+            RETURN_ERROR_DESC(ERR_UNEXPECTED, "Unable to create kernel timer");
+        }
+
+        RETURN_NOERROR;
+    }
+
+    tResult CheckStreamType(const Mat & oMat)
+    {
+        if (m_sCurrentFormat.m_ui32Height != oMat.rows ||
+            m_sCurrentFormat.m_ui32Width != oMat.cols)
+        {
+            m_sCurrentFormat.m_ui32Height = oMat.rows;
+            m_sCurrentFormat.m_ui32Width = oMat.cols;
+
+            if (oMat.type() == CV_8UC3)
+            {
+                m_sCurrentFormat.m_strFormatName = ADTF_IMAGE_FORMAT(RGB_24);
+                m_sCurrentFormat.m_szMaxByteSize = oMat.rows * oMat.cols * 3;
+            }
+            else if (oMat.type() == CV_8UC1)
+            {
+                m_sCurrentFormat.m_strFormatName = ADTF_IMAGE_FORMAT(GREYSCALE_8);
+                m_sCurrentFormat.m_szMaxByteSize = oMat.rows * oMat.cols * 1;
+            }
+            else
+            {
+                RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "Unkown camera format");
+            }
+
+            object_ptr<IStreamType> pMatStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
+            RETURN_IF_FAILED(set_stream_type_mat_format(*pMatStreamType.Get(), m_sCurrentFormat));
+            m_pOutput->ChangeType(pMatStreamType);
+        }
+        RETURN_NOERROR;
+    }
+
+    cString GetNextImage()
+    {
+        if (m_lstImages.GetItemCount() == 0)
+        {
+            return "";
+        }
+
+        if (m_nIndex > m_lstImages.GetItemCount())
+        {
+            m_nIndex = 0;
+        }
+
+        return m_lstImages.Get(m_nIndex++);
+    }
+
+    tVoid CaptureImage()
+    {
+        Mat oMatImage;
+        oMatImage = cv::imread(GetNextImage().GetPtr(), cv::IMREAD_COLOR);
+        if (oMatImage.empty())
+        {
+            LOG_ERROR("Captured image is empty");
+        }
+
+        CheckStreamType(oMatImage);
+
+        object_ptr<const ISample> pSample = make_object_ptr<cOpenCVSample>(oMatImage);
+        m_pOutput->Write(pSample);
+        m_pOutput->ManualTrigger();
+
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / m_nFramesPerSecond));
+    }
+
+};
+
 ADTF_PLUGIN("OpenCV Filter Plugin", cMatToImageFilter, cImageToMatFilter, cDNNOpenCVFilter, cOpenCVCameraSource)
