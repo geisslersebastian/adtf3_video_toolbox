@@ -512,7 +512,7 @@ public:
     kernel_thread_looper m_oThreadLoop;
 
     tInt32 m_nIndex = 0;
-    cStringList m_lstImages;
+    std::vector<cString> m_lstImages;
 
 public:
 
@@ -533,7 +533,13 @@ public:
     {
         for (auto strPath : *m_strImageFolders)
         {
-            cFileSystem::EnumDirectory(strPath, m_lstImages), "Parsing folder %s failed", strPath.GetPtr();
+            cStringList lstTempFiles;
+            cFileSystem::EnumDirectory(strPath, lstTempFiles), "Parsing folder %s failed", strPath.GetPtr();
+
+            for (auto strFilename : lstTempFiles)
+            {
+                m_lstImages.push_back(strPath + "/" + strFilename);
+            }
         }
             
         m_oThreadLoop = kernel_thread_looper(cString(get_named_graph_object_full_name(*this) + "::capture_image"), &cOpenCVImagesSource::CaptureImage, this);
@@ -578,23 +584,25 @@ public:
 
     cString GetNextImage()
     {
-        if (m_lstImages.GetItemCount() == 0)
+        if (m_lstImages.size() == 0)
         {
             return "";
         }
 
-        if (m_nIndex > m_lstImages.GetItemCount())
+        if (m_nIndex >= m_lstImages.size())
         {
             m_nIndex = 0;
         }
 
-        return m_lstImages.Get(m_nIndex++);
+        return m_lstImages.at(m_nIndex++);
     }
 
     tVoid CaptureImage()
     {
+        cString strImagePath = GetNextImage();
         Mat oMatImage;
-        oMatImage = cv::imread(GetNextImage().GetPtr(), cv::IMREAD_COLOR);
+        LOG_INFO("Load image %s", strImagePath.GetPtr());
+        oMatImage = cv::imread(strImagePath.GetPtr(), cv::IMREAD_COLOR);
         if (oMatImage.empty())
         {
             LOG_ERROR("Captured image is empty");
