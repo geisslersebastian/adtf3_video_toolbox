@@ -612,4 +612,4 @@ public:
 
 };
 
-ADTF_PLUGIN("OpenCV Filter Plugin", cMatToImageFilter, cImageToMatFilter, cDNNOpenCVFilter, cOpenCVCameraSource)
+ADTF_PLUGIN("OpenCV Filter Plugin", cMatToImageFilter, cImageToMatFilter, cDNNOpenCVFilter, cOpenCVCameraSource, cOpenCVImagesSource)
