@@ -533,7 +533,7 @@ public:
     {
         for (auto strPath : *m_strImageFolders)
         {
-            RETURN_ERROR_DESC(cFileSystem::EnumDirectory(strPath, m_lstImages), "Parsing folder %s failed", strPath.GetPtr());
+            cFileSystem::EnumDirectory(strPath, m_lstImages), "Parsing folder %s failed", strPath.GetPtr();
         }
             
         m_oThreadLoop = kernel_thread_looper(cString(get_named_graph_object_full_name(*this) + "::capture_image"), &cOpenCVImagesSource::CaptureImage, this);
@@ -598,6 +598,7 @@ public:
         if (oMatImage.empty())
         {
             LOG_ERROR("Captured image is empty");
+            return;
         }
 
         CheckStreamType(oMatImage);
@@ -612,4 +613,4 @@ public:
 
 };
 
-ADTF_PLUGIN("OpenCV Filter Plugin", cMatToImageFilter, cImageToMatFilter, cDNNOpenCVFilter, cOpenCVCameraSource, cOpenCVImagesSource)
+ADTF_PLUGIN("OpenCV Filter Plugin", cOpenCVImagesSource, cMatToImageFilter, cImageToMatFilter, cDNNOpenCVFilter, cOpenCVCameraSource)
