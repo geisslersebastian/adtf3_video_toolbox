@@ -27,7 +27,6 @@ public:
     ADTF_CLASS_ID(cOpenCVSample, "sample.opencv.videotb.cid");
 
 public:
-
     cOpenCVSample(const cv::Mat & oMat) : m_oMat(oMat)
     {
 

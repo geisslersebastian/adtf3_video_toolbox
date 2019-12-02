@@ -602,7 +602,9 @@ public:
         cString strImagePath = GetNextImage();
         Mat oMatImage;
         LOG_INFO("Load image %s", strImagePath.GetPtr());
-        oMatImage = cv::imread(strImagePath.GetPtr(), cv::IMREAD_COLOR);
+        oMatImage = cv::imread(strImagePath.GetPtr(), 
+                               cv::IMREAD_COLOR);
+
         if (oMatImage.empty())
         {
             LOG_ERROR("Captured image is empty");
