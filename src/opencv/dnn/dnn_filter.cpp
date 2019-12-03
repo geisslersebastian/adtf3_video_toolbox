@@ -39,11 +39,62 @@ using namespace cv;
 
 using namespace adtf::videotb::opencv;
 
+tStreamImageFormat create_stream_type(const Mat & oMat)
+{
+    tStreamImageFormat oStreamType;
+
+    oStreamType.m_ui32Height = oMat.rows;
+    oStreamType.m_ui32Width = oMat.cols;
+
+    if (oMat.type() == CV_8UC3)
+    {
+        oStreamType.m_strFormatName = ADTF_IMAGE_FORMAT(RGB_24);
+        oStreamType.m_szMaxByteSize = oMat.rows * oMat.cols * 3;
+    }
+    else if (oMat.type() == CV_8UC1)
+    {
+        oStreamType.m_strFormatName = ADTF_IMAGE_FORMAT(GREYSCALE_8);
+        oStreamType.m_szMaxByteSize = oMat.rows * oMat.cols * 1;
+    }
+    else
+    {
+        oStreamType.m_strFormatName = "";
+    }
+
+    return oStreamType;
+}
+
+tResult check_stream_type(const Mat & oMat, tStreamImageFormat & oCurrentType, cPinWriter* pOutput)
+{
+    auto oStreamType = create_stream_type(oMat);
+
+    if ((oCurrentType.m_ui32Height != oStreamType.m_ui32Height ||
+        oCurrentType.m_ui32Width != oStreamType.m_ui32Width ||
+        oCurrentType.m_szMaxByteSize != oStreamType.m_szMaxByteSize ||
+        oCurrentType.m_strFormatName != oStreamType.m_strFormatName)
+        && oStreamType.m_strFormatName != "")
+    {
+        object_ptr<IStreamType> pMatStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
+        RETURN_IF_FAILED(set_stream_type_mat_format(*pMatStreamType.Get(), oStreamType));
+        pOutput->ChangeType(pMatStreamType);
+        oCurrentType = oStreamType;
+    }
+
+    if (oCurrentType.m_strFormatName == "")
+    {
+        RETURN_ERROR_DESC(ERR_UNKNOWN_FORMAT, "Image format is unkonwn");
+    }
+
+    RETURN_NOERROR;
+}
+
 class cOpenCVBaseFilter : public cFilter
 {
 private:
     cPinWriter* m_pOutput;
     cPinReader* m_pInput;
+
+    tStreamImageFormat m_sCurrentFormat;
 
 public:
     cOpenCVBaseFilter()
@@ -51,8 +102,21 @@ public:
         object_ptr<IStreamType> pStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
         m_pOutput = CreateOutputPin("mat_out", pStreamType);
         m_pInput = CreateInputPin("mat_in", pStreamType);
+        m_pInput->SetAcceptTypeCallback([this](const auto & pStreamType) -> tResult
+        {
+            RETURN_IF_FAILED(get_stream_type_mat_format(m_sCurrentFormat, *pStreamType.Get()));
+            m_sCurrentFormat = ConvertImageFormat(m_sCurrentFormat);
+            object_ptr<IStreamType> pImageStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
+            RETURN_IF_FAILED(set_stream_type_mat_format(*pImageStreamType.Get(), m_sCurrentFormat));
+            RETURN_IF_FAILED(m_pOutput->ChangeType(pImageStreamType));
+            RETURN_NOERROR;
+        });
     }
-
+    
+    virtual tStreamImageFormat ConvertImageFormat(const tStreamImageFormat oImageFormat)
+    {
+        return oImageFormat;
+    }
     virtual cv::Mat ProcessMat(const cv::Mat & oMat) = 0;
     virtual tResult OnStageFirst() { RETURN_NOERROR; };
     virtual tResult OnStagePreConnect() { RETURN_NOERROR; };
@@ -99,7 +163,39 @@ public:
 
         RETURN_NOERROR;
     }
+};
 
+class cResizeFilter : public cOpenCVBaseFilter
+{
+public:
+    ADTF_CLASS_ID_NAME(cResizeFilter,
+        "resize.opencv.videotb.cid",
+        "Resize Filter");
+
+    property_variable<int> m_nWidth = 400;
+    property_variable<int> m_nHeight = 400;
+
+public:
+    cResizeFilter()
+    {
+        RegisterPropertyVariable("width", m_nWidth);
+        RegisterPropertyVariable("height", m_nHeight);
+    }
+
+    tStreamImageFormat ConvertImageFormat(const tStreamImageFormat oImageFormat) override
+    {
+        tStreamImageFormat oResultImageFormat = oImageFormat;
+        oResultImageFormat.m_ui32Width = m_nWidth;
+        oResultImageFormat.m_ui32Height = m_nHeight;
+        return oResultImageFormat;
+    }
+
+    cv::Mat ProcessMat(const cv::Mat & oMat)
+    {
+        cv::Mat oResult;
+        resize(oMat, oResult, Size(m_nWidth, m_nHeight));
+        return oResult;
+    }
 };
 
 class cImageToMatFilter : public cFilter
@@ -188,6 +284,8 @@ private:
     tInt64 m_nMatType;
     tInt64 m_nSize;
 
+    bool m_bError = tFalse;
+
 public:
     ADTF_CLASS_ID_NAME(cMatToImageFilter,
         "mat_to_image.opencv.videotb.cid",
@@ -206,6 +304,7 @@ public:
         {
             RETURN_IF_FAILED(get_stream_type_mat_format(m_sCurrentFormat, *pStreamType.Get()));
 
+            m_bError = tFalse;
             if (m_sCurrentFormat.m_strFormatName == ADTF_IMAGE_FORMAT(RGB_24))
             {
                 m_nMatType = CV_8UC3;
@@ -218,6 +317,7 @@ public:
             }
             else
             {
+                m_bError = tTrue;
                 RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "Image to Mat not support image format");
             }
 
@@ -232,27 +332,35 @@ public:
     tResult ProcessInput(ISampleReader* pReader,
         const iobject_ptr<const ISample>& pSample)
     {
-        if (object_ptr<const IOpenCVSample> pMatSample = pSample)
+        if (!m_bError)
         {
-            cv::Mat oMat = pMatSample->GetMat();
-
-            tInt64 nSize = oMat.total() * oMat.elemSize();
-            if (nSize != m_nSize)
+            if (object_ptr<const IOpenCVSample> pMatSample = pSample)
             {
-                RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "received mat size miss match %d != %d", oMat.total(), m_nSize);
-            }
+                cv::Mat oMat = pMatSample->GetMat();
 
-            cv::cvtColor(oMat, oMat, COLOR_BGR2RGB);
-
-            object_ptr<ISample> pNewSample;
-            if (IS_OK(alloc_sample(pNewSample, pSample->GetTime())))
-            {
-                object_ptr_locked<ISampleBuffer> pBuffer;
-                if (IS_OK(pNewSample->WriteLock(pBuffer, m_nSize)))
+                tInt64 nSize = oMat.total() * oMat.elemSize();
+                if (nSize != m_nSize)
                 {
-                    cMemoryBlock::MemCopy(pBuffer->GetPtr(), oMat.data, m_nSize);
+                    RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "received mat size miss match %d != %d", oMat.total(), m_nSize);
                 }
-                m_pOutput->Write(pNewSample);
+
+                if (oMat.type() != m_nMatType)
+                {
+                    RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "Recived Mat type missmatch %d != %d", oMat.type(), m_nMatType);
+                }
+
+                cv::cvtColor(oMat, oMat, COLOR_BGR2RGB);
+
+                object_ptr<ISample> pNewSample;
+                if (IS_OK(alloc_sample(pNewSample, pSample->GetTime())))
+                {
+                    object_ptr_locked<ISampleBuffer> pBuffer;
+                    if (IS_OK(pNewSample->WriteLock(pBuffer, m_nSize)))
+                    {
+                        cMemoryBlock::MemCopy(pBuffer->GetPtr(), oMat.data, m_nSize);
+                    }
+                    m_pOutput->Write(pNewSample);
+                }
             }
         }
         RETURN_NOERROR;
@@ -439,36 +547,6 @@ public:
         RETURN_NOERROR;
     }
 
-    tResult CheckStreamType(const Mat & oMat)
-    {
-        if (m_sCurrentFormat.m_ui32Height != oMat.rows ||
-            m_sCurrentFormat.m_ui32Width != oMat.cols)
-        {
-            m_sCurrentFormat.m_ui32Height = oMat.rows;
-            m_sCurrentFormat.m_ui32Width = oMat.cols;
-
-            if (oMat.type() == CV_8UC3)
-            {
-                m_sCurrentFormat.m_strFormatName = ADTF_IMAGE_FORMAT(RGB_24);
-                m_sCurrentFormat.m_szMaxByteSize = oMat.rows * oMat.cols * 3;
-            }
-            else if(oMat.type() == CV_8UC1)
-            {
-                m_sCurrentFormat.m_strFormatName = ADTF_IMAGE_FORMAT(GREYSCALE_8);
-                m_sCurrentFormat.m_szMaxByteSize = oMat.rows * oMat.cols * 1;
-            }
-            else
-            {
-                RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "Unkown camera format");
-            }
-
-            object_ptr<IStreamType> pMatStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
-            RETURN_IF_FAILED(set_stream_type_mat_format(*pMatStreamType.Get(), m_sCurrentFormat));
-            m_pOutput->ChangeType(pMatStreamType);
-        }
-        RETURN_NOERROR;
-    }
-
     tVoid CaptureImage()
     {
         Mat oMatImage;
@@ -478,8 +556,11 @@ public:
             LOG_ERROR("Captured image is empty");
         }
 
-        CheckStreamType(oMatImage);
-        
+        if (IS_FAILED(check_stream_type(oMatImage, m_sCurrentFormat, m_pOutput)))
+        {
+            return;
+        }
+
         object_ptr<const ISample> pSample = make_object_ptr<cOpenCVSample>(oMatImage);
         m_pOutput->Write(pSample);
         m_pOutput->ManualTrigger();
@@ -514,6 +595,8 @@ public:
     tInt32 m_nIndex = 0;
     std::vector<cString> m_lstImages;
 
+    std::mutex m_oMutex;
+
 public:
 
     cOpenCVImagesSource()
@@ -526,11 +609,17 @@ public:
 
     ~cOpenCVImagesSource()
     {
+    }
 
+    tResult StopStreaming()
+    {
+        m_oThreadLoop = kernel_thread_looper();
+        return adtf::filter::cSampleStreamingSource::StopStreaming();
     }
 
     tResult StartStreaming() override
     {
+        RETURN_IF_FAILED(adtf::filter::cSampleStreamingSource::StartStreaming());
         for (auto strPath : *m_strImageFolders)
         {
             cStringList lstTempFiles;
@@ -538,7 +627,8 @@ public:
 
             for (auto strFilename : lstTempFiles)
             {
-                m_lstImages.push_back(strPath + "/" + strFilename);
+                cString strImagePath = strPath + "/" + strFilename;
+                m_lstImages.push_back(strImagePath);
             }
         }
             
@@ -552,35 +642,7 @@ public:
         RETURN_NOERROR;
     }
 
-    tResult CheckStreamType(const Mat & oMat)
-    {
-        if (m_sCurrentFormat.m_ui32Height != oMat.rows ||
-            m_sCurrentFormat.m_ui32Width != oMat.cols)
-        {
-            m_sCurrentFormat.m_ui32Height = oMat.rows;
-            m_sCurrentFormat.m_ui32Width = oMat.cols;
-
-            if (oMat.type() == CV_8UC3)
-            {
-                m_sCurrentFormat.m_strFormatName = ADTF_IMAGE_FORMAT(RGB_24);
-                m_sCurrentFormat.m_szMaxByteSize = oMat.rows * oMat.cols * 3;
-            }
-            else if (oMat.type() == CV_8UC1)
-            {
-                m_sCurrentFormat.m_strFormatName = ADTF_IMAGE_FORMAT(GREYSCALE_8);
-                m_sCurrentFormat.m_szMaxByteSize = oMat.rows * oMat.cols * 1;
-            }
-            else
-            {
-                RETURN_ERROR_DESC(ERR_NOT_SUPPORTED, "Unkown camera format");
-            }
-
-            object_ptr<IStreamType> pMatStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
-            RETURN_IF_FAILED(set_stream_type_mat_format(*pMatStreamType.Get(), m_sCurrentFormat));
-            m_pOutput->ChangeType(pMatStreamType);
-        }
-        RETURN_NOERROR;
-    }
+    
 
     cString GetNextImage()
     {
@@ -599,11 +661,12 @@ public:
 
     tVoid CaptureImage()
     {
+        std::lock_guard<std::mutex> oLock(m_oMutex);
+
         cString strImagePath = GetNextImage();
-        Mat oMatImage;
         LOG_INFO("Load image %s", strImagePath.GetPtr());
-        oMatImage = cv::imread(strImagePath.GetPtr(), 
-                               cv::IMREAD_COLOR);
+        Mat oMatImage = cv::imread(strImagePath.GetPtr(),
+                                   cv::IMREAD_COLOR);
 
         if (oMatImage.empty())
         {
@@ -611,16 +674,24 @@ public:
             return;
         }
 
-        CheckStreamType(oMatImage);
+        if (IS_FAILED(check_stream_type(oMatImage, m_sCurrentFormat, m_pOutput)))
+        {
+            return;
+        }
 
         object_ptr<const ISample> pSample = make_object_ptr<cOpenCVSample>(oMatImage);
         m_pOutput->Write(pSample);
         m_pOutput->ManualTrigger();
-
-
+        
         std::this_thread::sleep_for(std::chrono::milliseconds(1000 / m_nFramesPerSecond));
     }
 
 };
 
-ADTF_PLUGIN("OpenCV Filter Plugin", cOpenCVImagesSource, cMatToImageFilter, cImageToMatFilter, cDNNOpenCVFilter, cOpenCVCameraSource)
+ADTF_PLUGIN("OpenCV Filter Plugin", 
+    cOpenCVImagesSource, 
+    cMatToImageFilter, 
+    cImageToMatFilter, 
+    cDNNOpenCVFilter, 
+    cOpenCVCameraSource, 
+    cResizeFilter)
