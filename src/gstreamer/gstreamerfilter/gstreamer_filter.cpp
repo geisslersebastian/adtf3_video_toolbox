@@ -74,8 +74,8 @@ public:
 class cGStreamerBaseFilter : public cFilter
 {
 public:
-    property_variable<cString> m_strElementFactory = "$(THIS_OBJECT_NAME)";
-    property_variable<cString> m_strName = "$(THIS_OBJECT_NAME)";
+    property_variable<cString> m_strElementFactory = { "$(THIS_OBJECT_NAME)"};
+    property_variable<cString> m_strName = { "$(THIS_OBJECT_NAME)" };
     property_variable<tBool> m_bLastPipeElement = tFalse;
 
     GstElement* m_pElement = nullptr;
