@@ -183,7 +183,7 @@ public:
         RegisterPropertyVariable("height", m_nHeight);
     }
 
-    tStreamImageFormat ConvertImageFormat(const tStreamImageFormat oImageFormat) override
+    tStreamImageFormat ConvertImageFormat(const tStreamImageFormat & oImageFormat) override
     {
         tStreamImageFormat oResultImageFormat = oImageFormat;
         oResultImageFormat.m_ui32Width = m_nWidth;
