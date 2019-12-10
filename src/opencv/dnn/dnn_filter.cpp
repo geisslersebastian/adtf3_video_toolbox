@@ -105,7 +105,7 @@ public:
         m_pInput->SetAcceptTypeCallback([this](const auto & pStreamType) -> tResult
         {
             RETURN_IF_FAILED(get_stream_type_mat_format(m_sCurrentFormat, *pStreamType.Get()));
-            m_sCurrentFormat = ConvertImageFormat(m_sCurrentFormat);
+            m_sCurrentFormat = this->ConvertImageFormat(m_sCurrentFormat);
             object_ptr<IStreamType> pImageStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
             RETURN_IF_FAILED(set_stream_type_mat_format(*pImageStreamType.Get(), m_sCurrentFormat));
             RETURN_IF_FAILED(m_pOutput->ChangeType(pImageStreamType));
