@@ -113,10 +113,11 @@ public:
         });
     }
     
-    virtual tStreamImageFormat ConvertImageFormat(const tStreamImageFormat oImageFormat)
+    virtual tStreamImageFormat ConvertImageFormat(const tStreamImageFormat & oImageFormat)
     {
         return oImageFormat;
     }
+
     virtual cv::Mat ProcessMat(const cv::Mat & oMat) = 0;
     virtual tResult OnStageFirst() { RETURN_NOERROR; };
     virtual tResult OnStagePreConnect() { RETURN_NOERROR; };
