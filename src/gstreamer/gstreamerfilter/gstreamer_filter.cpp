@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Sebastian Geißler <mail@sebastian.geissler.de>
+ * Copyright 2019 Sebastian Geißler <mail@sebastiangeissler.de>
  *
  * (https://opensource.org/licenses/MIT)
  * 
