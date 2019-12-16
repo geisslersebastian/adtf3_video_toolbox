@@ -28,5 +28,5 @@ You have access to `ALL` gstreamer plugins
 
 # Why
 
-This Toolbox was designed for home automatisation. Gives access to multible cameras mountet outside of my home. 
+This Toolbox was designed for home automatisation. Gives access to multible cameras mounted around my home. 
 For Video Recording and Object detection.
