@@ -21,7 +21,7 @@
 #include <adtfsystemsdk/testing/test_system.h>
 #include <adtffiltersdk/adtf_filtersdk.h>
 
-#include "../dnn/opencv_sample.h"
+#include <opencv_base_filter/opencv_sample.h>
 
 #include <opencv2/core.hpp>
 

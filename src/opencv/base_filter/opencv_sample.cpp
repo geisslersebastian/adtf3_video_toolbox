@@ -19,8 +19,7 @@
  
 #pragma once
 
-#include "opencv_sample.h"
-#include <adtf_streaming3.h>
+#include <opencv_base_filter/opencv_sample.h>
 
 using namespace adtf::ucom;
 using namespace adtf::streaming;

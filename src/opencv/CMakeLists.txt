@@ -1,1 +1,6 @@
-add_subdirectory(dnn)
+add_subdirectory(base_filter)
+add_subdirectory(mat_to_image_filter)
+add_subdirectory(dnn_filter)
+add_subdirectory(camera_source)
+add_subdirectory(image_source)
+add_subdirectory(resize_filter)

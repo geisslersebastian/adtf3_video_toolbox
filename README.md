@@ -11,8 +11,12 @@ Gives ADTF3 access to OpenCV functions like:
 
 * Deep Neuronal Network 
 * Resize
-* Hough line / circel detection
-* Canny Filter
+* Camera Source
+* Image Source
+* Image to Mat
+* Mat to Image
+* Hough line / circel detection (not jet)
+* Canny Filter (not jet)
 
 and many more
 
