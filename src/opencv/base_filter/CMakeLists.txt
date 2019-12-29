@@ -20,5 +20,11 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER opencv)
 
 FILE(GLOB OPENCV_DLL "${OpenCV_DIR}/x64/*/bin/*.dll")
+
+foreach(source_file ${OPENCV_DLL})
+    file(COPY ${source_file}
+        DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+endforeach()
+
 install(FILES ${OPENCV_DLL} DESTINATION bin CONFIGURATIONS RelWithDebInfo Release)
 install(FILES ${OPENCV_DLL} DESTINATION bin/debug CONFIGURATIONS Debug)
