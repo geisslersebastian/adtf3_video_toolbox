@@ -48,8 +48,34 @@ static gboolean bus_call(GstBus *bus, GstMessage *msg, gpointer data)
             gst_message_parse_error(msg, &error, &debug);
             g_free(debug);
 
-            LOG_ERROR("Error: %s\n", error->message);
+            LOG_ERROR("%s", error->message);
             g_error_free(error);
+
+            break;
+        }
+        case GST_MESSAGE_WARNING:
+        {
+            gchar  *debug;
+            GError *warning;
+
+            gst_message_parse_warning(msg, &warning, &debug);
+            g_free(debug);
+
+            LOG_WARNING("%s", warning->message);
+            g_error_free(warning);
+
+            break;
+        }
+        case GST_MESSAGE_INFO:
+        {
+            gchar  *debug;
+            GError *info;
+
+            gst_message_parse_info(msg, &info, &debug);
+            g_free(debug);
+
+            LOG_INFO("%s", info->message);
+            g_error_free(info);
 
             break;
         }
@@ -58,6 +84,25 @@ static gboolean bus_call(GstBus *bus, GstMessage *msg, gpointer data)
     }
 
     return TRUE;
+}
+
+static void on_pad_added(GstElement* element, GstPad* pad, gpointer data) {
+    GstPad* sinkpad;
+    GstElement* decoder = (GstElement*)data;
+
+    LOG_INFO("Pad added %s::%s [linking] %s", gst_pad_get_name(pad), gst_element_get_name(element), gst_element_get_name(decoder));
+
+    sinkpad = gst_element_get_static_pad(decoder, "sink");
+    GstPadLinkReturn ret = gst_pad_link(pad, sinkpad);
+    if (ret != GST_PAD_LINK_OK) 
+    {
+        LOG_ERROR(" failed [return code]:%d", ret);
+    }
+    else 
+    {
+        LOG_ERROR(" successful");
+    }
+    gst_object_unref(sinkpad);
 }
 
 class cGStreamerBaseFilter;
@@ -77,6 +122,8 @@ public:
     property_variable<cString> m_strElementFactory = { "$(THIS_OBJECT_NAME)"};
     property_variable<cString> m_strName = { "$(THIS_OBJECT_NAME)" };
     property_variable<tBool> m_bLastPipeElement = tFalse;
+
+    property_variable<tBool> m_bDynamicPad = tFalse;
 
     GstElement* m_pElement = nullptr;
     GstElement* m_pPipeline = nullptr;
@@ -121,6 +168,7 @@ public:
         RegisterPropertyVariable("name", m_strName);
 
         RegisterPropertyVariable("last_pipeline_element", m_bLastPipeElement);
+        RegisterPropertyVariable("dynamic_pad", m_bDynamicPad);
 
         SetDescription("Use this filter to create one instance of a GStreamer Element.");
     }
@@ -227,14 +275,19 @@ public:
                     g_object_set(m_pElement, "caps", pCaps, NULL);
                     gst_caps_unref(pCaps);
                 }
+                else
+                {
+                    LOG_DUMP("set properties %s from %s = %s", oProperty.first.GetPtr(), m_strName->GetPtr(), strValue.GetPtr());
+                    g_object_set(m_pElement, oProperty.first, strValue.GetPtr(), NULL);
+                }
             }
         }
         RETURN_NOERROR;
     }
 
+
     virtual tResult InitGStreamerElement(GstElement* pElement)
     {
-        
         RETURN_NOERROR;
     }
 
@@ -250,14 +303,24 @@ public:
             RETURN_IF_FAILED(m_pGStreamerPipeClient->Connect(this, pRootFilter));
         }
 
-        LOG_DUMP("gst_element_link failed %s %s", m_strName->GetPtr(), pParentFilter->m_strName->GetPtr());
-
         if (pParentFilter->m_pElement && m_pElement)
         {
-            if (!gst_element_link(m_pElement, pParentFilter->m_pElement))
+            if (!m_bDynamicPad)
             {
-                //RETURN_ERROR_DESC(ERR_NOT_CONNECTED, "gst_element_link failed %s %s", m_strName->GetPtr(), pParentFilter->m_strName->GetPtr());
-                LOG_ERROR("gst_element_link failed %s %s", m_strName->GetPtr(), pParentFilter->m_strName->GetPtr());
+                if (!gst_element_link(m_pElement, pParentFilter->m_pElement))
+                {
+                    //RETURN_ERROR_DESC(ERR_NOT_CONNECTED, "gst_element_link failed %s %s", m_strName->GetPtr(), pParentFilter->m_strName->GetPtr());
+                    LOG_ERROR("gst_element_link failed %s %s", m_strName->GetPtr(), pParentFilter->m_strName->GetPtr());
+                }
+                else
+                {
+                    LOG_DUMP("gst_element_link success %s %s", m_strName->GetPtr(), pParentFilter->m_strName->GetPtr());
+                }
+            }
+            else
+            {
+                LOG_DUMP("Signal pad-added to %s", this->m_strName->GetPtr());
+                g_signal_connect(m_pElement, "pad-added", G_CALLBACK(on_pad_added), pParentFilter->m_pElement);
             }
         }
 
@@ -297,6 +360,7 @@ public:
         m_sFormat.m_ui32Height = 726;
         m_sFormat.m_szMaxByteSize = 1024 * 726 * 3;
         m_sFormat.m_ui8DataEndianess = PLATFORM_BYTEORDER;
+
         object_ptr<IStreamType> pType = make_object_ptr<cStreamType>(stream_meta_type_image());
         set_stream_type_image_format(*pType, m_sFormat);
         m_pWriter = CreateOutputPin("outpin", pType);
@@ -370,7 +434,8 @@ GstFlowReturn new_sample(GstElement* pSink, cAppSinkFilter* pFilter) {
     GstSample *pSample;
     /* Retrieve the buffer */
     g_signal_emit_by_name(pSink, "pull-sample", &pSample);
-    if (pSample) {
+    if (pSample) 
+    {
         /* The only thing we do in this example is print a * to indicate a received buffer */
         GstBuffer * pBuffer = gst_sample_get_buffer(pSample);
         if (!pBuffer)
@@ -431,6 +496,9 @@ GstFlowReturn new_sample(GstElement* pSink, cAppSinkFilter* pFilter) {
 
         pFilter->SampleType(nWidth, nHeight, (nSize * 8) / (nWidth * nHeight), nSize / nHeight);
         pFilter->SendData(pData, nSize);
+
+        //@TODO Make sure all return are memory leak free
+        gst_buffer_unmap(pBuffer, &oMap);
         //gst_buffer_unref(pBuffer);
         gst_sample_unref(pSample);
     }

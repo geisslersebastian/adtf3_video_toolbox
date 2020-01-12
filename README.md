@@ -3,6 +3,11 @@
 
 The ADTF Video Toolbox is a hobby project containing filter for processing Videostreams. 
 
+---
+**NOTE**
+The code just a bunch of fast written code snippets. Please wait for revision (style, memory leaks, ...)
+---
+
 This includes: 
 
 ## A set of OpenCV filter

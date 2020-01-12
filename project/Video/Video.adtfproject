@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<project xmlns="adtf/xsd/project">
+  <file_version>
+    <major>1</major>
+    <minor>0</minor>
+  </file_version>
+  <name/>
+  <session_files>
+    <project_file>
+      <url>./adtfsessions/playback_video.adtfsession</url>
+      <properties_url/>
+      <property_set/>
+      <name>playback_video</name>
+    </project_file>
+  </session_files>
+  <graph_files>
+    <project_file>
+      <url>./adtfsessions/adtfgraphs/default_graph.adtfgraph</url>
+      <properties_url/>
+      <property_set/>
+      <name>default_graph</name>
+    </project_file>
+  </graph_files>
+  <system_files>
+    <project_file>
+      <url>./adtfsessions/adtfsystems/default_system.adtfsystem</url>
+      <properties_url/>
+      <property_set/>
+      <name>default_system</name>
+    </project_file>
+  </system_files>
+</project>
