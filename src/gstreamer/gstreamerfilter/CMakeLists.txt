@@ -7,7 +7,11 @@ set (PROJECT_NAME gstreamer_filter)
 
 adtf_add_filter(${PROJECT_NAME}
                 gstreamer_reflection.h
-                gstreamer_filter.cpp)
+                gstreamer_filter.cpp
+                gstreamer_base.h
+                gstreamer_appsink.h
+                gstreamer_appsource.h
+                gstreamer_service.h)
 
 if (WIN32)
     set (GSTREAMER_DIR "C:/gstreamer/1.0/x86_64")
@@ -41,7 +45,6 @@ else (WIN32)
 endif (WIN32)
 
 adtf_install_filter(${PROJECT_NAME} bin)
-
 set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER gstreamer)
 
 adtf_create_plugindescription(

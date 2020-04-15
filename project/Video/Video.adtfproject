@@ -12,6 +12,18 @@
       <property_set/>
       <name>playback_video</name>
     </project_file>
+    <project_file>
+      <url>./adtfsessions/adtf_video_to_gstreamer.adtfsession</url>
+      <properties_url/>
+      <property_set/>
+      <name>adtf_video_to_gstreamer</name>
+    </project_file>
+    <project_file>
+      <url>./adtfsessions/compress_video.adtfsession</url>
+      <properties_url/>
+      <property_set/>
+      <name>compress_video</name>
+    </project_file>
   </session_files>
   <graph_files>
     <project_file>

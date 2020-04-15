@@ -85,6 +85,36 @@
               <value>filesrc</value>
               <type>cString</type>
             </property>
+            <property>
+              <name>gst_blocksize</name>
+              <value>4096</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_do-timestamp</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_location</name>
+              <value>C:/Private/Download/trailer.mp4</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_num-buffers</name>
+              <value>-1</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_parent</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_typefind</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
           </properties>
         </property_set>
         <property_set>
@@ -100,18 +130,6 @@
               <type>tBool</type>
             </property>
           </properties>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/binding_proxys/Binding Proxy</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/connections/filesrc.out_Binding Proxy.</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/connections/Binding Proxy._decodebin.in</name>
-          <properties/>
         </property_set>
         <property_set>
           <name>graphs/playback_video/filters/decodebin/binding_clients/in</name>
@@ -223,6 +241,26 @@
               <value>capsfilter</value>
               <type>cString</type>
             </property>
+            <property>
+              <name>gst_caps</name>
+              <value>video/x-raw,format=RGB</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_caps-change-mode</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_parent</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_qos</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
           </properties>
         </property_set>
         <property_set>
@@ -234,19 +272,7 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/playback_video/connections/Binding Proxy_1._capsfilter.in</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/playback_video/filters/capsfilter/binding_clients/in</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/binding_proxys/Binding Proxy_6</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/connections/capsfilter.out_Binding Proxy_6.</name>
           <properties/>
         </property_set>
         <property_set>
@@ -254,7 +280,343 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/playback_video/connections/Binding Proxy_6._appsink.in</name>
+          <name>graphs/adtf_video_to_gstreamer</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/video_source</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/video_source/streaminggraphdock/Filter Graph Dock</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/video_source/streaming_sources/Demo Virtual Clock Input</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/video_source/streaming_dock_in_ports/video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/video_source/connections/Demo Virtual Clock Input.outpin_Filter Graph Dock.video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/video_source/streaming_sources/Demo Virtual Clock Input/output_pins/outpin</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/streaming_in_ports/video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/binding_proxys/capsfilter.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/capsfilter.out_capsfilter.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/capsfilter.out._appsink.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/binding_proxys/filesrc.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/filesrc.out_filesrc.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/filesrc.out._decodebin.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/Binding Proxy_1._capsfilter.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/GStreamer Launcher Filter_2</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>videotestsrc ! videoconvert ! x264enc byte-stream=1 ! queue</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>dynamic_pad</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/GStreamer Launcher Filter_3</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>video/x-h264 ! h264parse ! avdec_h264 ! videoconvert ! autovideosink</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/app_sink</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>appsink</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/binding_proxys/app_sink.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/connections/app_sink.out._GStreamer Launcher Filter_3.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/app_sink/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/GStreamer Launcher Filter_3/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/binding_proxys/GStreamer Launcher Filter_2.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/connections/GStreamer Launcher Filter_2.out_GStreamer Launcher Filter_2.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/GStreamer Launcher Filter_2/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/connections/GStreamer Launcher Filter_2.out._app_sink.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/app_sink/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/app_source</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>appsource</value>
+              <type>cString</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/connections/app_source.out_app_sink.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/app_source/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/sample_streams/app_sink.outpin</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/connections/app_sink.outpin_app_sink.outpin.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/connections/app_sink.outpin._app_source.input</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/app_sink/output_pins/outpin</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/app_source/input_pins/input</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/appsource</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/connections/video._appsource.input</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/appsource/input_pins/input</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/GStreamer Launcher Filter</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>queue ! videoconvert ! autovideosink</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/binding_proxys/appsource.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/connections/appsource.out_appsource.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/connections/appsource.out._GStreamer Launcher Filter.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/appsource/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/adtf_video_to_gstreamer/filters/GStreamer Launcher Filter/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/GStreamer Launcher Filter</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>videotestsrc ! videoconvert ! x264enc byte-stream=1 ! queue</value>
+              <type>cString</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/GStreamer Launcher Filter_1</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>queue ! 'video/x-h264' ! h264parse ! avdec_h264 ! videoconvert ! autovideosink</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/appsink</name>
+          <properties>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/appsource</name>
+          <properties>
+            <property>
+              <name>binary</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/sample_streams/appsink.outpin</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/appsink.outpin_appsink.outpin.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/appsink.outpin._appsource.input</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/appsink/output_pins/outpin</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/appsource/input_pins/input</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/binding_proxys/GStreamer Launcher Filter.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/GStreamer Launcher Filter.out_GStreamer Launcher Filter.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/GStreamer Launcher Filter.out._appsink.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/GStreamer Launcher Filter/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/appsink/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/binding_proxys/appsource.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/appsource.out_appsource.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/appsource.out._GStreamer Launcher Filter_1.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/appsource/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/GStreamer Launcher Filter_1/binding_clients/in</name>
           <properties/>
         </property_set>
       </property_sets>

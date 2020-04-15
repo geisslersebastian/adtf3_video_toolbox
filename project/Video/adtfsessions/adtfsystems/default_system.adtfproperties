@@ -26,6 +26,26 @@
         </property_set>
         <property_set>
           <name>services/ADTF Qt XSystem</name>
+          <properties>
+            <property>
+              <name>refresh_timer_msec</name>
+              <value>33</value>
+              <type>tInt32</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>services/ADTF Sample Stream Tracer Service</name>
+          <properties>
+            <property>
+              <name>notification_interval</name>
+              <value>1000000</value>
+              <type>tUInt64</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>services/ADTF Sample Stream Trace View UI Service</name>
           <properties/>
         </property_set>
       </property_sets>

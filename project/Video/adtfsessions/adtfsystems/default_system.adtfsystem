@@ -38,7 +38,13 @@
       <url>C:/dev/adtf3_video_toolbox2/release/package/bin/debug/gstreamer_filter.adtfplugin</url>
     </plugin>
     <plugin>
+      <url>$(ADTF_DIR)/src/examples/bin/demo_qt_video_display.adtfplugin</url>
+    </plugin>
+    <plugin>
       <url>$(ADTF_DIR)/bin/default_core_objects.adtfplugin</url>
+    </plugin>
+    <plugin>
+      <url>$(ADTF_DIR)/src/examples/bin/demo_virtual_clock.adtfplugin</url>
     </plugin>
     <plugin>
       <url>$(ADTF_DIR)/bin/adtf_clock.adtfplugin</url>
@@ -53,7 +59,10 @@
       <url>$(ADTF_DIR)/bin/adtf_xsystem.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>$(ADTF_DIR)/src/examples/bin/demo_qt_video_display.adtfplugin</url>
+      <url>$(ADTF_DIR)/bin/adtf_sample_stream_tracer.adtfplugin</url>
+    </plugin>
+    <plugin>
+      <url>$(ADTF_DIR)/bin/adtf_sample_stream_trace_view_ui.adtfplugin</url>
     </plugin>
   </plugins>
   <debug_plugins>
@@ -61,22 +70,31 @@
       <url>C:/dev/adtf3_video_toolbox2/release/package/bin/debug/gstreamer_filter.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>$(ADTF_DIR)/bin/default_core_objects.adtfplugin</url>
+      <url>$(ADTF_DIR)/src/examples/bin/debug/demo_qt_video_display.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>$(ADTF_DIR)/bin/adtf_clock.adtfplugin</url>
+      <url>$(ADTF_DIR)/bin/debug/default_core_objects.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>$(ADTF_DIR)/bin/adtf_kernel.adtfplugin</url>
+      <url>$(ADTF_DIR)/src/examples/bin/debug/demo_virtual_clock.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>$(ADTF_DIR)/bin/adtf_file_support.adtfplugin</url>
+      <url>$(ADTF_DIR)/bin/debug/adtf_clock.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>$(ADTF_DIR)/bin/adtf_xsystem.adtfplugin</url>
+      <url>$(ADTF_DIR)/bin/debug/adtf_kernel.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>$(ADTF_DIR)/src/examples/bin/demo_qt_video_display.adtfplugin</url>
+      <url>$(ADTF_DIR)/bin/debug/adtf_file_support.adtfplugin</url>
+    </plugin>
+    <plugin>
+      <url>$(ADTF_DIR)/bin/debug/adtf_xsystem.adtfplugin</url>
+    </plugin>
+    <plugin>
+      <url>$(ADTF_DIR)/bin/debug/adtf_sample_stream_tracer.adtfplugin</url>
+    </plugin>
+    <plugin>
+      <url>$(ADTF_DIR)/bin/debug/adtf_sample_stream_trace_view_ui.adtfplugin</url>
     </plugin>
   </debug_plugins>
   <services>
@@ -104,6 +122,16 @@
       <classid>qt_xsystem.ui_service.adtf.cid</classid>
       <objectid>ADTF Qt XSystem</objectid>
       <runlevel>system</runlevel>
+    </service>
+    <service>
+      <classid>sample_stream_tracer.service.adtf.cid</classid>
+      <objectid>ADTF Sample Stream Tracer Service</objectid>
+      <runlevel>filtergraph</runlevel>
+    </service>
+    <service>
+      <classid>sample_stream_trace_view.ui_service.adtf.cid</classid>
+      <objectid>ADTF Sample Stream Trace View UI Service</objectid>
+      <runlevel>filtergraph</runlevel>
     </service>
   </services>
 </system>

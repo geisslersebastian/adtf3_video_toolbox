@@ -35,6 +35,7 @@
           <output_pins/>
           <runners/>
           <init_priority>0</init_priority>
+          <deactivated>false</deactivated>
           <binding_servers>
             <pin>
               <name>out</name>
@@ -49,6 +50,7 @@
           <output_pins/>
           <runners/>
           <init_priority>0</init_priority>
+          <deactivated>false</deactivated>
           <binding_servers>
             <pin>
               <name>out</name>
@@ -135,12 +137,9 @@
       <active_runners/>
       <binding_proxys>
         <binding_proxy>
-          <name>Binding Proxy</name>
-          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
-        </binding_proxy>
-        <binding_proxy>
           <name>Binding Proxy_2</name>
           <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+          <deactivated>false</deactivated>
         </binding_proxy>
         <binding_proxy>
           <name>Binding Proxy_1</name>
@@ -148,42 +147,16 @@
           <deactivated>false</deactivated>
         </binding_proxy>
         <binding_proxy>
-          <name>Binding Proxy_6</name>
+          <name>capsfilter.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+        </binding_proxy>
+        <binding_proxy>
+          <name>filesrc.out</name>
           <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
           <deactivated>false</deactivated>
         </binding_proxy>
       </binding_proxys>
       <connections>
-        <connection>
-          <name>filesrc.out_Binding Proxy.</name>
-          <source_connector_path>
-            <connector>out</connector>
-            <component>filesrc</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector/>
-            <component>Binding Proxy</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <sync>true</sync>
-        </connection>
-        <connection>
-          <name>Binding Proxy._decodebin.in</name>
-          <source_connector_path>
-            <connector/>
-            <component>Binding Proxy</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector>in</connector>
-            <component>decodebin</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <sync>true</sync>
-        </connection>
         <connection>
           <name>decodebin.out_Binding Proxy_2.</name>
           <source_connector_path>
@@ -197,6 +170,7 @@
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
+          <deactivated>false</deactivated>
           <sync>true</sync>
         </connection>
         <connection>
@@ -212,6 +186,7 @@
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
+          <deactivated>false</deactivated>
           <sync>true</sync>
         </connection>
         <connection>
@@ -262,6 +237,68 @@
           <sync>true</sync>
         </connection>
         <connection>
+          <name>capsfilter.out_capsfilter.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>capsfilter</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>capsfilter.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>capsfilter.out._appsink.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>capsfilter.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>appsink</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>filesrc.out_filesrc.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>filesrc</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>filesrc.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>filesrc.out._decodebin.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>filesrc.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>decodebin</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
           <name>Binding Proxy_1._capsfilter.in</name>
           <source_connector_path>
             <connector/>
@@ -277,16 +314,265 @@
           <deactivated>false</deactivated>
           <sync>true</sync>
         </connection>
+      </connections>
+      <streaming_interface_in_ports/>
+      <streaming_interface_out_ports/>
+    </graph>
+    <graph>
+      <name>adtf_video_to_gstreamer</name>
+      <filters>
+        <filter>
+          <name>GStreamer Launcher Filter_2</name>
+          <class_id>gstreamerlauncherfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>true</deactivated>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients/>
+        </filter>
+        <filter>
+          <name>GStreamer Launcher Filter_3</name>
+          <class_id>gstreamerlauncherfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>true</deactivated>
+          <binding_servers/>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+        <filter>
+          <name>app_sink</name>
+          <class_id>app_sink_filter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins>
+            <pin>
+              <name>outpin</name>
+            </pin>
+          </output_pins>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>true</deactivated>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+        <filter>
+          <name>app_source</name>
+          <class_id>app_source_filter.gstreamer.videotb.cid</class_id>
+          <input_pins>
+            <pin>
+              <name>input</name>
+            </pin>
+          </input_pins>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>true</deactivated>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients/>
+        </filter>
+        <filter>
+          <name>appsource</name>
+          <class_id>app_source_filter.gstreamer.videotb.cid</class_id>
+          <input_pins>
+            <pin>
+              <name>input</name>
+            </pin>
+          </input_pins>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>false</deactivated>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients/>
+        </filter>
+        <filter>
+          <name>GStreamer Launcher Filter</name>
+          <class_id>gstreamerlauncherfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers/>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+      </filters>
+      <subgraphs/>
+      <input_data_ports/>
+      <output_data_ports/>
+      <input_interface_ports/>
+      <output_interface_ports/>
+      <output_runner_ports/>
+      <input_runner_ports/>
+      <streaming_in_ports>
+        <streaming_in_port>
+          <name>video</name>
+          <portname>video</portname>
+        </streaming_in_port>
+      </streaming_in_ports>
+      <streaming_out_ports/>
+      <sample_streams>
+        <sample_stream>
+          <name>app_sink.outpin</name>
+          <class_id>default_sample_stream.streaming.adtf.cid</class_id>
+          <deactivated>true</deactivated>
+        </sample_stream>
+      </sample_streams>
+      <active_runners/>
+      <binding_proxys>
+        <binding_proxy>
+          <name>app_sink.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+          <deactivated>true</deactivated>
+        </binding_proxy>
+        <binding_proxy>
+          <name>GStreamer Launcher Filter_2.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+          <deactivated>true</deactivated>
+        </binding_proxy>
+        <binding_proxy>
+          <name>appsource.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+          <deactivated>false</deactivated>
+        </binding_proxy>
+      </binding_proxys>
+      <connections>
         <connection>
-          <name>capsfilter.out_Binding Proxy_6.</name>
+          <name>app_sink.out._GStreamer Launcher Filter_3.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>app_sink.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>GStreamer Launcher Filter_3</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>GStreamer Launcher Filter_2.out_GStreamer Launcher Filter_2.out.</name>
           <source_connector_path>
             <connector>out</connector>
-            <component>capsfilter</component>
+            <component>GStreamer Launcher Filter_2</component>
             <portbindingobject/>
           </source_connector_path>
           <destination_connector_path>
             <connector/>
-            <component>Binding Proxy_6</component>
+            <component>GStreamer Launcher Filter_2.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>GStreamer Launcher Filter_2.out._app_sink.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>GStreamer Launcher Filter_2.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>app_sink</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>app_source.out_app_sink.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>app_source</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>app_sink.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>app_sink.outpin_app_sink.outpin.</name>
+          <source_connector_path>
+            <connector>outpin</connector>
+            <component>app_sink</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>app_sink.outpin</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>app_sink.outpin._app_source.input</name>
+          <source_connector_path>
+            <connector/>
+            <component>app_sink.outpin</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>input</connector>
+            <component>app_source</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>video._appsource.input</name>
+          <source_connector_path>
+            <connector/>
+            <component>video</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>input</connector>
+            <component>appsource</component>
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
@@ -294,10 +580,190 @@
           <sync>true</sync>
         </connection>
         <connection>
-          <name>Binding Proxy_6._appsink.in</name>
+          <name>appsource.out_appsource.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>appsource</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>appsource.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>appsource.out._GStreamer Launcher Filter.in</name>
           <source_connector_path>
             <connector/>
-            <component>Binding Proxy_6</component>
+            <component>appsource.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>GStreamer Launcher Filter</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+      </connections>
+      <streaming_interface_in_ports/>
+      <streaming_interface_out_ports/>
+    </graph>
+    <graph>
+      <name>video_compression</name>
+      <filters>
+        <filter>
+          <name>GStreamer Launcher Filter</name>
+          <class_id>gstreamerlauncherfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients/>
+        </filter>
+        <filter>
+          <name>GStreamer Launcher Filter_1</name>
+          <class_id>gstreamerlauncherfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>true</deactivated>
+          <binding_servers/>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+        <filter>
+          <name>appsink</name>
+          <class_id>app_sink_filter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins>
+            <pin>
+              <name>outpin</name>
+            </pin>
+          </output_pins>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers/>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+        <filter>
+          <name>appsource</name>
+          <class_id>app_source_filter.gstreamer.videotb.cid</class_id>
+          <input_pins>
+            <pin>
+              <name>input</name>
+            </pin>
+          </input_pins>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>true</deactivated>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients/>
+        </filter>
+      </filters>
+      <subgraphs/>
+      <input_data_ports/>
+      <output_data_ports/>
+      <input_interface_ports/>
+      <output_interface_ports/>
+      <output_runner_ports/>
+      <input_runner_ports/>
+      <streaming_in_ports/>
+      <streaming_out_ports/>
+      <sample_streams>
+        <sample_stream>
+          <name>appsink.outpin</name>
+          <class_id>default_sample_stream.streaming.adtf.cid</class_id>
+        </sample_stream>
+      </sample_streams>
+      <active_runners/>
+      <binding_proxys>
+        <binding_proxy>
+          <name>GStreamer Launcher Filter.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+        </binding_proxy>
+        <binding_proxy>
+          <name>appsource.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+          <deactivated>true</deactivated>
+        </binding_proxy>
+      </binding_proxys>
+      <connections>
+        <connection>
+          <name>appsink.outpin_appsink.outpin.</name>
+          <source_connector_path>
+            <connector>outpin</connector>
+            <component>appsink</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>appsink.outpin</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>appsink.outpin._appsource.input</name>
+          <source_connector_path>
+            <connector/>
+            <component>appsink.outpin</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>input</connector>
+            <component>appsource</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>GStreamer Launcher Filter.out_GStreamer Launcher Filter.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>GStreamer Launcher Filter</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>GStreamer Launcher Filter.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>GStreamer Launcher Filter.out._appsink.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>GStreamer Launcher Filter.out</component>
             <portbindingobject/>
           </source_connector_path>
           <destination_connector_path>
@@ -306,7 +772,38 @@
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
-          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>appsource.out_appsource.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>appsource</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>appsource.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>appsource.out._GStreamer Launcher Filter_1.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>appsource.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>GStreamer Launcher Filter_1</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
           <sync>true</sync>
         </connection>
       </connections>
@@ -323,6 +820,55 @@
       <streaming_sinks/>
       <sample_streams/>
       <connections/>
+      <binding_proxys/>
+      <streaming_dock_interface_in_ports/>
+      <streaming_dock_interface_out_ports/>
+      <streaming_dock_runner_in_ports/>
+    </streaming_graph>
+    <streaming_graph>
+      <name>video_source</name>
+      <streaming_sources>
+        <streaming_source>
+          <name>Demo Virtual Clock Input</name>
+          <class_id>demo_virtual_clock_input.streaming_source.adtf.cid</class_id>
+          <input_pins/>
+          <output_pins>
+            <pin>
+              <name>outpin</name>
+            </pin>
+          </output_pins>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers/>
+          <binding_clients/>
+        </streaming_source>
+      </streaming_sources>
+      <streaming_dock_in_ports>
+        <sample_stream>
+          <name>video</name>
+          <class_id>default_sample_stream.streaming.adtf.cid</class_id>
+        </sample_stream>
+      </streaming_dock_in_ports>
+      <streaming_dock_out_ports/>
+      <streaming_sinks/>
+      <sample_streams/>
+      <connections>
+        <connection>
+          <name>Demo Virtual Clock Input.outpin_Filter Graph Dock.video</name>
+          <source_connector_path>
+            <connector>outpin</connector>
+            <component>Demo Virtual Clock Input</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>video</connector>
+            <component>Filter Graph Dock</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+      </connections>
       <binding_proxys/>
       <streaming_dock_interface_in_ports/>
       <streaming_dock_interface_out_ports/>

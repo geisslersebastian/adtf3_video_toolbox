@@ -124,7 +124,7 @@ public:
                     
                     minimum = pULong->minimum;
                     maximum = pULong->maximum;           
-                    propertyDefaultValue = pULong->default_value;  
+                    propertyDefaultValue = cString::FromType((tUInt64) pULong->default_value);
                     propertyType = "tUInt64";
                     break;
                 }
@@ -137,7 +137,7 @@ public:
                     
                     minimum = pLong->minimum;
                     maximum = pLong->maximum;
-                    propertyDefaultValue = pLong->default_value;
+                    propertyDefaultValue = cString::FromType((tUInt32) pLong->default_value);
 
                     propertyType = "tInt64";
                     break;
@@ -151,7 +151,7 @@ public:
                     
                     minimum = pUInt->minimum;
                     maximum = pUInt->maximum;
-                    propertyDefaultValue = pUInt->default_value;
+                    propertyDefaultValue = cString::FromType((tUInt32) pUInt->default_value);
 
                     propertyType = "tUInt32";
                     break;
@@ -165,7 +165,7 @@ public:
                     
                     minimum = pInt->minimum;
                     maximum = pInt->maximum;
-                    propertyDefaultValue = pInt->default_value;
+                    propertyDefaultValue = cString::FromType((tInt32) pInt->default_value);
                     propertyType = "tInt32";
                     break;
                 }
@@ -174,11 +174,11 @@ public:
                 {
                     GParamSpecUInt64 *pUInt64 = G_PARAM_SPEC_UINT64(param);
                     if (readable)                                        /* current */
-                        propertyValue = g_value_get_uint64(&value);
+                        propertyValue = cString::FromType((tUInt64) g_value_get_uint64(&value));
                     
-                    minimum = pUInt64->minimum;
-                    maximum = pUInt64->maximum;
-                    propertyDefaultValue = pUInt64->default_value;
+                    minimum = static_cast<tFloat64>(pUInt64->minimum);
+                    maximum = static_cast<tFloat64>(pUInt64->maximum);
+                    propertyDefaultValue = cString::FromType((tUInt64) pUInt64->default_value);
 
                     propertyType = "tUInt64";
                     break;
@@ -190,9 +190,9 @@ public:
                     if (readable)                                        /* current */
                         propertyValue = cString::FromType(g_value_get_int64(&value));
                     
-                    minimum = pInt64->minimum;
-                    maximum = pInt64->maximum;
-                    propertyDefaultValue = pInt64->default_value;
+                    minimum = static_cast<tFloat64>(pInt64->minimum);
+                    maximum = static_cast<tFloat64>(pInt64->maximum);
+                    propertyDefaultValue = cString::FromType((tInt64) pInt64->default_value);
 
                     propertyType = "tInt64";
                     break;
@@ -206,7 +206,7 @@ public:
                     
                     minimum = pFloat->minimum;
                     maximum = pFloat->maximum;
-                    propertyDefaultValue = pFloat->default_value;
+                    propertyDefaultValue = cString::FromType((tFloat32) pFloat->default_value);
 
                     propertyType = "tFloat32";
                     break;
@@ -220,7 +220,7 @@ public:
                     
                     minimum = pDouble->minimum;
                     maximum = pDouble->maximum;
-                    propertyDefaultValue = pDouble->default_value;
+                    propertyDefaultValue = cString::FromType((tFloat64) pDouble->default_value);
 
                     propertyType = "tFloat64";
                     break;

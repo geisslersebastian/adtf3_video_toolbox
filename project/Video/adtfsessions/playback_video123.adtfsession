@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<session xmlns="adtf/xsd/session">
+  <file_version>
+    <major>1</major>
+    <minor>0</minor>
+  </file_version>
+  <name>playback_video123</name>
+  <adtfsystem>
+    <url>./adtfsystems/default_system123asdf.adtfsystem</url>
+    <properties_url>./adtfsystems/default_system123asdf.adtfproperties</properties_url>
+    <property_set/>
+    <name>default_system123asdf</name>
+  </adtfsystem>
+  <adtfgraph>
+    <url>./adtfgraphs/default_graph123.adtfgraph</url>
+    <properties_url>./adtfgraphs/default_graph123.adtfproperties</properties_url>
+    <property_set/>
+    <name>default_graph123</name>
+  </adtfgraph>
+  <active_streaming_graph>default_streaming_graph</active_streaming_graph>
+  <active_filter_graph>playback_video</active_filter_graph>
+</session>
