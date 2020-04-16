@@ -14,8 +14,8 @@ class ADTF3VideoToolbox(ConanFile):
     enable_multiconfig_package = False
 
     def build_requirements(self):
-        self.build_requires("ADTF/3.7.0@dw/integration")
         self.build_requires("opencv/4.1.0@test/test")
+        self.build_requires("ADTF/3.7.0@dw/integration")
 
     def source(self):
         self.run("git clone https://github.com/geisslersebastian/adtf3_video_toolbox.git source")

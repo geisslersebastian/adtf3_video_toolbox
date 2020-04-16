@@ -56,12 +56,16 @@ public:
     void CreateElement() override
     {
         GError * pError = nullptr;
-        m_pElement = gst_parse_bin_from_description_full((*m_strElementFactory).GetPtr(), TRUE, NULL, GST_PARSE_FLAG_NO_SINGLE_ELEMENT_BINS, &pError);
+        m_pElement = gst_parse_bin_from_description_full(
+            (*m_strElementFactory).GetPtr(), 
+            TRUE, 
+            NULL, 
+            GST_PARSE_FLAG_NO_SINGLE_ELEMENT_BINS, &pError);
         //m_pElement = gst_parse_launch((*m_strElementFactory).GetPtr(), &pError);
 
         if (pError)
         {
-            LOG_ERROR(pError->message);
+            LOG_ERROR("Parse Pipeline %s in %s", pError->message, (*m_strElementFactory).GetPtr());
         }
 
         if (!m_pElement)

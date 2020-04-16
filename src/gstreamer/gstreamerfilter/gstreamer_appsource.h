@@ -51,29 +51,7 @@ public:
         m_pReader = CreateInputPin("input", pType);
         m_pReader->SetAcceptTypeCallback([&](const adtf::ucom::iobject_ptr<const IStreamType>& pStreamType)
         {
-            if (IS_OK(get_stream_type_image_format(m_sFormat, *pStreamType.Get())))
-            {
-                if (m_sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(GREYSCALE_8))
-                {
-                    m_nChannel = 1;
-                }
-                else if (m_sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(YUV420P))
-                {
-                    //strFormat = 
-                }
-                else if (m_sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(RGB_24))
-                {
-                    m_nChannel = 3;
-                }
-                else if (m_sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(RGBA_32))
-                {
-                    m_nChannel = 4;
-                }
-            }
-
-            InitElement(m_pElement);
-            
-            RETURN_NOERROR;
+            return InitStreamType(pStreamType);
         });
 
         RegisterPropertyVariable("binary", m_bBinary);
@@ -81,7 +59,7 @@ public:
 
     void CreateElement() override
     {
-        m_pElement = gst_element_factory_make("appsrc", "appsrc");
+        m_pElement = gst_element_factory_make("appsrc", ("my_" + (*m_strName)).GetPtr());
         if (!m_pElement)
         {
             THROW_ERROR_DESC(ERR_FAILED, "Could not create GStreamer Element %s ", (*m_strName).GetPtr());
@@ -174,6 +152,41 @@ public:
         RETURN_NOERROR;
     }
 
+    tResult InitStreamType(const adtf::ucom::iobject_ptr<const IStreamType>& pStreamType)
+    {
+        if (IS_OK(get_stream_type_image_format(m_sFormat, *pStreamType.Get())))
+        {
+            if (m_sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(GREYSCALE_8))
+            {
+                m_nChannel = 1;
+            }
+            else if (m_sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(YUV420P))
+            {
+                //strFormat = 
+            }
+            else if (m_sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(RGB_24))
+            {
+                m_nChannel = 3;
+            }
+            else if (m_sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(RGBA_32))
+            {
+                m_nChannel = 4;
+            }
+
+            tInt32 nSize = m_sFormat.m_ui32Width * m_sFormat.m_ui32Height * m_nChannel;
+            g_object_set(G_OBJECT(m_pElement), "blocksize", nSize,
+                NULL);
+
+            g_object_set(G_OBJECT(m_pElement), "caps", StreamTypeToCap(m_sFormat), NULL);
+        }
+        else
+        {
+            g_object_set(G_OBJECT(m_pElement), "caps", StreamTypeToCap(pStreamType), NULL);
+        }
+
+        RETURN_NOERROR;
+    }
+
     tResult InitElement(GstElement* pElement) override
     {
         tInt32 nSize = m_sFormat.m_ui32Width * m_sFormat.m_ui32Height * m_nChannel;
@@ -184,6 +197,23 @@ public:
         RETURN_NOERROR;
     }
 
+    GstCaps * StreamTypeToCap(const adtf::ucom::iobject_ptr<const IStreamType>& pStreamType)
+    {
+        cString strMetaType;
+        THROW_IF_FAILED_DESC(pStreamType->GetMetaTypeName(adtf_string_intf(strMetaType)), "Failing get meta type");
+
+        object_ptr<const IProperties> pProperties;
+        if (IS_OK(pStreamType->GetConfig(pProperties)))
+        {
+            cString strGstStructure = adtf::base::get_property<cString>(*pProperties, "gst_structure");
+
+            GstStructure* pGstStructure = gst_structure_from_string(strGstStructure.GetPtr(), NULL);
+
+            return gst_caps_new_full(pGstStructure, NULL);
+        }
+
+        THROW_ERROR_DESC(ERR_UNEXPECTED, "Streamtype has no properties");
+    }
 
     GstCaps * StreamTypeToCap(const tStreamImageFormat & sFormat)
     {

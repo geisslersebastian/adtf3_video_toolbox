@@ -24,6 +24,12 @@
       <property_set/>
       <name>compress_video</name>
     </project_file>
+    <project_file>
+      <url>./adtfsessions/convert_video.adtfsession</url>
+      <properties_url/>
+      <property_set/>
+      <name>convert_video</name>
+    </project_file>
   </session_files>
   <graph_files>
     <project_file>

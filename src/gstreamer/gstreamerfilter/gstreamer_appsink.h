@@ -20,6 +20,7 @@
 #pragma once
 
 #include <adtfstreaming3/sample_serialization_intf.h>
+#include <adtfstreaming3/helper/camelion_streamtype.h>
 
 class cAppSinkFilter : public cGStreamerBaseFilter
 {
@@ -51,6 +52,16 @@ public:
 
     tResult InitElement(GstElement* pElement) override;
 
+    void CreateElement() override
+    {
+        m_pElement = gst_element_factory_make("appsink", ("my_" + (*m_strName)).GetPtr());
+
+        if (!m_pElement)
+        {
+            THROW_ERROR_DESC(ERR_FAILED, "Could not create GStreamer Element %s ", (*m_strName).GetPtr());
+        }
+    }
+
     tResult SendData(void* pData, tUInt32 nSize)
     {
         auto tmNow = m_pClock->GetStreamTimeNs();
@@ -71,59 +82,55 @@ public:
         RETURN_NOERROR;
     }
 
-    tResult SampleType(const cString & strName, const std::map<adtf::util::cString, adtf::util::cVariant> & oProperties)
+    tResult SampleType(const adtf::util::cString & strName, const std::map<adtf::util::cString, adtf::util::cVariant> & oProperties)
     {
-        if (strName == "video/x-h264")
-        {
-            auto pAdtfStreamtype = make_object_ptr<adtf::streaming::cCamelionStreamType>(oStreamType.getMetaTypeName().c_str());
-            object_ptr<IProperties> pProperties;
-            pAdtfStreamtype->GetConfig(pProperties);
-
-            for (auto strPropertyName : oStreamType.getPropertyNames())
-            {
-                auto strType = oStreamType.getPropertyType(strPropertyName);
-                auto strValue = oStreamType.getProperty(strPropertyName);
-
-                {
-                    adtf::base::set_property<cString>(*pProperties.Get(), strPropertyName.c_str(), strValue.c_str());
-                }
-            }
-        }
-        else
+        if (strName == "video/x-raw")
         {
             int nWidth = oProperties.at("width").GetInt32();
             int nHeight = oProperties.at("height").GetInt32();
 
-            /*SampleType(nWidth, nHeight,
-                static_cast<tInt32>(3),
-                static_cast<tInt32>(nSize / nHeight));*/
+            RETURN_IF_FAILED(SampleType(nWidth, nHeight, oProperties.at("format")));
+        }
+        else
+        {
+            auto pAdtfStreamtype = make_object_ptr<adtf::streaming::cCamelionStreamType>(strName);
+            object_ptr<IProperties> pProperties;
+            RETURN_IF_FAILED(pAdtfStreamtype->GetConfig(pProperties));
+
+            for (auto oEntry : oProperties)
+            {
+                adtf::base::set_property<cString>(*pProperties.Get(), oEntry.first, oEntry.second.AsString());
+            }
+
+            object_ptr<IStreamType> pType = pAdtfStreamtype;
+            RETURN_IF_FAILED(m_pWriter->ChangeType(pType));
         }
         RETURN_NOERROR;
     }
 
-    tResult SampleType(tInt32 nWidth, tInt32 nHeight, tInt32 nDeep, tInt32 nPitch)
+    tResult SampleType(tInt32 nWidth, tInt32 nHeight, const adtf::util::cString & strFormat)
     {
         if (m_sFormat.m_ui32Width != nWidth || m_sFormat.m_ui32Height != nHeight)
         {
             m_sFormat.m_ui32Width = nWidth;
             m_sFormat.m_ui32Height = nHeight;
 
-            if (nDeep == 8)
+            if (strFormat == "GRAY8")
             {
                 m_sFormat.m_strFormatName = ADTF_IMAGE_FORMAT(GREYSCALE_8);
                 m_sFormat.m_szMaxByteSize = nWidth * nHeight;
             }
-            else if (nDeep == 12)
+            /*else if (nDeep == 12)
             {
                 m_sFormat.m_strFormatName = ADTF_IMAGE_FORMAT(YUV420P);
                 m_sFormat.m_szMaxByteSize = (nWidth * nHeight * 12) / 8;
-            }
-            else if (nDeep == 24)
+            }*/
+            else if (strFormat == "RGB")
             {
                 m_sFormat.m_strFormatName = ADTF_IMAGE_FORMAT(RGB_24);
                 m_sFormat.m_szMaxByteSize = nWidth * nHeight * 3;
             }
-            else if (nDeep == 32)
+            else if (strFormat == "RGBA")
             {
                 m_sFormat.m_strFormatName = ADTF_IMAGE_FORMAT(RGBA_32);
                 m_sFormat.m_szMaxByteSize = nWidth * nHeight * 4;
@@ -154,6 +161,7 @@ std::map<cString, cVariant> GetProperties(GstStructure* pCapsStruct)
 {
     std::map<cString, cVariant> oMap;
     gst_structure_foreach(pCapsStruct, foreach, &oMap);
+    oMap["gst_structure"] = gst_structure_to_string(pCapsStruct);
     return oMap;
 }
 
@@ -207,9 +215,8 @@ GstFlowReturn new_sample(GstElement* pSink, cAppSinkFilter* pFilter) {
             return GST_FLOW_OK;
         }
 
-        LOG_INFO("Struct %s", gst_structure_get_name(pCapsStruct));
+        //LOG_INFO("Struct %s", gst_structure_get_name(pCapsStruct));
 
-        
         /*
         // get width & height of the buffer
         int nWidth = 0;

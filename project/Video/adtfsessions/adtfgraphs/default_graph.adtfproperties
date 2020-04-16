@@ -515,25 +515,30 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/video_compression/filters/GStreamer Launcher Filter</name>
+          <name>graphs/video_compression/filters/Compress</name>
           <properties>
             <property>
               <name>element_factory</name>
-              <value>videotestsrc ! videoconvert ! x264enc byte-stream=1 ! queue</value>
+              <value> videoconvert ! x264enc byte-stream=1 ! queue</value>
               <type>cString</type>
             </property>
           </properties>
         </property_set>
         <property_set>
-          <name>graphs/video_compression/filters/GStreamer Launcher Filter_1</name>
+          <name>graphs/video_compression/filters/Decompress</name>
           <properties>
             <property>
               <name>element_factory</name>
-              <value>queue ! 'video/x-h264' ! h264parse ! avdec_h264 ! videoconvert ! autovideosink</value>
+              <value>h264parse ! avdec_h264 ! videoconvert ! capsfilter caps=video/x-raw,format=RGB</value>
               <type>cString</type>
             </property>
             <property>
               <name>last_pipeline_element</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>dynamic_pad</name>
               <value>false</value>
               <type>tBool</type>
             </property>
@@ -580,19 +585,7 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/video_compression/binding_proxys/GStreamer Launcher Filter.out</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/video_compression/connections/GStreamer Launcher Filter.out_GStreamer Launcher Filter.out.</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/video_compression/connections/GStreamer Launcher Filter.out._appsink.in</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/video_compression/filters/GStreamer Launcher Filter/binding_servers/out</name>
+          <name>graphs/video_compression/filters/Compress/binding_servers/out</name>
           <properties/>
         </property_set>
         <property_set>
@@ -608,7 +601,7 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/video_compression/connections/appsource.out._GStreamer Launcher Filter_1.in</name>
+          <name>graphs/video_compression/connections/appsource.out._Decompress.in</name>
           <properties/>
         </property_set>
         <property_set>
@@ -616,7 +609,506 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/video_compression/filters/GStreamer Launcher Filter_1/binding_clients/in</name>
+          <name>graphs/video_compression/filters/Decompress/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/appsink1</name>
+          <properties>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/Decompress/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/appsink1/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/Demo Qt Video Display</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/sample_streams/appsink1.outpin</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/appsink1.outpin_appsink1.outpin.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/appsink1.outpin._Demo Qt Video Display.video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/appsink1/output_pins/outpin</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/Demo Qt Video Display/input_pins/video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/videotestsrc</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/binding_proxys/videotestsrc.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/videotestsrc.out_videotestsrc.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/videotestsrc.out._Compress.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/videotestsrc/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/Compress/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/filesrc</name>
+          <properties>
+            <property>
+              <name>dynamic_pad</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>element_factory</name>
+              <value>filesrc</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_blocksize</name>
+              <value>4096</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_do-timestamp</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_location</name>
+              <value>C:/Private/Download/trailer.mp4</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_num-buffers</name>
+              <value>-1</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_parent</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_typefind</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>name</name>
+              <value>filesrc</value>
+              <type>cString</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/filesrc/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/decodebin</name>
+          <properties>
+            <property>
+              <name>dynamic_pad</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/binding_proxys/filesrc.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/filesrc.out_filesrc.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/filesrc.out._decodebin.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/decodebin/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/decodebin.out_videotestsrc.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/filters/decodebin/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/binding_proxys/Decompress.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/Decompress.out_Decompress.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/Decompress.out._appsink1.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/binding_proxys/Compress.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/Compress.out_Compress.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/video_compression/connections/Compress.out._appsink.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/filesrc</name>
+          <properties>
+            <property>
+              <name>dynamic_pad</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>element_factory</name>
+              <value>filesrc</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_blocksize</name>
+              <value>4096</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_do-timestamp</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_location</name>
+              <value>C:/Private/Download/trailer.mp4</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_num-buffers</name>
+              <value>-1</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_parent</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_typefind</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>name</name>
+              <value>filesrc</value>
+              <type>cString</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/decodebin</name>
+          <properties>
+            <property>
+              <name>dynamic_pad</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/binding_proxys/filesrc.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/filesrc.out_filesrc.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/filesrc.out._decodebin.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/filesrc/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/decodebin/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/appsink</name>
+          <properties>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/decodebin/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/appsink/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/capsfilter</name>
+          <properties>
+            <property>
+              <name>dynamic_pad</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>element_factory</name>
+              <value>capsfilter</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_caps</name>
+              <value>video/x-raw,format=RGB</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_caps-change-mode</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_parent</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_qos</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>name</name>
+              <value>capsfilter</value>
+              <type>cString</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/binding_proxys/decodebin.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/decodebin.out_decodebin.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/capsfilter/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/capsfilter/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/Demo Qt Video Display</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/sample_streams/appsink.outpin</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/appsink.outpin_appsink.outpin.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/appsink.outpin._Demo Qt Video Display.video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/appsink/output_pins/outpin</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/Demo Qt Video Display/input_pins/video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/videoconvert</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/decodebin.out._videoconvert.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/videoconvert/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/binding_proxys/capsfilter.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/capsfilter.out_capsfilter.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/capsfilter.out._appsink.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/binding_proxys/videoconvert.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/videoconvert.out_videoconvert.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/videoconvert.out._capsfilter.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/videoconvert/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/image_to_mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/mat_to_image</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/DNN Filter</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/appsink.outpin._image_to_mat.image</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/image_to_mat/input_pins/image</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/sample_streams/Image to Mat Filter.mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/image_to_mat.mat_Image to Mat Filter.mat.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/Image to Mat Filter.mat._DNN Filter.mat_in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/image_to_mat/output_pins/mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/DNN Filter/input_pins/mat_in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/sample_streams/DNN Filter.mat_out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/DNN Filter.mat_out_DNN Filter.mat_out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/DNN Filter.mat_out._mat_to_image.mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/DNN Filter/output_pins/mat_out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/mat_to_image/input_pins/mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/Demo Qt Video Display_1</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/sample_streams/Mat to Image Filter.image</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/mat_to_image.image_Mat to Image Filter.image.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/Mat to Image Filter.image._Demo Qt Video Display_1.video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/mat_to_image/output_pins/image</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/Demo Qt Video Display_1/input_pins/video</name>
           <properties/>
         </property_set>
       </property_sets>
