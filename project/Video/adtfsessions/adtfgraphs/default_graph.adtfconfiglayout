@@ -2391,8 +2391,8 @@
         <layout_set>
           <name>graphs/convert_video/filters/mat_to_image</name>
           <boundary>
-            <x>1141</x>
-            <y>613</y>
+            <x>1220</x>
+            <y>639</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -2408,8 +2408,8 @@
         <layout_set>
           <name>graphs/convert_video/filters/DNN Filter</name>
           <boundary>
-            <x>677</x>
-            <y>613</y>
+            <x>537</x>
+            <y>902</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -2493,8 +2493,8 @@
         <layout_set>
           <name>graphs/convert_video/sample_streams/DNN Filter.mat_out</name>
           <boundary>
-            <x>996</x>
-            <y>668</y>
+            <x>982</x>
+            <y>888</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -2525,7 +2525,126 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/DNN Filter.mat_out._mat_to_image.mat</name>
+          <name>graphs/convert_video/sample_streams/Mat to Image Filter.image</name>
+          <boundary>
+            <x>1482</x>
+            <y>672</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/convert_video/connections/mat_to_image.image_Mat to Image Filter.image.</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/convert_video/filters/DNN Plot Filter</name>
+          <boundary>
+            <x>772</x>
+            <y>636</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/convert_video/sample_streams/DNN Plot Filter.mat_out</name>
+          <boundary>
+            <x>1095</x>
+            <y>682</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/convert_video/connections/DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/convert_video/connections/DNN Plot Filter.mat_out._mat_to_image.mat</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/convert_video/connections/DNN Filter.mat_out._DNN Plot Filter.dnn</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/convert_video/connections/Image to Mat Filter.mat._DNN Plot Filter.mat_in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2544,42 +2663,8 @@
         <layout_set>
           <name>graphs/convert_video/filters/Demo Qt Video Display_1</name>
           <boundary>
-            <x>1668</x>
-            <y>613</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/convert_video/sample_streams/Mat to Image Filter.image</name>
-          <boundary>
-            <x>1519</x>
-            <y>690</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/convert_video/connections/mat_to_image.image_Mat to Image Filter.image.</name>
-          <boundary>
-            <x>0</x>
-            <y>0</y>
+            <x>1739</x>
+            <y>609</y>
             <width>0</width>
             <height>0</height>
           </boundary>

@@ -1037,7 +1037,33 @@
         </property_set>
         <property_set>
           <name>graphs/convert_video/filters/DNN Filter</name>
-          <properties/>
+          <properties>
+            <property>
+              <name>config</name>
+              <value>../../../yolov3-tiny.cfg</value>
+              <type>cFilename</type>
+            </property>
+            <property>
+              <name>module</name>
+              <value>../../../yolov3-tiny.weights</value>
+              <type>cFilename</type>
+            </property>
+            <property>
+              <name>blob_input_height</name>
+              <value>416</value>
+              <type>tInt32</type>
+            </property>
+            <property>
+              <name>blob_input_width</name>
+              <value>416</value>
+              <type>tInt32</type>
+            </property>
+            <property>
+              <name>blob_scale</name>
+              <value>0.00392</value>
+              <type>tFloat32</type>
+            </property>
+          </properties>
         </property_set>
         <property_set>
           <name>graphs/convert_video/connections/appsink.outpin._image_to_mat.image</name>
@@ -1076,19 +1102,11 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/DNN Filter.mat_out._mat_to_image.mat</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/convert_video/filters/DNN Filter/output_pins/mat_out</name>
           <properties/>
         </property_set>
         <property_set>
           <name>graphs/convert_video/filters/mat_to_image/input_pins/mat</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/convert_video/filters/Demo Qt Video Display_1</name>
           <properties/>
         </property_set>
         <property_set>
@@ -1100,11 +1118,51 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/Mat to Image Filter.image._Demo Qt Video Display_1.video</name>
+          <name>graphs/convert_video/filters/mat_to_image/output_pins/image</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/mat_to_image/output_pins/image</name>
+          <name>graphs/convert_video/filters/DNN Plot Filter</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/sample_streams/DNN Plot Filter.mat_out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/DNN Plot Filter.mat_out._mat_to_image.mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/DNN Plot Filter/output_pins/mat_out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/DNN Filter.mat_out._DNN Plot Filter.dnn</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/DNN Plot Filter/input_pins/dnn</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/Image to Mat Filter.mat._DNN Plot Filter.mat_in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/DNN Plot Filter/input_pins/mat_in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/Demo Qt Video Display_1</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/Mat to Image Filter.image._Demo Qt Video Display_1.video</name>
           <properties/>
         </property_set>
         <property_set>

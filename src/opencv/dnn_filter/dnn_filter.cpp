@@ -166,5 +166,103 @@ public:
     
 };
 
+class cDNNOpenCVPlotFilter : public cOpenCVBaseFilter
+{
+public:
+    ADTF_CLASS_ID_NAME(cDNNOpenCVPlotFilter,
+        "dnn_plot.opencv.videotb.cid",
+        "DNN Plot Filter");
+
+public:
+
+    cDNNOpenCVPlotFilter()
+    {
+        SetDescription("Simple DNN Result Plot");
+        object_ptr<IStreamType> pStreamType = make_object_ptr<cStreamType>(stream_meta_type_mat());
+        m_pDNNPin = CreateInputPin("dnn", pStreamType);
+    }
+
+    ~cDNNOpenCVPlotFilter()
+    {
+
+    }
+
+    tResult OnStagePreConnect() override
+    {
+        
+        RETURN_NOERROR;
+    }
+
+    tResult ProcessInput(ISampleReader* pReader,
+        const iobject_ptr<const ISample>& pSample) override
+    {
+        if (pReader == m_pDNNPin)
+        {
+            m_pDNNData = pSample;
+            RETURN_NOERROR;
+        }
+
+        return cOpenCVBaseFilter::ProcessInput(pReader, pSample);
+    }
+
+    cv::Mat ProcessMat(const cv::Mat & oMat)
+    {
+        cv::Mat oResult = oMat;
+
+        if(m_pDNNData)
+        {
+            auto dnnMat = m_pDNNData->GetMat();
+
+            float* data = (float*)dnnMat.data;
+            for (size_t i = 0; i < dnnMat.total(); i += 7)
+            {
+                float confidence = data[i + 2];
+                if (confidence > 0.2)
+                {
+                    int left = (int)data[i + 3];
+                    int top = (int)data[i + 4];
+                    int right = (int)data[i + 5];
+                    int bottom = (int)data[i + 6];
+                    int width = right - left + 1;
+                    int height = bottom - top + 1;
+                    int classId = (int)(data[i + 1]);  // Skip 0th background class id.
+                
+                    DrawPred(classId, confidence, left, top, right, bottom, oResult);
+                }
+            }
+        }
+        return oResult;
+    }
+
+    void DrawPred(int classId, float conf, int left, int top, int right, int bottom, Mat& frame)
+    {
+        rectangle(frame, Point(left, top), Point(right, bottom), Scalar(0, 255, 0));
+
+        std::string label = format("%.2f", conf);
+        if (!lstClasses.empty())
+        {
+            CV_Assert(classId < (int)lstClasses.size());
+            label = lstClasses[classId] + ": " + label;
+        }
+
+        int baseLine;
+        Size labelSize = getTextSize(label, FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+
+        top = max(top, labelSize.height);
+        rectangle(frame, Point(left, top - labelSize.height),
+            Point(left + labelSize.width, top + baseLine), Scalar::all(255), FILLED);
+        putText(frame, label, Point(left, top), FONT_HERSHEY_SIMPLEX, 0.5, Scalar());
+    }
+
+
+private:
+    cPinReader* m_pDNNPin;
+    object_ptr<const IOpenCVSample> m_pDNNData;
+
+    std::vector<std::string> lstClasses = { "background", "person","bicycle","car","motorbike","aeroplane","bus","train","truck","boat","traffic light","fire hydrant","stop sign","parking meter","bench","bird","cat","dog","horse","sheep","cow","elephant","bear","zebra","giraffe","backpack","umbrella","handbag","tie","suitcase","frisbee","skis","snowboard","sports ball","kite","baseball bat","baseball glove","skateboard","surfboard","tennis racket","bottle","wine glass","cup","fork","knife","spoon","bowl","banana","apple","sandwich","orange","broccoli","carrot","hot dog","pizza","donut","cake","chair","sofa","pottedplant","bed","diningtable","toilet","tvmonitor","laptop","mouse","remote","keyboard","cell phone","microwave","oven","toaster","sink","refrigerator","book","clock","vase","scissors","teddy bear","hair drier","toothbrush" };
+
+};
+
 ADTF_PLUGIN("OpenCV DNN Filter Plugin",
-    cDNNOpenCVFilter)
+    cDNNOpenCVFilter,
+    cDNNOpenCVPlotFilter)

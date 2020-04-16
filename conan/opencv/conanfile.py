@@ -11,28 +11,31 @@ class OpenCV(ConanFile):
     settings = {"os": ["Windows", "Linux"], "arch": ["x86_64"], "compiler": ["Visual Studio", "gcc"], "build_type": ["Debug", "Release"]}
     
     options = {"cuda": [True, False]}
-    default_options = {"cuda": False}
+    default_options = {"cuda": True}
     
-    short_paths = True
     no_copy_source = True
     cmake = None
     
-    scm = {
-        "type": "git",
-        "url": "https://github.com/opencv/opencv",
-        "revision": "master"
-    }     
+    #scm = {
+    #    "type": "git",
+    #    "url": "https://github.com/opencv/opencv",
+    #    "revision": "master"
+    #}   
+
+    def source(self):
+        self.run("git clone https://github.com/opencv/opencv.git source")
+        self.run("git clone https://github.com/opencv/opencv_contrib.git opencv_contrib")
     
     def build(self):
         cmake = CMake(self)
         # same as cmake.configure(source_folder=self.source_folder, build_folder=self.build_folder)
-        cmake.configure()
         
         if self.options.cuda:
             cmake.definitions["WITH_CUDA"] = "ON"
             cmake.definitions["WITH_CUDNN"] = "ON"
             cmake.definitions["OPENCV_DNN_CUDE"] = "ON"
-        
+            cmake.definitions["OPENCV_EXTRA_MODULES_PATH"] = self.source_folder + "/opencv_contrib/modules"
+        cmake.configure()
         cmake.build()
         #cmake.test() # Build the "RUN_TESTS" or "test" target
         # Build the "install" target, defining CMAKE_INSTALL_PREFIX to self.package_folder

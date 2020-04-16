@@ -1207,6 +1207,27 @@
           <binding_clients/>
         </filter>
         <filter>
+          <name>DNN Plot Filter</name>
+          <class_id>dnn_plot.opencv.videotb.cid</class_id>
+          <input_pins>
+            <pin>
+              <name>dnn</name>
+            </pin>
+            <pin>
+              <name>mat_in</name>
+            </pin>
+          </input_pins>
+          <output_pins>
+            <pin>
+              <name>mat_out</name>
+            </pin>
+          </output_pins>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers/>
+          <binding_clients/>
+        </filter>
+        <filter>
           <name>Demo Qt Video Display_1</name>
           <class_id>demo_qt_video_display.ui_filter.adtf.cid</class_id>
           <input_pins>
@@ -1245,6 +1266,10 @@
         </sample_stream>
         <sample_stream>
           <name>Mat to Image Filter.image</name>
+          <class_id>default_sample_stream.streaming.adtf.cid</class_id>
+        </sample_stream>
+        <sample_stream>
+          <name>DNN Plot Filter.mat_out</name>
           <class_id>default_sample_stream.streaming.adtf.cid</class_id>
         </sample_stream>
       </sample_streams>
@@ -1479,10 +1504,40 @@
           <sync>true</sync>
         </connection>
         <connection>
-          <name>DNN Filter.mat_out._mat_to_image.mat</name>
+          <name>mat_to_image.image_Mat to Image Filter.image.</name>
+          <source_connector_path>
+            <connector>image</connector>
+            <component>mat_to_image</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>Mat to Image Filter.image</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
+          <source_connector_path>
+            <connector>mat_out</connector>
+            <component>DNN Plot Filter</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>DNN Plot Filter.mat_out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>DNN Plot Filter.mat_out._mat_to_image.mat</name>
           <source_connector_path>
             <connector/>
-            <component>DNN Filter.mat_out</component>
+            <component>DNN Plot Filter.mat_out</component>
             <portbindingobject/>
           </source_connector_path>
           <destination_connector_path>
@@ -1494,15 +1549,30 @@
           <sync>true</sync>
         </connection>
         <connection>
-          <name>mat_to_image.image_Mat to Image Filter.image.</name>
+          <name>DNN Filter.mat_out._DNN Plot Filter.dnn</name>
           <source_connector_path>
-            <connector>image</connector>
-            <component>mat_to_image</component>
+            <connector/>
+            <component>DNN Filter.mat_out</component>
             <portbindingobject/>
           </source_connector_path>
           <destination_connector_path>
+            <connector>dnn</connector>
+            <component>DNN Plot Filter</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>Image to Mat Filter.mat._DNN Plot Filter.mat_in</name>
+          <source_connector_path>
             <connector/>
-            <component>Mat to Image Filter.image</component>
+            <component>Image to Mat Filter.mat</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>mat_in</connector>
+            <component>DNN Plot Filter</component>
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
