@@ -237,16 +237,16 @@ public:
 
                 if (confidence > 0.2)
                 {
-                    int center_x = (int) (data[i + 0] * oMat.rows);
-                    int center_y = (int) (data[i + 1] * oMat.cols);
-                    int width = (int) (data[i + 2] * oMat.rows);
-                    int height = (int) (data[i + 3] * oMat.cols);
+                    int center_x = (int) (data[i + 0] * oMat.cols);
+                    int center_y = (int) (data[i + 1] * oMat.rows);
+                    int width = (int) (data[i + 2] * oMat.cols);
+                    int height = (int) (data[i + 3] * oMat.rows);
                     
                     DrawPred(classid, confidence, 
                         center_x - width/2, 
                         center_y - height/2, 
-                        width + width/2,
-                        height + height/2, 
+                        center_x + width/2,
+                        center_y + height/2,
                         oResult);
                 }
             }
