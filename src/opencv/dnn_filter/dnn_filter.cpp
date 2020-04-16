@@ -213,21 +213,41 @@ public:
         {
             auto dnnMat = m_pDNNData->GetMat();
 
+            int w = dnnMat.cols;
+            int h = dnnMat.rows;
+
             float* data = (float*)dnnMat.data;
-            for (size_t i = 0; i < dnnMat.total(); i += 7)
+            for (size_t i = 0; i < dnnMat.total(); i += w)
             {
-                float confidence = data[i + 2];
+
+                float confidence = 0.0;
+                size_t classid = 0;
+
+                for (size_t j = 5; j < w; j++)
+                {
+                    float c = data[i + j] + 0.0;
+
+                    if (confidence < c)
+                    {
+                        //log.info("Confidence: " + c + " " + j + " " + root.classes[j]);
+                        confidence = c;
+                        classid = j - 5;
+                    }
+                }
+
                 if (confidence > 0.2)
                 {
-                    int left = (int)data[i + 3];
-                    int top = (int)data[i + 4];
-                    int right = (int)data[i + 5];
-                    int bottom = (int)data[i + 6];
-                    int width = right - left + 1;
-                    int height = bottom - top + 1;
-                    int classId = (int)(data[i + 1]);  // Skip 0th background class id.
-                
-                    DrawPred(classId, confidence, left, top, right, bottom, oResult);
+                    int center_x = (int) (data[i + 0] * oMat.rows);
+                    int center_y = (int) (data[i + 1] * oMat.cols);
+                    int width = (int) (data[i + 2] * oMat.rows);
+                    int height = (int) (data[i + 3] * oMat.cols);
+                    
+                    DrawPred(classid, confidence, 
+                        center_x - width/2, 
+                        center_y - height/2, 
+                        width + width/2,
+                        height + height/2, 
+                        oResult);
                 }
             }
         }
@@ -259,7 +279,7 @@ private:
     cPinReader* m_pDNNPin;
     object_ptr<const IOpenCVSample> m_pDNNData;
 
-    std::vector<std::string> lstClasses = { "background", "person","bicycle","car","motorbike","aeroplane","bus","train","truck","boat","traffic light","fire hydrant","stop sign","parking meter","bench","bird","cat","dog","horse","sheep","cow","elephant","bear","zebra","giraffe","backpack","umbrella","handbag","tie","suitcase","frisbee","skis","snowboard","sports ball","kite","baseball bat","baseball glove","skateboard","surfboard","tennis racket","bottle","wine glass","cup","fork","knife","spoon","bowl","banana","apple","sandwich","orange","broccoli","carrot","hot dog","pizza","donut","cake","chair","sofa","pottedplant","bed","diningtable","toilet","tvmonitor","laptop","mouse","remote","keyboard","cell phone","microwave","oven","toaster","sink","refrigerator","book","clock","vase","scissors","teddy bear","hair drier","toothbrush" };
+    std::vector<std::string> lstClasses = { "person","bicycle","car","motorbike","aeroplane","bus","train","truck","boat","traffic light","fire hydrant","stop sign","parking meter","bench","bird","cat","dog","horse","sheep","cow","elephant","bear","zebra","giraffe","backpack","umbrella","handbag","tie","suitcase","frisbee","skis","snowboard","sports ball","kite","baseball bat","baseball glove","skateboard","surfboard","tennis racket","bottle","wine glass","cup","fork","knife","spoon","bowl","banana","apple","sandwich","orange","broccoli","carrot","hot dog","pizza","donut","cake","chair","sofa","pottedplant","bed","diningtable","toilet","tvmonitor","laptop","mouse","remote","keyboard","cell phone","microwave","oven","toaster","sink","refrigerator","book","clock","vase","scissors","teddy bear","hair drier","toothbrush" };
 
 };
 

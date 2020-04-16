@@ -107,7 +107,7 @@ public:
                            m_nMatType);
 
             cMemoryBlock::MemCopy(oMat.data, pBuffer->GetPtr(), m_nSize);
-
+            cv::cvtColor(oMat, oMat, cv::COLOR_RGB2BGR);
             object_ptr<const ISample> pOutSample = make_object_ptr<cOpenCVSample>(oMat);
             m_pOutput->Write(pOutSample);
         }

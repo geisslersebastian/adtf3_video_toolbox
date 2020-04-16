@@ -169,7 +169,7 @@
             <width>0</width>
             <height>0</height>
           </boundary>
-          <selected>true</selected>
+          <selected>false</selected>
           <connection_layout>
             <name/>
             <centerLineIsManual>false</centerLineIsManual>
@@ -2375,7 +2375,7 @@
           <name>graphs/convert_video/filters/image_to_mat</name>
           <boundary>
             <x>179</x>
-            <y>601</y>
+            <y>600</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -2561,8 +2561,8 @@
         <layout_set>
           <name>graphs/convert_video/filters/DNN Plot Filter</name>
           <boundary>
-            <x>772</x>
-            <y>636</y>
+            <x>761</x>
+            <y>645</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -2663,8 +2663,8 @@
         <layout_set>
           <name>graphs/convert_video/filters/Demo Qt Video Display_1</name>
           <boundary>
-            <x>1739</x>
-            <y>609</y>
+            <x>1709</x>
+            <y>645</y>
             <width>0</width>
             <height>0</height>
           </boundary>
