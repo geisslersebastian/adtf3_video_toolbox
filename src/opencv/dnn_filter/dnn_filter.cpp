@@ -62,6 +62,9 @@ public:
     Net m_oDnnNet;
     std::vector<std::string> m_vecOutputLayerNames;
 
+    property_variable<tInt32> m_nBackend = 0;
+    property_variable<tInt32> m_nTarget = 0;
+
 public:
     
     cDNNOpenCVFilter()
@@ -78,6 +81,32 @@ public:
 
         RegisterPropertyVariable("blob_input_width", m_fBlobWidth);
         RegisterPropertyVariable("blob_input_height", m_fBlobHeight);
+
+        m_nBackend.SetDescription("Enum of computation backends supported by layers.");
+        m_nBackend.SetValueList({
+            {cv::dnn::DNN_BACKEND_DEFAULT, "DNN_BACKEND_DEFAULT"},
+            {cv::dnn::DNN_BACKEND_HALIDE, "DNN_BACKEND_HALIDE"},
+            {cv::dnn::DNN_BACKEND_INFERENCE_ENGINE, "DNN_BACKEND_INFERENCE_ENGINE"},
+            {cv::dnn::DNN_BACKEND_OPENCV, "DNN_BACKEND_OPENCV"},
+            {cv::dnn::DNN_BACKEND_VKCOM, "DNN_BACKEND_VKCOM"},
+            {cv::dnn::DNN_BACKEND_CUDA, "DNN_BACKEND_CUDA"},
+            });
+
+        RegisterPropertyVariable("backend", m_nBackend);
+
+        m_nTarget.SetDescription("Enum of target devices for computations.");
+        m_nTarget.SetValueList({
+            {cv::dnn::DNN_TARGET_CPU, "DNN_TARGET_CPU"},
+            {cv::dnn::DNN_TARGET_OPENCL, "DNN_TARGET_OPENCL"},
+            {cv::dnn::DNN_TARGET_OPENCL_FP16, "DNN_TARGET_OPENCL_FP16"},
+            {cv::dnn::DNN_TARGET_MYRIAD, "DNN_TARGET_MYRIAD"},
+            {cv::dnn::DNN_TARGET_VULKAN, "DNN_TARGET_VULKAN"},
+            {cv::dnn::DNN_TARGET_FPGA, "DNN_TARGET_FPGA"},
+            {cv::dnn::DNN_TARGET_CUDA, "DNN_TARGET_CUDA"},
+            {cv::dnn::DNN_TARGET_CUDA_FP16, "DNN_TARGET_CUDA_FP16"},
+            });
+
+        RegisterPropertyVariable("target", m_nTarget);
     }
     
     ~cDNNOpenCVFilter()

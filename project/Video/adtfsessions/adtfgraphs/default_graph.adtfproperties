@@ -964,10 +964,6 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/Demo Qt Video Display</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/convert_video/sample_streams/appsink.outpin</name>
           <properties/>
         </property_set>
@@ -976,15 +972,7 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/appsink.outpin._Demo Qt Video Display.video</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/convert_video/filters/appsink/output_pins/outpin</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/convert_video/filters/Demo Qt Video Display/input_pins/video</name>
           <properties/>
         </property_set>
         <property_set>
@@ -1078,10 +1066,6 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/image_to_mat.mat_Image to Mat Filter.mat.</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/convert_video/connections/Image to Mat Filter.mat._DNN Filter.mat_in</name>
           <properties/>
         </property_set>
@@ -1167,6 +1151,10 @@
         </property_set>
         <property_set>
           <name>graphs/convert_video/filters/Demo Qt Video Display_1/input_pins/video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/image_to_mat.mat_Image to Mat Filter.mat.</name>
           <properties/>
         </property_set>
       </property_sets>

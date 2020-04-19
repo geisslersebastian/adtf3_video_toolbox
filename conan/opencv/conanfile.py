@@ -23,8 +23,8 @@ class OpenCV(ConanFile):
     #}   
 
     def source(self):
-        self.run("git clone https://github.com/opencv/opencv.git source")
-        self.run("git clone https://github.com/opencv/opencv_contrib.git opencv_contrib")
+        self.run("git clone https://github.com/opencv/opencv.git "+self.source_folder+"/source")
+        self.run("git clone https://github.com/opencv/opencv_contrib.git "+self.source_folder+"/opencv_contrib")
     
     def build(self):
         cmake = CMake(self)
@@ -35,7 +35,7 @@ class OpenCV(ConanFile):
             cmake.definitions["WITH_CUDNN"] = "ON"
             cmake.definitions["OPENCV_DNN_CUDE"] = "ON"
             cmake.definitions["OPENCV_EXTRA_MODULES_PATH"] = self.source_folder + "/opencv_contrib/modules"
-        cmake.configure()
+        cmake.configure(source_folder=self.source_folder+"/source")
         cmake.build()
         #cmake.test() # Build the "RUN_TESTS" or "test" target
         # Build the "install" target, defining CMAKE_INSTALL_PREFIX to self.package_folder

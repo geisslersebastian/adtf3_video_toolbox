@@ -70,6 +70,9 @@
     <plugin>
       <url>$(ADTF_DIR)/bin/adtf_sample_stream_trace_view_ui.adtfplugin</url>
     </plugin>
+    <plugin>
+      <url>C:/dev/adtf3_video_toolbox2/debug/package/bin/opencv_resize_filter.adtfplugin</url>
+    </plugin>
   </plugins>
   <debug_plugins>
     <plugin>
@@ -110,6 +113,9 @@
     </plugin>
     <plugin>
       <url>$(ADTF_DIR)/bin/debug/adtf_qtquick_filter.adtfplugin</url>
+    </plugin>
+    <plugin>
+      <url>C:/dev/adtf3_video_toolbox2/release/package/bin/debug/opencv_resize_filter.adtfplugin</url>
     </plugin>
   </debug_plugins>
   <services>
