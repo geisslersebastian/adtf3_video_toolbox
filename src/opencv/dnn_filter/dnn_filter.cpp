@@ -124,15 +124,28 @@ public:
         {
             RETURN_ERROR_DESC(ERR_NOT_FOUND, "Could not find dnn module at %s", m_strModule->GetPtr());
         }
+        
+        LOG_INFO("Load DNN Config %s", m_strConfig->GetPtr());
+        LOG_INFO("Load DNN Module %s", m_strModule->GetPtr());
 
-        m_oDnnNet = readNet(m_strConfig->GetPtr(),
-            m_strModule->GetPtr());
-
+        try
+        {
+            m_oDnnNet = readNet(m_strConfig->GetPtr(),
+                m_strModule->GetPtr());
+        }
+        catch (std::exception oException)
+        {
+            LOG_ERROR("Failed to created DNN Net %s", oException.what());
+            RETURN_ERROR_DESC(ERR_FAILED, "Failed to created DNN Net %s", oException.what());
+        }
         if (m_oDnnNet.empty())
         {
             RETURN_ERROR_DESC(ERR_NOT_READY, "Error while creating Dnn net");
         }
 
+        m_oDnnNet.setPreferableBackend(m_nBackend);
+        m_oDnnNet.setPreferableTarget(m_nTarget);
+        
         m_vecOutputLayerNames.clear();
 
         std::vector<int> unconnectedLayers = m_oDnnNet.getUnconnectedOutLayers();
@@ -166,7 +179,7 @@ public:
         if (!m_oDnnNet.empty())
         {
             Mat oBlob = blobFromImage(oMat,
-                *m_fBlobScale,
+                1.0/255.0,
                 Size(m_fBlobWidth, m_fBlobHeight),
                 Scalar(m_fBlobMeanRed, m_fBlobMeanGreen, m_fBlobMeanBlue),
                 true,
@@ -182,7 +195,7 @@ public:
             getOutputsNames(m_oDnnNet);
 
             std::vector<Mat> outs;
-            m_oDnnNet.forward(outs, getOutputsNames(m_oDnnNet));
+            m_oDnnNet.forward(outs, getOutputsNames(m_oDnnNet)[0]);
 
             std::vector<int> outLayers = m_oDnnNet.getUnconnectedOutLayers();
             std::string outLayerType = m_oDnnNet.getLayer(outLayers[0])->type;
@@ -254,7 +267,7 @@ public:
 
                 for (size_t j = 5; j < w; j++)
                 {
-                    float c = data[i + j] + 0.0;
+                    float c = data[i + j];
 
                     if (confidence < c)
                     {
@@ -264,7 +277,7 @@ public:
                     }
                 }
 
-                if (confidence > 0.2)
+                if (confidence > 0.05)
                 {
                     int center_x = (int) (data[i + 0] * oMat.cols);
                     int center_y = (int) (data[i + 1] * oMat.rows);
@@ -285,7 +298,7 @@ public:
 
     void DrawPred(int classId, float conf, int left, int top, int right, int bottom, Mat& frame)
     {
-        rectangle(frame, Point(left, top), Point(right, bottom), Scalar(0, 255, 0));
+        rectangle(frame, Point(left, top), Point(right, bottom), Scalar(0, 255, 0), 2);
 
         std::string label = format("%.2f", conf);
         if (!lstClasses.empty())

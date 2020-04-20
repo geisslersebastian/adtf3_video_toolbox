@@ -1189,6 +1189,7 @@
           </output_pins>
           <runners/>
           <init_priority>0</init_priority>
+          <deactivated>false</deactivated>
           <binding_servers/>
           <binding_clients/>
         </filter>
@@ -1227,8 +1228,32 @@
           <binding_servers/>
           <binding_clients/>
         </filter>
+        <filter>
+          <name>videoscale</name>
+          <class_id>gstreamerfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
       </filters>
-      <subgraphs/>
+      <subgraphs>
+        <subgraph>
+          <name>to_file</name>
+          <graph>create_video_mkv</graph>
+          <init_priority>0</init_priority>
+        </subgraph>
+      </subgraphs>
       <input_data_ports/>
       <output_data_ports/>
       <input_interface_ports/>
@@ -1271,6 +1296,10 @@
         </binding_proxy>
         <binding_proxy>
           <name>capsfilter.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+        </binding_proxy>
+        <binding_proxy>
+          <name>videoscale.out</name>
           <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
         </binding_proxy>
         <binding_proxy>
@@ -1385,36 +1414,6 @@
           <sync>true</sync>
         </connection>
         <connection>
-          <name>videoconvert.out_videoconvert.out.</name>
-          <source_connector_path>
-            <connector>out</connector>
-            <component>videoconvert</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector/>
-            <component>videoconvert.out</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <sync>true</sync>
-        </connection>
-        <connection>
-          <name>videoconvert.out._capsfilter.in</name>
-          <source_connector_path>
-            <connector/>
-            <component>videoconvert.out</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector>in</connector>
-            <component>capsfilter</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <sync>true</sync>
-        </connection>
-        <connection>
           <name>appsink.outpin._image_to_mat.image</name>
           <source_connector_path>
             <connector/>
@@ -1442,6 +1441,7 @@
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
+          <deactivated>false</deactivated>
           <sync>true</sync>
         </connection>
         <connection>
@@ -1457,6 +1457,7 @@
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
+          <deactivated>false</deactivated>
           <sync>true</sync>
         </connection>
         <connection>
@@ -1564,6 +1565,568 @@
           <priority>0</priority>
           <sync>true</sync>
         </connection>
+        <connection>
+          <name>videoscale.out._capsfilter.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>videoscale.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>capsfilter</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>videoconvert.out_videoconvert.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>videoconvert</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>videoconvert.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>videoconvert.out._videoscale.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>videoconvert.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>videoscale</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>videoscale.out_videoscale.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>videoscale</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>videoscale.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>Mat to Image Filter.image._to_file.video</name>
+          <source_connector_path>
+            <connector/>
+            <component>Mat to Image Filter.image</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>video</connector>
+            <component>to_file</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+      </connections>
+      <streaming_interface_in_ports/>
+      <streaming_interface_out_ports/>
+    </graph>
+    <graph>
+      <name>simplepipe</name>
+      <filters>
+        <filter>
+          <name>GStreamer test Pipeline</name>
+          <class_id>gstreamerlauncherfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers/>
+          <binding_clients/>
+        </filter>
+      </filters>
+      <subgraphs/>
+      <input_data_ports/>
+      <output_data_ports/>
+      <input_interface_ports/>
+      <output_interface_ports/>
+      <output_runner_ports/>
+      <input_runner_ports/>
+      <streaming_in_ports/>
+      <streaming_out_ports/>
+      <sample_streams/>
+      <active_runners/>
+      <binding_proxys/>
+      <connections/>
+      <streaming_interface_in_ports/>
+      <streaming_interface_out_ports/>
+    </graph>
+    <graph>
+      <name>create_video_mkv</name>
+      <filters>
+        <filter>
+          <name>appsource</name>
+          <class_id>app_source_filter.gstreamer.videotb.cid</class_id>
+          <input_pins>
+            <pin>
+              <name>input</name>
+            </pin>
+          </input_pins>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>false</deactivated>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients/>
+        </filter>
+        <filter>
+          <name>filesink</name>
+          <class_id>gstreamerfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>false</deactivated>
+          <binding_servers/>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+        <filter>
+          <name>x264enc</name>
+          <class_id>gstreamerfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>false</deactivated>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+        <filter>
+          <name>avimux</name>
+          <class_id>gstreamerfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>false</deactivated>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+        <filter>
+          <name>queue</name>
+          <class_id>gstreamerlauncherfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+        <filter>
+          <name>GStreamer Launcher Filter</name>
+          <class_id>gstreamerlauncherfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>true</deactivated>
+          <binding_servers/>
+          <binding_clients>
+            <pin>
+              <name>in</name>
+            </pin>
+          </binding_clients>
+        </filter>
+      </filters>
+      <subgraphs/>
+      <input_data_ports>
+        <data_port>
+          <name>video</name>
+        </data_port>
+      </input_data_ports>
+      <output_data_ports/>
+      <input_interface_ports/>
+      <output_interface_ports/>
+      <output_runner_ports/>
+      <input_runner_ports/>
+      <streaming_in_ports/>
+      <streaming_out_ports/>
+      <sample_streams>
+        <sample_stream>
+          <name>Sample Stream</name>
+          <class_id>default_sample_stream.streaming.adtf.cid</class_id>
+        </sample_stream>
+      </sample_streams>
+      <active_runners/>
+      <binding_proxys>
+        <binding_proxy>
+          <name>appsource.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+          <deactivated>false</deactivated>
+        </binding_proxy>
+        <binding_proxy>
+          <name>g.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+          <deactivated>false</deactivated>
+        </binding_proxy>
+        <binding_proxy>
+          <name>pre_encode.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+          <deactivated>false</deactivated>
+        </binding_proxy>
+        <binding_proxy>
+          <name>x264env.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+          <deactivated>false</deactivated>
+        </binding_proxy>
+      </binding_proxys>
+      <connections>
+        <connection>
+          <name>appsource.out_appsource.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>appsource</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>appsource.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>g.out._filesink.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>g.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>filesink</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>pre_encode.out._x264enc.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>pre_encode.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>x264enc</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>x264enc.out_x264env.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>x264enc</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>x264env.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>x264env.out._avimux.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>x264env.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>avimux</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>avimux.out_g.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>avimux</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>g.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>queue.out_pre_encode.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>queue</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>pre_encode.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>video._Sample Stream.</name>
+          <source_connector_path>
+            <connector/>
+            <component>video</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>Sample Stream</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>Sample Stream._appsource.input</name>
+          <source_connector_path>
+            <connector/>
+            <component>Sample Stream</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>input</connector>
+            <component>appsource</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>appsource.out._queue.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>appsource.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>queue</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>pre_encode.out._GStreamer Launcher Filter.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>pre_encode.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>GStreamer Launcher Filter</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>true</deactivated>
+          <sync>true</sync>
+        </connection>
+      </connections>
+      <streaming_interface_in_ports/>
+      <streaming_interface_out_ports/>
+    </graph>
+    <graph>
+      <name>record_from_camera</name>
+      <filters>
+        <filter>
+          <name>Mat to Image Filter</name>
+          <class_id>mat_to_image.opencv.videotb.cid</class_id>
+          <input_pins>
+            <pin>
+              <name>mat</name>
+            </pin>
+          </input_pins>
+          <output_pins>
+            <pin>
+              <name>image</name>
+            </pin>
+          </output_pins>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers/>
+          <binding_clients/>
+        </filter>
+        <filter>
+          <name>Demo Qt Video Display</name>
+          <class_id>demo_qt_video_display.ui_filter.adtf.cid</class_id>
+          <input_pins>
+            <pin>
+              <name>video</name>
+            </pin>
+          </input_pins>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers/>
+          <binding_clients/>
+        </filter>
+      </filters>
+      <subgraphs>
+        <subgraph>
+          <name>recorder</name>
+          <graph>create_video_mkv</graph>
+          <init_priority>0</init_priority>
+        </subgraph>
+      </subgraphs>
+      <input_data_ports/>
+      <output_data_ports/>
+      <input_interface_ports/>
+      <output_interface_ports/>
+      <output_runner_ports/>
+      <input_runner_ports/>
+      <streaming_in_ports>
+        <streaming_in_port>
+          <name>mat</name>
+          <portname>mat</portname>
+        </streaming_in_port>
+      </streaming_in_ports>
+      <streaming_out_ports/>
+      <sample_streams>
+        <sample_stream>
+          <name>Sample Stream</name>
+          <class_id>default_sample_stream.streaming.adtf.cid</class_id>
+        </sample_stream>
+      </sample_streams>
+      <active_runners/>
+      <binding_proxys/>
+      <connections>
+        <connection>
+          <name>mat._Mat to Image Filter.mat</name>
+          <source_connector_path>
+            <connector/>
+            <component>mat</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>mat</connector>
+            <component>Mat to Image Filter</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>Mat to Image Filter.image_Sample Stream.</name>
+          <source_connector_path>
+            <connector>image</connector>
+            <component>Mat to Image Filter</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>Sample Stream</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>Sample Stream._recorder.video</name>
+          <source_connector_path>
+            <connector/>
+            <component>Sample Stream</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>video</connector>
+            <component>recorder</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>Sample Stream._Demo Qt Video Display.video</name>
+          <source_connector_path>
+            <connector/>
+            <component>Sample Stream</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>video</connector>
+            <component>Demo Qt Video Display</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
       </connections>
       <streaming_interface_in_ports/>
       <streaming_interface_out_ports/>
@@ -1624,6 +2187,57 @@
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+      </connections>
+      <binding_proxys/>
+      <streaming_dock_interface_in_ports/>
+      <streaming_dock_interface_out_ports/>
+      <streaming_dock_runner_in_ports/>
+    </streaming_graph>
+    <streaming_graph>
+      <name>camera_source</name>
+      <streaming_sources>
+        <streaming_source>
+          <name>Camera Source</name>
+          <class_id>camera.opencv.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins>
+            <pin>
+              <name>data</name>
+            </pin>
+          </output_pins>
+          <runners/>
+          <init_priority>0</init_priority>
+          <deactivated>false</deactivated>
+          <binding_servers/>
+          <binding_clients/>
+        </streaming_source>
+      </streaming_sources>
+      <streaming_dock_in_ports>
+        <sample_stream>
+          <name>mat</name>
+          <class_id>default_sample_stream.streaming.adtf.cid</class_id>
+        </sample_stream>
+      </streaming_dock_in_ports>
+      <streaming_dock_out_ports/>
+      <streaming_sinks/>
+      <sample_streams/>
+      <connections>
+        <connection>
+          <name>Camera Source.data_Filter Graph Dock.mat</name>
+          <source_connector_path>
+            <connector>data</connector>
+            <component>Camera Source</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>mat</connector>
+            <component>Filter Graph Dock</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <deactivated>false</deactivated>
           <sync>true</sync>
         </connection>
       </connections>

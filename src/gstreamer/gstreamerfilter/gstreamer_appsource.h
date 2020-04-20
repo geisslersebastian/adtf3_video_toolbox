@@ -37,13 +37,14 @@ public:
 
     property_variable<tBool> m_bBinary = tFalse;
 
+    
 public:
     cAppSourceFilter()
     {
-        m_sFormat.m_strFormatName = ADTF_IMAGE_FORMAT(GREYSCALE_8);
-        m_sFormat.m_ui32Width = 1024;
-        m_sFormat.m_ui32Height = 726;
-        m_sFormat.m_szMaxByteSize = 1024 * 726 * 3;
+        m_sFormat.m_strFormatName = ADTF_IMAGE_FORMAT(RGB_24);
+        m_sFormat.m_ui32Width = 640;
+        m_sFormat.m_ui32Height = 480;
+        m_sFormat.m_szMaxByteSize = m_sFormat.m_ui32Width * m_sFormat.m_ui32Height * 3;
         m_sFormat.m_ui8DataEndianess = PLATFORM_BYTEORDER;
 
         object_ptr<IStreamType> pType = make_object_ptr<cStreamType>(stream_meta_type_image());
@@ -64,7 +65,7 @@ public:
         {
             THROW_ERROR_DESC(ERR_FAILED, "Could not create GStreamer Element %s ", (*m_strName).GetPtr());
         }
-
+        
         if (m_bBinary)
         {
             m_pCapsFilter = gst_element_factory_make("capsfilter", "appsrccaps");
@@ -95,7 +96,7 @@ public:
         RETURN_NOERROR;
     }
 
-    tResult AddGStreamerFilter(cGStreamerBaseFilter * pParentFilter, cGStreamerBaseFilter * pRootFilter)
+    tResult AddGStreamerFilter(cGStreamerBaseFilter * pParentFilter, cGStreamerBaseFilter * pRootFilter) override
     {
         RETURN_IF_FAILED(InitElement(m_pElement));
 
@@ -189,10 +190,12 @@ public:
 
     tResult InitElement(GstElement* pElement) override
     {
-        tInt32 nSize = m_sFormat.m_ui32Width * m_sFormat.m_ui32Height * m_nChannel;
-        g_object_set(G_OBJECT(pElement), "blocksize", nSize,
-            NULL);
+        //tInt32 nSize = m_sFormat.m_ui32Width * m_sFormat.m_ui32Height * m_nChannel;
+        /*g_object_set(G_OBJECT(pElement), "blocksize", nSize,
+            NULL);*/
 
+        g_object_set(G_OBJECT(pElement), "do-timestamp", true, NULL);
+        g_object_set(G_OBJECT(pElement), "format", GST_FORMAT_TIME, NULL);
         g_object_set(G_OBJECT(pElement), "caps", StreamTypeToCap(m_sFormat), NULL);
         RETURN_NOERROR;
     }
@@ -222,10 +225,10 @@ public:
         {
             strFormat = "GRAY8";
         }
-        else if (sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(YUV420P))
+        /*else if (sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(YUV420P))
         {
             //strFormat = 
-        }
+        }*/
         else if (sFormat.m_strFormatName == ADTF_IMAGE_FORMAT(RGB_24))
         {
             strFormat = "RGB";
@@ -239,10 +242,14 @@ public:
             THROW_ERROR_DESC(ERR_NOT_SUPPORTED, "The image fromat %s is not supported", sFormat.m_strFormatName.GetPtr());
         }
 
-        return gst_caps_new_simple("video/x-raw",
+        auto pCaps = gst_caps_new_simple("video/x-raw",
             "format", G_TYPE_STRING, strFormat.c_str(),
+            "framerate", GST_TYPE_FRACTION, 25, 1,
+            "pixel-aspect-ratio", GST_TYPE_FRACTION, 1, 1,
             "width", G_TYPE_INT, sFormat.m_ui32Width,
             "height", G_TYPE_INT, sFormat.m_ui32Height,
             NULL);
+        LOG_INFO(gst_caps_to_string(pCaps));
+        return pCaps;
     }
 };

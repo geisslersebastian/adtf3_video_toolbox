@@ -30,6 +30,24 @@
       <property_set/>
       <name>convert_video</name>
     </project_file>
+    <project_file>
+      <url>./adtfsessions/simplepipe.adtfsession</url>
+      <properties_url/>
+      <property_set/>
+      <name>simplepipe</name>
+    </project_file>
+    <project_file>
+      <url>./adtfsessions/create_video_mkv.adtfsession</url>
+      <properties_url/>
+      <property_set/>
+      <name>create_video_mkv</name>
+    </project_file>
+    <project_file>
+      <url>./adtfsessions/record_from_camera.adtfsession</url>
+      <properties_url/>
+      <property_set/>
+      <name>record_from_camera</name>
+    </project_file>
   </session_files>
   <graph_files>
     <project_file>

@@ -6,7 +6,12 @@
   </file_version>
   <name>default_system</name>
   <description/>
-  <environment/>
+  <environment>
+    <variable>
+      <name>GST_DEBUG</name>
+      <value>3</value>
+    </variable>
+  </environment>
   <dependencies>
     <platform>
       <name>win64_vc141</name>
@@ -35,7 +40,7 @@
   </dependencies>
   <plugins>
     <plugin>
-      <url>C:/dev/adtf3_video_toolbox2/debug/package/bin/gstreamer_filter.adtfplugin</url>
+      <url>C:/dev/adtf3_video_toolbox2/package/bin/gstreamer_filter.adtfplugin</url>
     </plugin>
     <plugin>
       <url>$(ADTF_DIR)/src/examples/bin/demo_qt_video_display.adtfplugin</url>
@@ -44,10 +49,10 @@
       <url>$(ADTF_DIR)/bin/default_core_objects.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>C:/dev/adtf3_video_toolbox2/debug/package/bin/mat_to_image_filter.adtfplugin</url>
+      <url>C:/dev/adtf3_video_toolbox2/package/bin/mat_to_image_filter.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>C:/dev/adtf3_video_toolbox2/debug/package/bin/opencv_dnn_filter.adtfplugin</url>
+      <url>C:/dev/adtf3_video_toolbox2/package/bin/opencv_dnn_filter.adtfplugin</url>
     </plugin>
     <plugin>
       <url>$(ADTF_DIR)/src/examples/bin/demo_virtual_clock.adtfplugin</url>
@@ -71,18 +76,24 @@
       <url>$(ADTF_DIR)/bin/adtf_sample_stream_trace_view_ui.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>C:/dev/adtf3_video_toolbox2/debug/package/bin/opencv_resize_filter.adtfplugin</url>
+      <url>C:/dev/adtf3_video_toolbox2/package/bin/camera_source.adtfplugin</url>
     </plugin>
   </plugins>
   <debug_plugins>
     <plugin>
-      <url>C:/dev/adtf3_video_toolbox2/release/package/bin/debug/gstreamer_filter.adtfplugin</url>
+      <url>C:/dev/adtf3_video_toolbox2/package/bin/gstreamer_filter.adtfplugin</url>
     </plugin>
     <plugin>
       <url>$(ADTF_DIR)/src/examples/bin/debug/demo_qt_video_display.adtfplugin</url>
     </plugin>
     <plugin>
       <url>$(ADTF_DIR)/bin/debug/default_core_objects.adtfplugin</url>
+    </plugin>
+    <plugin>
+      <url>C:/dev/adtf3_video_toolbox2/package/bin/mat_to_image_filter.adtfplugin</url>
+    </plugin>
+    <plugin>
+      <url>C:/dev/adtf3_video_toolbox2/package/bin/opencv_dnn_filter.adtfplugin</url>
     </plugin>
     <plugin>
       <url>$(ADTF_DIR)/src/examples/bin/debug/demo_virtual_clock.adtfplugin</url>
@@ -106,16 +117,7 @@
       <url>$(ADTF_DIR)/bin/debug/adtf_sample_stream_trace_view_ui.adtfplugin</url>
     </plugin>
     <plugin>
-      <url>C:/dev/adtf3_video_toolbox2/release/package/bin/debug/mat_to_image_filter.adtfplugin</url>
-    </plugin>
-    <plugin>
-      <url>C:/dev/adtf3_video_toolbox2/release/package/bin/debug/opencv_dnn_filter.adtfplugin</url>
-    </plugin>
-    <plugin>
-      <url>$(ADTF_DIR)/bin/debug/adtf_qtquick_filter.adtfplugin</url>
-    </plugin>
-    <plugin>
-      <url>C:/dev/adtf3_video_toolbox2/release/package/bin/debug/opencv_resize_filter.adtfplugin</url>
+      <url>C:/dev/adtf3_video_toolbox2/package/bin/camera_source.adtfplugin</url>
     </plugin>
   </debug_plugins>
   <services>

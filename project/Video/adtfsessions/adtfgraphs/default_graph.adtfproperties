@@ -824,7 +824,7 @@
             </property>
             <property>
               <name>gst_location</name>
-              <value>C:/Private/Download/trailer.mp4</value>
+              <value>C:/video/city.mp4</value>
               <type>cString</type>
             </property>
             <property>
@@ -917,7 +917,7 @@
             </property>
             <property>
               <name>gst_caps</name>
-              <value>video/x-raw,format=RGB</value>
+              <value>video/x-raw,format=RGB,width=1920,height=1024</value>
               <type>cString</type>
             </property>
             <property>
@@ -1000,18 +1000,6 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/binding_proxys/videoconvert.out</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/convert_video/connections/videoconvert.out_videoconvert.out.</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/convert_video/connections/videoconvert.out._capsfilter.in</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/convert_video/filters/videoconvert/binding_servers/out</name>
           <properties/>
         </property_set>
@@ -1028,28 +1016,38 @@
           <properties>
             <property>
               <name>config</name>
-              <value>../../../yolov3-tiny.cfg</value>
+              <value>C:/dev/adtf3_video_toolbox2/source/project/yolov3-spp.cfg</value>
               <type>cFilename</type>
             </property>
             <property>
               <name>module</name>
-              <value>../../../yolov3-tiny.weights</value>
+              <value>C:/dev/adtf3_video_toolbox2/source/project/yolov3-spp.weights</value>
               <type>cFilename</type>
             </property>
             <property>
               <name>blob_input_height</name>
-              <value>416</value>
+              <value>1024</value>
               <type>tInt32</type>
             </property>
             <property>
               <name>blob_input_width</name>
-              <value>416</value>
+              <value>1024</value>
               <type>tInt32</type>
             </property>
             <property>
               <name>blob_scale</name>
               <value>0.00392</value>
               <type>tFloat32</type>
+            </property>
+            <property>
+              <name>backend</name>
+              <value>5</value>
+              <type>tInt32</type>
+            </property>
+            <property>
+              <name>target</name>
+              <value>6</value>
+              <type>tInt32</type>
             </property>
           </properties>
         </property_set>
@@ -1155,6 +1153,415 @@
         </property_set>
         <property_set>
           <name>graphs/convert_video/connections/image_to_mat.mat_Image to Mat Filter.mat.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/simplepipe</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/simplepipe/filters/GStreamer test Pipeline</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>videotestsrc ! videoconvert ! autovideosink</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/appsource</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/appsource/input_pins/input</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/filesink</name>
+          <properties>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>dynamic_pad</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>element_factory</name>
+              <value>filesink</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_append</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_async</name>
+              <value>true</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_blocksize</name>
+              <value>4096</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_buffer-mode</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_buffer-size</name>
+              <value>65536</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_enable-last-sample</name>
+              <value>true</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_last-sample</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_location</name>
+              <value>C:/video/record/adtf_video_1.avi</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_max-bitrate</name>
+              <value>0</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_max-lateness</name>
+              <value>-1</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_parent</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_processing-deadline</name>
+              <value>20000000</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_qos</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_render-delay</name>
+              <value>0</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_sync</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_throttle-time</name>
+              <value>0</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_ts-offset</name>
+              <value>0</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>name</name>
+              <value>filesink</value>
+              <type>cString</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/binding_proxys/appsource.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/appsource.out_appsource.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/appsource/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/filesink/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/binding_proxys/g.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/g.out._filesink.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/camera_source</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/camera_source/streaminggraphdock/Filter Graph Dock</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/binding_proxys/pre_encode.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/camera_source/streaming_sources/Camera Source</name>
+          <properties>
+            <property>
+              <name>cameraId</name>
+              <value>0</value>
+              <type>tInt32</type>
+            </property>
+            <property>
+              <name>framesPerSecond</name>
+              <value>30</value>
+              <type>tInt32</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/camera_source/streaming_dock_in_ports/mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/camera_source/connections/Camera Source.data_Filter Graph Dock.mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>streaming_graphs/camera_source/streaming_sources/Camera Source/output_pins/data</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/x264enc</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/avimux</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/pre_encode.out._x264enc.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/x264enc/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/binding_proxys/x264env.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/x264enc.out_x264env.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/x264env.out._avimux.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/x264enc/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/avimux/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/avimux.out_g.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/avimux/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/queue</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>videoconvert ! queue</value>
+              <type>cString</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/queue/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/queue.out_pre_encode.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/queue/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/binding_proxys/videoscale.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/videoscale.out._capsfilter.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/videoscale</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/binding_proxys/videoconvert.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/videoconvert.out_videoconvert.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/videoconvert.out._videoscale.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/videoscale/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/videoscale.out_videoscale.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/filters/videoscale/binding_servers/out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/input_data_ports/video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/sample_streams/Sample Stream</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/video._Sample Stream.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/Sample Stream._appsource.input</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/subgraphs/to_file</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/convert_video/connections/Mat to Image Filter.image._to_file.video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/streaming_in_ports/mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/subgraphs/recorder</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/Mat to Image Filter</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/mat._Mat to Image Filter.mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/Mat to Image Filter/input_pins/mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/sample_streams/Sample Stream</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/Mat to Image Filter.image_Sample Stream.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/Mat to Image Filter/output_pins/image</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/Sample Stream._recorder.video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/Demo Qt Video Display</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/Sample Stream._Demo Qt Video Display.video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/Demo Qt Video Display/input_pins/video</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/appsource.out._queue.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/GStreamer Launcher Filter</name>
+          <properties>
+            <property>
+              <name>element_factory</name>
+              <value>autovideosink</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>true</value>
+              <type>tBool</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/connections/pre_encode.out._GStreamer Launcher Filter.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/create_video_mkv/filters/GStreamer Launcher Filter/binding_clients/in</name>
           <properties/>
         </property_set>
       </property_sets>

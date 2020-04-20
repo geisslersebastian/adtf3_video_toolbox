@@ -181,7 +181,7 @@ public:
             if (m_bLastPipeElement)
             {
                 
-                LOG_INFO("Create GStreamer Pipeline");
+                LOG_INFO("--- Create GStreamer Pipeline ---");
 
                 m_pPipeline = gst_pipeline_new("adtf_pipeline");
 
@@ -202,8 +202,14 @@ public:
                 }
 
                 RETURN_IF_FAILED(InitElement(m_pElement));
+                /*if (GST_STATE_CHANGE_SUCCESS != gst_element_set_state(m_pPipeline, GST_STATE_PLAYING))
+                {
+                    LOG_ERROR("Failed to go to ready");
+                    RETURN_ERROR_DESC(ERR_INVALID_STATE, "Failed to go to ready");
+                }*/
+
+                LOG_INFO("--- Start Playing Gstreamer Pipeline ---");
                 gst_element_set_state(m_pPipeline, GST_STATE_PLAYING);
-                
             }
         }
         break;
@@ -254,19 +260,32 @@ public:
             {
                 if (oProperty.first == "caps")
                 {
-                    LOG_DUMP("set properties %s from %s = %s", oProperty.first.GetPtr(), m_strName->GetPtr(), strValue.GetPtr());
+                    LOG_INFO("set properties %s from %s = %s", oProperty.first.GetPtr(), m_strName->GetPtr(), strValue.GetPtr());
                     GstCaps *pCaps = gst_caps_from_string(strValue.GetPtr());
                     if (!pCaps)
                     {
                         THROW_ERROR_DESC(ERR_FAILED, "Could not create caps %s", strValue.GetPtr());
                     }
+                    LOG_INFO(gst_caps_to_string(pCaps));
                     g_object_set(m_pElement, "caps", pCaps, NULL);
                     gst_caps_unref(pCaps);
                 }
                 else
                 {
-                    LOG_DUMP("set properties %s from %s = %s", oProperty.first.GetPtr(), m_strName->GetPtr(), strValue.GetPtr());
-                    g_object_set(m_pElement, oProperty.first, strValue.GetPtr(), NULL);
+                    if (strValue == "true")
+                    {
+                        g_object_set(m_pElement, oProperty.first, true, NULL);
+                    }
+                    else if (strValue == "false")
+                    {
+                        g_object_set(m_pElement, oProperty.first, false, NULL);
+                    }
+                    else
+                    {
+                        LOG_INFO("set properties %s from %s = %s", oProperty.first.GetPtr(), m_strName->GetPtr(), strValue.GetPtr());
+                    
+                        g_object_set(m_pElement, oProperty.first, strValue.GetPtr(), NULL);
+                    }
                 }
             }
         }
@@ -278,7 +297,7 @@ public:
         RETURN_NOERROR;
     }
 
-    tResult AddGStreamerFilter(cGStreamerBaseFilter * pParentFilter, cGStreamerBaseFilter * pRootFilter)
+    virtual tResult AddGStreamerFilter(cGStreamerBaseFilter * pParentFilter, cGStreamerBaseFilter * pRootFilter)
     {
         RETURN_IF_FAILED(InitElement(m_pElement));
 
@@ -294,14 +313,14 @@ public:
 
         if (pParentFilter->m_pElement && m_pElement)
         {
-            if (!m_bDynamicPad)
-            {
-                Link(pParentFilter);
-            }
-            else
+            if (m_bDynamicPad)
             {
                 LOG_DUMP("Signal pad-added to %s", this->m_strName->GetPtr());
                 g_signal_connect(m_pElement, "pad-added", G_CALLBACK(on_pad_added), pParentFilter->m_pElement);
+            }
+            else
+            {
+                Link(pParentFilter);
             }
         }
 
