@@ -33,95 +33,6 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/playback_video/filters/filesrc</name>
-          <properties>
-            <property>
-              <name>element_factory</name>
-              <value>$(THIS_OBJECT_NAME)</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>dynamic_pad</name>
-              <value>false</value>
-              <type>tBool</type>
-            </property>
-            <property>
-              <name>element_blocksize</name>
-              <value>4096</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>element_do-timestamp</name>
-              <value>false</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>element_location</name>
-              <value>C:/Private/Download/trailer.mp4</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>element_num-buffers</name>
-              <value>-1</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>element_parent</name>
-              <value/>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>element_typefind</name>
-              <value>false</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>last_pipeline_element</name>
-              <value>false</value>
-              <type>tBool</type>
-            </property>
-            <property>
-              <name>name</name>
-              <value>filesrc</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_blocksize</name>
-              <value>4096</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_do-timestamp</name>
-              <value>false</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_location</name>
-              <value>C:/Private/Download/trailer.mp4</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_num-buffers</name>
-              <value>-1</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_parent</name>
-              <value/>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_typefind</name>
-              <value>false</value>
-              <type>cString</type>
-            </property>
-          </properties>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/filters/filesrc/binding_servers/out</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/playback_video/filters/decodebin</name>
           <properties>
             <property>
@@ -136,19 +47,7 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/playback_video/binding_proxys/Binding Proxy_2</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/connections/decodebin.out_Binding Proxy_2.</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/playback_video/filters/decodebin/binding_servers/out</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/connections/Binding Proxy_2._videoconvert.in</name>
           <properties/>
         </property_set>
         <property_set>
@@ -264,14 +163,6 @@
           </properties>
         </property_set>
         <property_set>
-          <name>graphs/playback_video/binding_proxys/Binding Proxy_1</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/connections/videoconvert.out_Binding Proxy_1.</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/playback_video/filters/capsfilter/binding_clients/in</name>
           <properties/>
         </property_set>
@@ -328,15 +219,7 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/playback_video/connections/filesrc.out_filesrc.out.</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/playback_video/connections/filesrc.out._decodebin.in</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/playback_video/connections/Binding Proxy_1._capsfilter.in</name>
           <properties/>
         </property_set>
         <property_set>
@@ -796,11 +679,11 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video</name>
+          <name>graphs/dnn_video</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/filesrc</name>
+          <name>graphs/dnn_video/filters/filesrc</name>
           <properties>
             <property>
               <name>dynamic_pad</name>
@@ -855,7 +738,7 @@
           </properties>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/decodebin</name>
+          <name>graphs/dnn_video/filters/decodebin</name>
           <properties>
             <property>
               <name>dynamic_pad</name>
@@ -865,27 +748,27 @@
           </properties>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/binding_proxys/filesrc.out</name>
+          <name>graphs/dnn_video/binding_proxys/filesrc.out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/filesrc.out_filesrc.out.</name>
+          <name>graphs/dnn_video/connections/filesrc.out_filesrc.out.</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/filesrc.out._decodebin.in</name>
+          <name>graphs/dnn_video/connections/filesrc.out._decodebin.in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/filesrc/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/filesrc/binding_servers/out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/decodebin/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/decodebin/binding_clients/in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/appsink</name>
+          <name>graphs/dnn_video/filters/appsink</name>
           <properties>
             <property>
               <name>last_pipeline_element</name>
@@ -895,15 +778,15 @@
           </properties>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/decodebin/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/decodebin/binding_servers/out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/appsink/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/appsink/binding_clients/in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/capsfilter</name>
+          <name>graphs/dnn_video/filters/capsfilter</name>
           <properties>
             <property>
               <name>dynamic_pad</name>
@@ -948,71 +831,71 @@
           </properties>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/binding_proxys/decodebin.out</name>
+          <name>graphs/dnn_video/binding_proxys/decodebin.out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/decodebin.out_decodebin.out.</name>
+          <name>graphs/dnn_video/connections/decodebin.out_decodebin.out.</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/capsfilter/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/capsfilter/binding_clients/in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/capsfilter/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/capsfilter/binding_servers/out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/sample_streams/appsink.outpin</name>
+          <name>graphs/dnn_video/sample_streams/appsink.outpin</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/appsink.outpin_appsink.outpin.</name>
+          <name>graphs/dnn_video/connections/appsink.outpin_appsink.outpin.</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/appsink/output_pins/outpin</name>
+          <name>graphs/dnn_video/filters/appsink/output_pins/outpin</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/videoconvert</name>
+          <name>graphs/dnn_video/filters/videoconvert</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/decodebin.out._videoconvert.in</name>
+          <name>graphs/dnn_video/connections/decodebin.out._videoconvert.in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/videoconvert/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/videoconvert/binding_clients/in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/binding_proxys/capsfilter.out</name>
+          <name>graphs/dnn_video/binding_proxys/capsfilter.out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/capsfilter.out_capsfilter.out.</name>
+          <name>graphs/dnn_video/connections/capsfilter.out_capsfilter.out.</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/capsfilter.out._appsink.in</name>
+          <name>graphs/dnn_video/connections/capsfilter.out._appsink.in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/videoconvert/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/videoconvert/binding_servers/out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/image_to_mat</name>
+          <name>graphs/dnn_video/filters/image_to_mat</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/mat_to_image</name>
+          <name>graphs/dnn_video/filters/mat_to_image</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/DNN Filter</name>
+          <name>graphs/dnn_video/filters/DNN Filter</name>
           <properties>
             <property>
               <name>config</name>
@@ -1052,107 +935,107 @@
           </properties>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/appsink.outpin._image_to_mat.image</name>
+          <name>graphs/dnn_video/connections/appsink.outpin._image_to_mat.image</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/image_to_mat/input_pins/image</name>
+          <name>graphs/dnn_video/filters/image_to_mat/input_pins/image</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/sample_streams/Image to Mat Filter.mat</name>
+          <name>graphs/dnn_video/sample_streams/Image to Mat Filter.mat</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/Image to Mat Filter.mat._DNN Filter.mat_in</name>
+          <name>graphs/dnn_video/connections/Image to Mat Filter.mat._DNN Filter.mat_in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/image_to_mat/output_pins/mat</name>
+          <name>graphs/dnn_video/filters/image_to_mat/output_pins/mat</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/DNN Filter/input_pins/mat_in</name>
+          <name>graphs/dnn_video/filters/DNN Filter/input_pins/mat_in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/sample_streams/DNN Filter.mat_out</name>
+          <name>graphs/dnn_video/sample_streams/DNN Filter.mat_out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/DNN Filter.mat_out_DNN Filter.mat_out.</name>
+          <name>graphs/dnn_video/connections/DNN Filter.mat_out_DNN Filter.mat_out.</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/DNN Filter/output_pins/mat_out</name>
+          <name>graphs/dnn_video/filters/DNN Filter/output_pins/mat_out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/mat_to_image/input_pins/mat</name>
+          <name>graphs/dnn_video/filters/mat_to_image/input_pins/mat</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/sample_streams/Mat to Image Filter.image</name>
+          <name>graphs/dnn_video/sample_streams/Mat to Image Filter.image</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/mat_to_image.image_Mat to Image Filter.image.</name>
+          <name>graphs/dnn_video/connections/mat_to_image.image_Mat to Image Filter.image.</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/mat_to_image/output_pins/image</name>
+          <name>graphs/dnn_video/filters/mat_to_image/output_pins/image</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/DNN Plot Filter</name>
+          <name>graphs/dnn_video/filters/DNN Plot Filter</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/sample_streams/DNN Plot Filter.mat_out</name>
+          <name>graphs/dnn_video/sample_streams/DNN Plot Filter.mat_out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
+          <name>graphs/dnn_video/connections/DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/DNN Plot Filter.mat_out._mat_to_image.mat</name>
+          <name>graphs/dnn_video/connections/DNN Plot Filter.mat_out._mat_to_image.mat</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/DNN Plot Filter/output_pins/mat_out</name>
+          <name>graphs/dnn_video/filters/DNN Plot Filter/output_pins/mat_out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/DNN Filter.mat_out._DNN Plot Filter.dnn</name>
+          <name>graphs/dnn_video/connections/DNN Filter.mat_out._DNN Plot Filter.dnn</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/DNN Plot Filter/input_pins/dnn</name>
+          <name>graphs/dnn_video/filters/DNN Plot Filter/input_pins/dnn</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/Image to Mat Filter.mat._DNN Plot Filter.mat_in</name>
+          <name>graphs/dnn_video/connections/Image to Mat Filter.mat._DNN Plot Filter.mat_in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/DNN Plot Filter/input_pins/mat_in</name>
+          <name>graphs/dnn_video/filters/DNN Plot Filter/input_pins/mat_in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/Demo Qt Video Display_1</name>
+          <name>graphs/dnn_video/filters/Demo Qt Video Display_1</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/Mat to Image Filter.image._Demo Qt Video Display_1.video</name>
+          <name>graphs/dnn_video/connections/Mat to Image Filter.image._Demo Qt Video Display_1.video</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/Demo Qt Video Display_1/input_pins/video</name>
+          <name>graphs/dnn_video/filters/Demo Qt Video Display_1/input_pins/video</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/image_to_mat.mat_Image to Mat Filter.mat.</name>
+          <name>graphs/dnn_video/connections/image_to_mat.mat_Image to Mat Filter.mat.</name>
           <properties/>
         </property_set>
         <property_set>
@@ -1187,116 +1070,6 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/create_video_mkv/filters/filesink</name>
-          <properties>
-            <property>
-              <name>last_pipeline_element</name>
-              <value>true</value>
-              <type>tBool</type>
-            </property>
-            <property>
-              <name>dynamic_pad</name>
-              <value>false</value>
-              <type>tBool</type>
-            </property>
-            <property>
-              <name>element_factory</name>
-              <value>filesink</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_append</name>
-              <value>false</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_async</name>
-              <value>true</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_blocksize</name>
-              <value>4096</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_buffer-mode</name>
-              <value/>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_buffer-size</name>
-              <value>65536</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_enable-last-sample</name>
-              <value>true</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_last-sample</name>
-              <value/>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_location</name>
-              <value>C:/video/record/adtf_video_1.avi</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_max-bitrate</name>
-              <value>0</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_max-lateness</name>
-              <value>-1</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_parent</name>
-              <value/>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_processing-deadline</name>
-              <value>20000000</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_qos</name>
-              <value>false</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_render-delay</name>
-              <value>0</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_sync</name>
-              <value>false</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_throttle-time</name>
-              <value>0</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>gst_ts-offset</name>
-              <value>0</value>
-              <type>cString</type>
-            </property>
-            <property>
-              <name>name</name>
-              <value>filesink</value>
-              <type>cString</type>
-            </property>
-          </properties>
-        </property_set>
-        <property_set>
           <name>graphs/create_video_mkv/binding_proxys/appsource.out</name>
           <properties/>
         </property_set>
@@ -1309,15 +1082,7 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/create_video_mkv/filters/filesink/binding_clients/in</name>
-          <properties/>
-        </property_set>
-        <property_set>
           <name>graphs/create_video_mkv/binding_proxys/g.out</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/create_video_mkv/connections/g.out._filesink.in</name>
           <properties/>
         </property_set>
         <property_set>
@@ -1337,7 +1102,7 @@
           <properties>
             <property>
               <name>cameraId</name>
-              <value>0</value>
+              <value>1</value>
               <type>tInt32</type>
             </property>
             <property>
@@ -1361,7 +1126,233 @@
         </property_set>
         <property_set>
           <name>graphs/create_video_mkv/filters/x264enc</name>
-          <properties/>
+          <properties>
+            <property>
+              <name>dynamic_pad</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>element_factory</name>
+              <value>x264enc</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_analyse</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_aud</name>
+              <value>true</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_b-adapt</name>
+              <value>true</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_b-pyramid</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_bframes</name>
+              <value>0</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_bitrate</name>
+              <value>2048</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_byte-stream</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_cabac</name>
+              <value>true</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_dct8x8</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_frame-packing</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_insert-vui</name>
+              <value>true</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_interlaced</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_intra-refresh</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_ip-factor</name>
+              <value>1.400000</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_key-int-max</name>
+              <value>0</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_mb-tree</name>
+              <value>true</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_me</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_multipass-cache-file</name>
+              <value>x264.log</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_noise-reduction</name>
+              <value>0</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_option-string</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_parent</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_pass</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_pb-factor</name>
+              <value>1.300000</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_psy-tune</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_qos</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_qp-max</name>
+              <value>51</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_qp-min</name>
+              <value>18</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_qp-step</name>
+              <value>4</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_quantizer</name>
+              <value>21</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_rc-lookahead</name>
+              <value>40</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_ref</name>
+              <value>1</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_sliced-threads</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_speed-preset</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_sps-id</name>
+              <value>0</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_subme</name>
+              <value>1</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_sync-lookahead</name>
+              <value>-1</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_threads</name>
+              <value>0</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_trellis</name>
+              <value>true</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_tune</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_vbv-buf-capacity</name>
+              <value>600</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_weightb</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>name</name>
+              <value>x264enc</value>
+              <type>cString</type>
+            </property>
+          </properties>
         </property_set>
         <property_set>
           <name>graphs/create_video_mkv/filters/avimux</name>
@@ -1426,39 +1417,39 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/binding_proxys/videoscale.out</name>
+          <name>graphs/dnn_video/binding_proxys/videoscale.out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/videoscale.out._capsfilter.in</name>
+          <name>graphs/dnn_video/connections/videoscale.out._capsfilter.in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/videoscale</name>
+          <name>graphs/dnn_video/filters/videoscale</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/binding_proxys/videoconvert.out</name>
+          <name>graphs/dnn_video/binding_proxys/videoconvert.out</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/videoconvert.out_videoconvert.out.</name>
+          <name>graphs/dnn_video/connections/videoconvert.out_videoconvert.out.</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/videoconvert.out._videoscale.in</name>
+          <name>graphs/dnn_video/connections/videoconvert.out._videoscale.in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/videoscale/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/videoscale/binding_clients/in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/videoscale.out_videoscale.out.</name>
+          <name>graphs/dnn_video/connections/videoscale.out_videoscale.out.</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/filters/videoscale/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/videoscale/binding_servers/out</name>
           <properties/>
         </property_set>
         <property_set>
@@ -1478,11 +1469,11 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/subgraphs/to_file</name>
+          <name>graphs/dnn_video/subgraphs/to_file</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/convert_video/connections/Mat to Image Filter.image._to_file.video</name>
+          <name>graphs/dnn_video/connections/Mat to Image Filter.image._to_file.video</name>
           <properties/>
         </property_set>
         <property_set>
@@ -1499,10 +1490,6 @@
         </property_set>
         <property_set>
           <name>graphs/record_from_camera/filters/Mat to Image Filter</name>
-          <properties/>
-        </property_set>
-        <property_set>
-          <name>graphs/record_from_camera/connections/mat._Mat to Image Filter.mat</name>
           <properties/>
         </property_set>
         <property_set>
@@ -1542,11 +1529,11 @@
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/create_video_mkv/filters/GStreamer Launcher Filter</name>
+          <name>graphs/create_video_mkv/filters/filesink1</name>
           <properties>
             <property>
               <name>element_factory</name>
-              <value>autovideosink</value>
+              <value> filesink location=C:/video/record/adtf_video_1.avi</value>
               <type>cString</type>
             </property>
             <property>
@@ -1557,11 +1544,194 @@
           </properties>
         </property_set>
         <property_set>
-          <name>graphs/create_video_mkv/connections/pre_encode.out._GStreamer Launcher Filter.in</name>
+          <name>graphs/create_video_mkv/connections/g.out._filesink1.in</name>
           <properties/>
         </property_set>
         <property_set>
-          <name>graphs/create_video_mkv/filters/GStreamer Launcher Filter/binding_clients/in</name>
+          <name>graphs/create_video_mkv/filters/filesink1/binding_clients/in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/DNN Filter</name>
+          <properties>
+            <property>
+              <name>config</name>
+              <value>C:/dev/adtf3_video_toolbox2/source/project/yolov3.cfg</value>
+              <type>cFilename</type>
+            </property>
+            <property>
+              <name>module</name>
+              <value>C:/dev/adtf3_video_toolbox2/source/project/yolov3.weights</value>
+              <type>cFilename</type>
+            </property>
+            <property>
+              <name>blob_scale</name>
+              <value>1.000000</value>
+              <type>tFloat32</type>
+            </property>
+            <property>
+              <name>blob_input_height</name>
+              <value>608</value>
+              <type>tInt32</type>
+            </property>
+            <property>
+              <name>blob_input_width</name>
+              <value>608</value>
+              <type>tInt32</type>
+            </property>
+            <property>
+              <name>backend</name>
+              <value>5</value>
+              <type>tInt32</type>
+            </property>
+            <property>
+              <name>target</name>
+              <value>6</value>
+              <type>tInt32</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/DNN Plot Filter</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/sample_streams/DNN Plot Filter.mat_out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/DNN Plot Filter.mat_out._Mat to Image Filter.mat</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/DNN Plot Filter/output_pins/mat_out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/mat._DNN Plot Filter.mat_in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/DNN Plot Filter/input_pins/mat_in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/mat._DNN Filter.mat_in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/DNN Filter/input_pins/mat_in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/sample_streams/DNN Filter.mat_out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/DNN Filter.mat_out_DNN Filter.mat_out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/connections/DNN Filter.mat_out._DNN Plot Filter.dnn</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/DNN Filter/output_pins/mat_out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/record_from_camera/filters/DNN Plot Filter/input_pins/dnn</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/binding_proxys/decodebin.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/decodebin.out_decodebin.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/decodebin.out._videoconvert.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/binding_proxys/videoconvert.out</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/videoconvert.out_videoconvert.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/videoconvert.out._capsfilter.in</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/filters/filesrc</name>
+          <properties>
+            <property>
+              <name>dynamic_pad</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>element_factory</name>
+              <value>filesrc</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_blocksize</name>
+              <value>4096</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_do-timestamp</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_location</name>
+              <value>C:/Private/Download/trailer.mp4</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_num-buffers</name>
+              <value>-1</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_parent</name>
+              <value/>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>gst_typefind</name>
+              <value>false</value>
+              <type>cString</type>
+            </property>
+            <property>
+              <name>last_pipeline_element</name>
+              <value>false</value>
+              <type>tBool</type>
+            </property>
+            <property>
+              <name>name</name>
+              <value>filesrc</value>
+              <type>cString</type>
+            </property>
+          </properties>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/connections/filesrc.out_filesrc.out.</name>
+          <properties/>
+        </property_set>
+        <property_set>
+          <name>graphs/playback_video/filters/filesrc/binding_servers/out</name>
           <properties/>
         </property_set>
       </property_sets>

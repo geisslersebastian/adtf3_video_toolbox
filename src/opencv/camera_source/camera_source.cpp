@@ -78,7 +78,7 @@ public:
 
     tResult StartStreaming() override
     {
-        m_oCamera.open(*m_nCameraID);
+        m_oCamera.open(*m_nCameraID, cv::CAP_DSHOW);
         if (!m_oCamera.isOpened()) 
         {
             RETURN_ERROR_DESC(ERR_DEVICE_NOT_READY, "Unable to open camera");

@@ -29,21 +29,6 @@
           </binding_clients>
         </filter>
         <filter>
-          <name>filesrc</name>
-          <class_id>gstreamerfilter.gstreamer.videotb.cid</class_id>
-          <input_pins/>
-          <output_pins/>
-          <runners/>
-          <init_priority>0</init_priority>
-          <deactivated>false</deactivated>
-          <binding_servers>
-            <pin>
-              <name>out</name>
-            </pin>
-          </binding_servers>
-          <binding_clients/>
-        </filter>
-        <filter>
           <name>decodebin</name>
           <class_id>gstreamerfilter.gstreamer.videotb.cid</class_id>
           <input_pins/>
@@ -118,6 +103,20 @@
             </pin>
           </binding_clients>
         </filter>
+        <filter>
+          <name>filesrc</name>
+          <class_id>gstreamerfilter.gstreamer.videotb.cid</class_id>
+          <input_pins/>
+          <output_pins/>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers>
+            <pin>
+              <name>out</name>
+            </pin>
+          </binding_servers>
+          <binding_clients/>
+        </filter>
       </filters>
       <subgraphs/>
       <input_data_ports/>
@@ -137,16 +136,6 @@
       <active_runners/>
       <binding_proxys>
         <binding_proxy>
-          <name>Binding Proxy_2</name>
-          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
-          <deactivated>false</deactivated>
-        </binding_proxy>
-        <binding_proxy>
-          <name>Binding Proxy_1</name>
-          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
-          <deactivated>false</deactivated>
-        </binding_proxy>
-        <binding_proxy>
           <name>capsfilter.out</name>
           <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
         </binding_proxy>
@@ -155,40 +144,16 @@
           <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
           <deactivated>false</deactivated>
         </binding_proxy>
+        <binding_proxy>
+          <name>decodebin.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+        </binding_proxy>
+        <binding_proxy>
+          <name>videoconvert.out</name>
+          <class_id>default_binding_proxy.streaming.adtf.cid</class_id>
+        </binding_proxy>
       </binding_proxys>
       <connections>
-        <connection>
-          <name>decodebin.out_Binding Proxy_2.</name>
-          <source_connector_path>
-            <connector>out</connector>
-            <component>decodebin</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector/>
-            <component>Binding Proxy_2</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <deactivated>false</deactivated>
-          <sync>true</sync>
-        </connection>
-        <connection>
-          <name>Binding Proxy_2._videoconvert.in</name>
-          <source_connector_path>
-            <connector/>
-            <component>Binding Proxy_2</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector>in</connector>
-            <component>videoconvert</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <deactivated>false</deactivated>
-          <sync>true</sync>
-        </connection>
         <connection>
           <name>appsink.outpin_Sample Stream.</name>
           <source_connector_path>
@@ -218,22 +183,6 @@
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
-          <sync>true</sync>
-        </connection>
-        <connection>
-          <name>videoconvert.out_Binding Proxy_1.</name>
-          <source_connector_path>
-            <connector>out</connector>
-            <component>videoconvert</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector/>
-            <component>Binding Proxy_1</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <deactivated>false</deactivated>
           <sync>true</sync>
         </connection>
         <connection>
@@ -267,22 +216,6 @@
           <sync>true</sync>
         </connection>
         <connection>
-          <name>filesrc.out_filesrc.out.</name>
-          <source_connector_path>
-            <connector>out</connector>
-            <component>filesrc</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector/>
-            <component>filesrc.out</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <deactivated>false</deactivated>
-          <sync>true</sync>
-        </connection>
-        <connection>
           <name>filesrc.out._decodebin.in</name>
           <source_connector_path>
             <connector/>
@@ -299,10 +232,55 @@
           <sync>true</sync>
         </connection>
         <connection>
-          <name>Binding Proxy_1._capsfilter.in</name>
+          <name>decodebin.out_decodebin.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>decodebin</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>decodebin.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>decodebin.out._videoconvert.in</name>
           <source_connector_path>
             <connector/>
-            <component>Binding Proxy_1</component>
+            <component>decodebin.out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>in</connector>
+            <component>videoconvert</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>videoconvert.out_videoconvert.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>videoconvert</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>videoconvert.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>videoconvert.out._capsfilter.in</name>
+          <source_connector_path>
+            <connector/>
+            <component>videoconvert.out</component>
             <portbindingobject/>
           </source_connector_path>
           <destination_connector_path>
@@ -311,7 +289,21 @@
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
-          <deactivated>false</deactivated>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>filesrc.out_filesrc.out.</name>
+          <source_connector_path>
+            <connector>out</connector>
+            <component>filesrc</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>filesrc.out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
           <sync>true</sync>
         </connection>
       </connections>
@@ -1050,7 +1042,7 @@
       <streaming_interface_out_ports/>
     </graph>
     <graph>
-      <name>convert_video</name>
+      <name>dnn_video</name>
       <filters>
         <filter>
           <name>filesrc</name>
@@ -1697,21 +1689,6 @@
           <binding_clients/>
         </filter>
         <filter>
-          <name>filesink</name>
-          <class_id>gstreamerfilter.gstreamer.videotb.cid</class_id>
-          <input_pins/>
-          <output_pins/>
-          <runners/>
-          <init_priority>0</init_priority>
-          <deactivated>false</deactivated>
-          <binding_servers/>
-          <binding_clients>
-            <pin>
-              <name>in</name>
-            </pin>
-          </binding_clients>
-        </filter>
-        <filter>
           <name>x264enc</name>
           <class_id>gstreamerfilter.gstreamer.videotb.cid</class_id>
           <input_pins/>
@@ -1768,13 +1745,13 @@
           </binding_clients>
         </filter>
         <filter>
-          <name>GStreamer Launcher Filter</name>
+          <name>filesink1</name>
           <class_id>gstreamerlauncherfilter.gstreamer.videotb.cid</class_id>
           <input_pins/>
           <output_pins/>
           <runners/>
           <init_priority>0</init_priority>
-          <deactivated>true</deactivated>
+          <deactivated>false</deactivated>
           <binding_servers/>
           <binding_clients>
             <pin>
@@ -1836,22 +1813,6 @@
           <destination_connector_path>
             <connector/>
             <component>appsource.out</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <deactivated>false</deactivated>
-          <sync>true</sync>
-        </connection>
-        <connection>
-          <name>g.out._filesink.in</name>
-          <source_connector_path>
-            <connector/>
-            <component>g.out</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector>in</connector>
-            <component>filesink</component>
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
@@ -1983,19 +1944,19 @@
           <sync>true</sync>
         </connection>
         <connection>
-          <name>pre_encode.out._GStreamer Launcher Filter.in</name>
+          <name>g.out._filesink1.in</name>
           <source_connector_path>
             <connector/>
-            <component>pre_encode.out</component>
+            <component>g.out</component>
             <portbindingobject/>
           </source_connector_path>
           <destination_connector_path>
             <connector>in</connector>
-            <component>GStreamer Launcher Filter</component>
+            <component>filesink1</component>
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>
-          <deactivated>true</deactivated>
+          <deactivated>false</deactivated>
           <sync>true</sync>
         </connection>
       </connections>
@@ -2037,6 +1998,45 @@
           <binding_servers/>
           <binding_clients/>
         </filter>
+        <filter>
+          <name>DNN Filter</name>
+          <class_id>dnn.opencv.videotb.cid</class_id>
+          <input_pins>
+            <pin>
+              <name>mat_in</name>
+            </pin>
+          </input_pins>
+          <output_pins>
+            <pin>
+              <name>mat_out</name>
+            </pin>
+          </output_pins>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers/>
+          <binding_clients/>
+        </filter>
+        <filter>
+          <name>DNN Plot Filter</name>
+          <class_id>dnn_plot.opencv.videotb.cid</class_id>
+          <input_pins>
+            <pin>
+              <name>mat_in</name>
+            </pin>
+            <pin>
+              <name>dnn</name>
+            </pin>
+          </input_pins>
+          <output_pins>
+            <pin>
+              <name>mat_out</name>
+            </pin>
+          </output_pins>
+          <runners/>
+          <init_priority>0</init_priority>
+          <binding_servers/>
+          <binding_clients/>
+        </filter>
       </filters>
       <subgraphs>
         <subgraph>
@@ -2063,25 +2063,18 @@
           <name>Sample Stream</name>
           <class_id>default_sample_stream.streaming.adtf.cid</class_id>
         </sample_stream>
+        <sample_stream>
+          <name>DNN Plot Filter.mat_out</name>
+          <class_id>default_sample_stream.streaming.adtf.cid</class_id>
+        </sample_stream>
+        <sample_stream>
+          <name>DNN Filter.mat_out</name>
+          <class_id>default_sample_stream.streaming.adtf.cid</class_id>
+        </sample_stream>
       </sample_streams>
       <active_runners/>
       <binding_proxys/>
       <connections>
-        <connection>
-          <name>mat._Mat to Image Filter.mat</name>
-          <source_connector_path>
-            <connector/>
-            <component>mat</component>
-            <portbindingobject/>
-          </source_connector_path>
-          <destination_connector_path>
-            <connector>mat</connector>
-            <component>Mat to Image Filter</component>
-            <portbindingobject/>
-          </destination_connector_path>
-          <priority>0</priority>
-          <sync>true</sync>
-        </connection>
         <connection>
           <name>Mat to Image Filter.image_Sample Stream.</name>
           <source_connector_path>
@@ -2122,6 +2115,96 @@
           <destination_connector_path>
             <connector>video</connector>
             <component>Demo Qt Video Display</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
+          <source_connector_path>
+            <connector>mat_out</connector>
+            <component>DNN Plot Filter</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>DNN Plot Filter.mat_out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>DNN Plot Filter.mat_out._Mat to Image Filter.mat</name>
+          <source_connector_path>
+            <connector/>
+            <component>DNN Plot Filter.mat_out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>mat</connector>
+            <component>Mat to Image Filter</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>mat._DNN Plot Filter.mat_in</name>
+          <source_connector_path>
+            <connector/>
+            <component>mat</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>mat_in</connector>
+            <component>DNN Plot Filter</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>mat._DNN Filter.mat_in</name>
+          <source_connector_path>
+            <connector/>
+            <component>mat</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>mat_in</connector>
+            <component>DNN Filter</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>DNN Filter.mat_out_DNN Filter.mat_out.</name>
+          <source_connector_path>
+            <connector>mat_out</connector>
+            <component>DNN Filter</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector/>
+            <component>DNN Filter.mat_out</component>
+            <portbindingobject/>
+          </destination_connector_path>
+          <priority>0</priority>
+          <sync>true</sync>
+        </connection>
+        <connection>
+          <name>DNN Filter.mat_out._DNN Plot Filter.dnn</name>
+          <source_connector_path>
+            <connector/>
+            <component>DNN Filter.mat_out</component>
+            <portbindingobject/>
+          </source_connector_path>
+          <destination_connector_path>
+            <connector>dnn</connector>
+            <component>DNN Plot Filter</component>
             <portbindingobject/>
           </destination_connector_path>
           <priority>0</priority>

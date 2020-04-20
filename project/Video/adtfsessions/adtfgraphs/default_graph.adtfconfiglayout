@@ -62,61 +62,10 @@
         <layout_set>
           <name>graphs/playback_video/filters/videoconvert</name>
           <boundary>
-            <x>976</x>
-            <y>739</y>
-            <width>299</width>
-            <height>123</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/playback_video/binding_proxys/Binding Proxy_2</name>
-          <boundary>
-            <x>892</x>
-            <y>798</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/playback_video/binding_proxys/Binding Proxy_1</name>
-          <boundary>
-            <x>1373</x>
-            <y>819</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/playback_video/connections/videoconvert.out_Binding Proxy_1.</name>
-          <boundary>
-            <x>0</x>
-            <y>0</y>
-            <width>0</width>
-            <height>0</height>
+            <x>911</x>
+            <y>730</y>
+            <width>285</width>
+            <height>101</height>
           </boundary>
           <selected>false</selected>
           <connection_layout>
@@ -164,8 +113,8 @@
         <layout_set>
           <name>graphs/playback_video/filters/capsfilter</name>
           <boundary>
-            <x>1525</x>
-            <y>751</y>
+            <x>1378</x>
+            <y>731</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -213,44 +162,10 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/playback_video/filters/filesrc</name>
-          <boundary>
-            <x>229</x>
-            <y>723</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/playback_video/filters/filesrc/binding_servers/out</name>
-          <boundary>
-            <x>0</x>
-            <y>0</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
           <name>graphs/playback_video/filters/decodebin</name>
           <boundary>
-            <x>637</x>
-            <y>732</y>
+            <x>584</x>
+            <y>731</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -265,23 +180,6 @@
         </layout_set>
         <layout_set>
           <name>graphs/playback_video/filters/decodebin/binding_clients/in</name>
-          <boundary>
-            <x>0</x>
-            <y>0</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/playback_video/connections/decodebin.out_Binding Proxy_2.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -315,27 +213,10 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/playback_video/connections/Binding Proxy_2._videoconvert.in</name>
-          <boundary>
-            <x>0</x>
-            <y>0</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
           <name>graphs/playback_video/filters/appsink</name>
           <boundary>
-            <x>1922</x>
-            <y>744</y>
+            <x>1712</x>
+            <y>734</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -368,8 +249,8 @@
         <layout_set>
           <name>graphs/playback_video/filters/video</name>
           <boundary>
-            <x>2359</x>
-            <y>727</y>
+            <x>2149</x>
+            <y>717</y>
             <width>343</width>
             <height>153</height>
           </boundary>
@@ -402,8 +283,8 @@
         <layout_set>
           <name>graphs/playback_video/sample_streams/Sample Stream</name>
           <boundary>
-            <x>2215</x>
-            <y>844</y>
+            <x>2005</x>
+            <y>834</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -572,8 +453,8 @@
         <layout_set>
           <name>graphs/playback_video/binding_proxys/capsfilter.out</name>
           <boundary>
-            <x>1823</x>
-            <y>817</y>
+            <x>1613</x>
+            <y>807</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -624,24 +505,7 @@
           <name>graphs/playback_video/binding_proxys/filesrc.out</name>
           <boundary>
             <x>482</x>
-            <y>787</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/playback_video/connections/filesrc.out_filesrc.out.</name>
-          <boundary>
-            <x>0</x>
-            <y>0</y>
+            <y>791</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -656,23 +520,6 @@
         </layout_set>
         <layout_set>
           <name>graphs/playback_video/connections/filesrc.out._decodebin.in</name>
-          <boundary>
-            <x>0</x>
-            <y>0</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/playback_video/connections/Binding Proxy_1._capsfilter.in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -1512,7 +1359,7 @@
             <width>0</width>
             <height>0</height>
           </boundary>
-          <selected>true</selected>
+          <selected>false</selected>
           <connection_layout>
             <name/>
             <centerLineIsManual>false</centerLineIsManual>
@@ -1609,8 +1456,8 @@
         <layout_set>
           <name>graphs/video_compression/filters/filesrc</name>
           <boundary>
-            <x>126</x>
-            <y>1052</y>
+            <x>140</x>
+            <y>1074</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -1643,8 +1490,8 @@
         <layout_set>
           <name>graphs/video_compression/filters/decodebin</name>
           <boundary>
-            <x>424</x>
-            <y>1054</y>
+            <x>438</x>
+            <y>1076</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -1660,8 +1507,8 @@
         <layout_set>
           <name>graphs/video_compression/binding_proxys/filesrc.out</name>
           <boundary>
-            <x>336</x>
-            <y>1096</y>
+            <x>350</x>
+            <y>1118</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -1862,7 +1709,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video</name>
+          <name>graphs/dnn_video</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -1879,7 +1726,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/filesrc</name>
+          <name>graphs/dnn_video/filters/filesrc</name>
           <boundary>
             <x>91</x>
             <y>215</y>
@@ -1896,7 +1743,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/decodebin</name>
+          <name>graphs/dnn_video/filters/decodebin</name>
           <boundary>
             <x>356</x>
             <y>218</y>
@@ -1913,7 +1760,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/binding_proxys/filesrc.out</name>
+          <name>graphs/dnn_video/binding_proxys/filesrc.out</name>
           <boundary>
             <x>288</x>
             <y>302</y>
@@ -1930,7 +1777,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/filesrc.out_filesrc.out.</name>
+          <name>graphs/dnn_video/connections/filesrc.out_filesrc.out.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -1947,7 +1794,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/filesrc.out._decodebin.in</name>
+          <name>graphs/dnn_video/connections/filesrc.out._decodebin.in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -1964,7 +1811,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/filesrc/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/filesrc/binding_servers/out</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -1981,7 +1828,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/decodebin/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/decodebin/binding_clients/in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -1998,7 +1845,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/appsink</name>
+          <name>graphs/dnn_video/filters/appsink</name>
           <boundary>
             <x>1590</x>
             <y>231</y>
@@ -2015,7 +1862,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/decodebin/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/decodebin/binding_servers/out</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2032,7 +1879,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/appsink/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/appsink/binding_clients/in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2049,7 +1896,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/capsfilter</name>
+          <name>graphs/dnn_video/filters/capsfilter</name>
           <boundary>
             <x>1327</x>
             <y>244</y>
@@ -2066,7 +1913,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/binding_proxys/decodebin.out</name>
+          <name>graphs/dnn_video/binding_proxys/decodebin.out</name>
           <boundary>
             <x>558</x>
             <y>301</y>
@@ -2083,7 +1930,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/decodebin.out_decodebin.out.</name>
+          <name>graphs/dnn_video/connections/decodebin.out_decodebin.out.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2100,7 +1947,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/capsfilter/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/capsfilter/binding_clients/in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2117,7 +1964,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/capsfilter/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/capsfilter/binding_servers/out</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2134,7 +1981,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/sample_streams/appsink.outpin</name>
+          <name>graphs/dnn_video/sample_streams/appsink.outpin</name>
           <boundary>
             <x>1860</x>
             <y>285</y>
@@ -2151,7 +1998,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/appsink.outpin_appsink.outpin.</name>
+          <name>graphs/dnn_video/connections/appsink.outpin_appsink.outpin.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2168,7 +2015,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/videoconvert</name>
+          <name>graphs/dnn_video/filters/videoconvert</name>
           <boundary>
             <x>659</x>
             <y>228</y>
@@ -2185,7 +2032,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/decodebin.out._videoconvert.in</name>
+          <name>graphs/dnn_video/connections/decodebin.out._videoconvert.in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2202,7 +2049,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/videoconvert/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/videoconvert/binding_clients/in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2219,7 +2066,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/binding_proxys/capsfilter.out</name>
+          <name>graphs/dnn_video/binding_proxys/capsfilter.out</name>
           <boundary>
             <x>1514</x>
             <y>333</y>
@@ -2236,7 +2083,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/capsfilter.out_capsfilter.out.</name>
+          <name>graphs/dnn_video/connections/capsfilter.out_capsfilter.out.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2253,7 +2100,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/capsfilter.out._appsink.in</name>
+          <name>graphs/dnn_video/connections/capsfilter.out._appsink.in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2270,7 +2117,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/videoconvert/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/videoconvert/binding_servers/out</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2287,7 +2134,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/image_to_mat</name>
+          <name>graphs/dnn_video/filters/image_to_mat</name>
           <boundary>
             <x>116</x>
             <y>604</y>
@@ -2304,7 +2151,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/mat_to_image</name>
+          <name>graphs/dnn_video/filters/mat_to_image</name>
           <boundary>
             <x>1498</x>
             <y>634</y>
@@ -2321,7 +2168,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/DNN Filter</name>
+          <name>graphs/dnn_video/filters/DNN Filter</name>
           <boundary>
             <x>576</x>
             <y>866</y>
@@ -2338,7 +2185,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/appsink.outpin._image_to_mat.image</name>
+          <name>graphs/dnn_video/connections/appsink.outpin._image_to_mat.image</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2355,7 +2202,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/sample_streams/Image to Mat Filter.mat</name>
+          <name>graphs/dnn_video/sample_streams/Image to Mat Filter.mat</name>
           <boundary>
             <x>476</x>
             <y>664</y>
@@ -2372,7 +2219,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/Image to Mat Filter.mat._DNN Filter.mat_in</name>
+          <name>graphs/dnn_video/connections/Image to Mat Filter.mat._DNN Filter.mat_in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2389,7 +2236,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/sample_streams/DNN Filter.mat_out</name>
+          <name>graphs/dnn_video/sample_streams/DNN Filter.mat_out</name>
           <boundary>
             <x>921</x>
             <y>907</y>
@@ -2406,7 +2253,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/DNN Filter.mat_out_DNN Filter.mat_out.</name>
+          <name>graphs/dnn_video/connections/DNN Filter.mat_out_DNN Filter.mat_out.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2423,7 +2270,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/sample_streams/Mat to Image Filter.image</name>
+          <name>graphs/dnn_video/sample_streams/Mat to Image Filter.image</name>
           <boundary>
             <x>1760</x>
             <y>667</y>
@@ -2440,7 +2287,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/mat_to_image.image_Mat to Image Filter.image.</name>
+          <name>graphs/dnn_video/connections/mat_to_image.image_Mat to Image Filter.image.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2457,7 +2304,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/DNN Plot Filter</name>
+          <name>graphs/dnn_video/filters/DNN Plot Filter</name>
           <boundary>
             <x>1039</x>
             <y>640</y>
@@ -2474,7 +2321,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/sample_streams/DNN Plot Filter.mat_out</name>
+          <name>graphs/dnn_video/sample_streams/DNN Plot Filter.mat_out</name>
           <boundary>
             <x>1373</x>
             <y>677</y>
@@ -2491,7 +2338,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
+          <name>graphs/dnn_video/connections/DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2508,7 +2355,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/DNN Plot Filter.mat_out._mat_to_image.mat</name>
+          <name>graphs/dnn_video/connections/DNN Plot Filter.mat_out._mat_to_image.mat</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2525,7 +2372,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/DNN Filter.mat_out._DNN Plot Filter.dnn</name>
+          <name>graphs/dnn_video/connections/DNN Filter.mat_out._DNN Plot Filter.dnn</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2542,7 +2389,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/Image to Mat Filter.mat._DNN Plot Filter.mat_in</name>
+          <name>graphs/dnn_video/connections/Image to Mat Filter.mat._DNN Plot Filter.mat_in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2559,7 +2406,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/Demo Qt Video Display_1</name>
+          <name>graphs/dnn_video/filters/Demo Qt Video Display_1</name>
           <boundary>
             <x>1948</x>
             <y>635</y>
@@ -2576,7 +2423,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/Mat to Image Filter.image._Demo Qt Video Display_1.video</name>
+          <name>graphs/dnn_video/connections/Mat to Image Filter.image._Demo Qt Video Display_1.video</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2593,7 +2440,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/image_to_mat.mat_Image to Mat Filter.mat.</name>
+          <name>graphs/dnn_video/connections/image_to_mat.mat_Image to Mat Filter.mat.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -2678,23 +2525,6 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/create_video_mkv/filters/filesink</name>
-          <boundary>
-            <x>1647</x>
-            <y>740</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
           <name>graphs/create_video_mkv/binding_proxys/appsource.out</name>
           <boundary>
             <x>657</x>
@@ -2746,44 +2576,10 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/create_video_mkv/filters/filesink/binding_clients/in</name>
-          <boundary>
-            <x>0</x>
-            <y>0</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
           <name>graphs/create_video_mkv/binding_proxys/g.out</name>
           <boundary>
-            <x>1573</x>
-            <y>801</y>
-            <width>0</width>
-            <height>0</height>
-          </boundary>
-          <selected>false</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/create_video_mkv/connections/g.out._filesink.in</name>
-          <boundary>
-            <x>0</x>
-            <y>0</y>
+            <x>1599</x>
+            <y>816</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -3154,7 +2950,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/binding_proxys/videoscale.out</name>
+          <name>graphs/dnn_video/binding_proxys/videoscale.out</name>
           <boundary>
             <x>1202</x>
             <y>296</y>
@@ -3171,7 +2967,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/videoscale.out._capsfilter.in</name>
+          <name>graphs/dnn_video/connections/videoscale.out._capsfilter.in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -3188,7 +2984,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/videoscale</name>
+          <name>graphs/dnn_video/filters/videoscale</name>
           <boundary>
             <x>974</x>
             <y>237</y>
@@ -3205,7 +3001,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/binding_proxys/videoconvert.out</name>
+          <name>graphs/dnn_video/binding_proxys/videoconvert.out</name>
           <boundary>
             <x>855</x>
             <y>216</y>
@@ -3222,7 +3018,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/videoconvert.out_videoconvert.out.</name>
+          <name>graphs/dnn_video/connections/videoconvert.out_videoconvert.out.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -3239,7 +3035,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/videoconvert.out._videoscale.in</name>
+          <name>graphs/dnn_video/connections/videoconvert.out._videoscale.in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -3256,7 +3052,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/videoscale/binding_clients/in</name>
+          <name>graphs/dnn_video/filters/videoscale/binding_clients/in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -3273,7 +3069,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/videoscale.out_videoscale.out.</name>
+          <name>graphs/dnn_video/connections/videoscale.out_videoscale.out.</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -3290,7 +3086,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/filters/videoscale/binding_servers/out</name>
+          <name>graphs/dnn_video/filters/videoscale/binding_servers/out</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -3375,14 +3171,14 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/subgraphs/to_file</name>
+          <name>graphs/dnn_video/subgraphs/to_file</name>
           <boundary>
             <x>1937</x>
             <y>852</y>
             <width>0</width>
             <height>0</height>
           </boundary>
-          <selected>true</selected>
+          <selected>false</selected>
           <connection_layout>
             <name/>
             <centerLineIsManual>false</centerLineIsManual>
@@ -3392,7 +3188,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/convert_video/connections/Mat to Image Filter.image._to_file.video</name>
+          <name>graphs/dnn_video/connections/Mat to Image Filter.image._to_file.video</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -3428,8 +3224,8 @@
         <layout_set>
           <name>graphs/record_from_camera/streaming_in_ports/mat</name>
           <boundary>
-            <x>437</x>
-            <y>502</y>
+            <x>166</x>
+            <y>449</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -3445,27 +3241,10 @@
         <layout_set>
           <name>graphs/record_from_camera/subgraphs/recorder</name>
           <boundary>
-            <x>1324</x>
-            <y>755</y>
+            <x>1566</x>
+            <y>711</y>
             <width>217</width>
             <height>111</height>
-          </boundary>
-          <selected>true</selected>
-          <connection_layout>
-            <name/>
-            <centerLineIsManual>false</centerLineIsManual>
-            <centerLineAbsX>0</centerLineAbsX>
-            <centerLineAbsY>0</centerLineAbsY>
-            <centerLineStraight>false</centerLineStraight>
-          </connection_layout>
-        </layout_set>
-        <layout_set>
-          <name>graphs/record_from_camera/filters/Mat to Image Filter</name>
-          <boundary>
-            <x>679</x>
-            <y>525</y>
-            <width>0</width>
-            <height>0</height>
           </boundary>
           <selected>false</selected>
           <connection_layout>
@@ -3477,10 +3256,10 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/record_from_camera/connections/mat._Mat to Image Filter.mat</name>
+          <name>graphs/record_from_camera/filters/Mat to Image Filter</name>
           <boundary>
-            <x>0</x>
-            <y>0</y>
+            <x>1046</x>
+            <y>541</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -3496,8 +3275,8 @@
         <layout_set>
           <name>graphs/record_from_camera/sample_streams/Sample Stream</name>
           <boundary>
-            <x>1063</x>
-            <y>670</y>
+            <x>1407</x>
+            <y>640</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -3547,8 +3326,8 @@
         <layout_set>
           <name>graphs/record_from_camera/filters/Demo Qt Video Display</name>
           <boundary>
-            <x>1319</x>
-            <y>597</y>
+            <x>1561</x>
+            <y>554</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -3596,10 +3375,10 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/create_video_mkv/filters/GStreamer Launcher Filter</name>
+          <name>graphs/create_video_mkv/filters/filesink1</name>
           <boundary>
-            <x>1143</x>
-            <y>1049</y>
+            <x>1689</x>
+            <y>743</y>
             <width>0</width>
             <height>0</height>
           </boundary>
@@ -3613,7 +3392,7 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/create_video_mkv/connections/pre_encode.out._GStreamer Launcher Filter.in</name>
+          <name>graphs/create_video_mkv/connections/g.out._filesink1.in</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -3630,7 +3409,330 @@
           </connection_layout>
         </layout_set>
         <layout_set>
-          <name>graphs/create_video_mkv/filters/GStreamer Launcher Filter/binding_clients/in</name>
+          <name>graphs/create_video_mkv/filters/filesink1/binding_clients/in</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/filters/DNN Filter</name>
+          <boundary>
+            <x>328</x>
+            <y>779</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/filters/DNN Plot Filter</name>
+          <boundary>
+            <x>641</x>
+            <y>536</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/sample_streams/DNN Plot Filter.mat_out</name>
+          <boundary>
+            <x>951</x>
+            <y>643</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/connections/DNN Plot Filter.mat_out_DNN Plot Filter.mat_out.</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/connections/DNN Plot Filter.mat_out._Mat to Image Filter.mat</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/connections/mat._DNN Plot Filter.mat_in</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/connections/mat._DNN Filter.mat_in</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/sample_streams/DNN Filter.mat_out</name>
+          <boundary>
+            <x>534</x>
+            <y>687</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/connections/DNN Filter.mat_out_DNN Filter.mat_out.</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/record_from_camera/connections/DNN Filter.mat_out._DNN Plot Filter.dnn</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/playback_video/binding_proxys/decodebin.out</name>
+          <boundary>
+            <x>814</x>
+            <y>810</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/playback_video/connections/decodebin.out_decodebin.out.</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/playback_video/connections/decodebin.out._videoconvert.in</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/playback_video/binding_proxys/videoconvert.out</name>
+          <boundary>
+            <x>1279</x>
+            <y>812</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/playback_video/connections/videoconvert.out_videoconvert.out.</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/playback_video/connections/videoconvert.out._capsfilter.in</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/playback_video/filters/filesrc</name>
+          <boundary>
+            <x>249</x>
+            <y>727</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/playback_video/connections/filesrc.out_filesrc.out.</name>
+          <boundary>
+            <x>0</x>
+            <y>0</y>
+            <width>0</width>
+            <height>0</height>
+          </boundary>
+          <selected>false</selected>
+          <connection_layout>
+            <name/>
+            <centerLineIsManual>false</centerLineIsManual>
+            <centerLineAbsX>0</centerLineAbsX>
+            <centerLineAbsY>0</centerLineAbsY>
+            <centerLineStraight>false</centerLineStraight>
+          </connection_layout>
+        </layout_set>
+        <layout_set>
+          <name>graphs/playback_video/filters/filesrc/binding_servers/out</name>
           <boundary>
             <x>0</x>
             <y>0</y>
@@ -3702,6 +3804,10 @@
         </graph_additional>
         <graph_additional>
           <name>graphs/record_from_camera</name>
+          <notices/>
+        </graph_additional>
+        <graph_additional>
+          <name>graphs/dnn_video</name>
           <notices/>
         </graph_additional>
       </graph_additionals>

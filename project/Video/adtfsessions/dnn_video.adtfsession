@@ -4,7 +4,7 @@
     <major>1</major>
     <minor>0</minor>
   </file_version>
-  <name>create_video_mkv</name>
+  <name>dnn_video</name>
   <adtfsystem>
     <url>./adtfsystems/default_system.adtfsystem</url>
     <properties_url>./adtfsystems/default_system.adtfproperties</properties_url>
@@ -17,6 +17,6 @@
     <property_set/>
     <name>default_graph</name>
   </adtfgraph>
-  <active_streaming_graph>camera_source</active_streaming_graph>
-  <active_filter_graph>create_video_mkv</active_filter_graph>
+  <active_streaming_graph/>
+  <active_filter_graph>dnn_video</active_filter_graph>
 </session>
